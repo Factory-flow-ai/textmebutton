@@ -310,7 +310,10 @@
             0% { opacity: 0; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
         }
-        </style>
+        
+    .toggle-switch input:checked + span { background: #00B48C !important; }
+    .toggle-switch input:checked + span + span { left: 22px !important; }
+</style>
 </head>
 <body>
     <!-- Login Overlay -->
@@ -531,6 +534,7 @@
                 name: 'Medicine Reminder', timezone: 'US/Mountain',
                 message: 'Jake took his medicine \u2705',
                 status: 'live',
+                active: true,
                 phone: '+1 (555) 234-5678',
                 lastPressed: '2 hours ago',
                 totalPresses: 147,
@@ -542,6 +546,7 @@
                 name: 'Kids Home Safe', timezone: 'US/Mountain',
                 message: 'The kids made it home safe \ud83c\udfe0',
                 status: 'live',
+                active: true,
                 phone: '+1 (555) 234-5678',
                 lastPressed: 'Yesterday, 3:42 PM',
                 totalPresses: 89,
@@ -625,6 +630,14 @@
                                 <div class="text-white font-bold">${btn.name}</div>
                                 <div class="text-gray-500 text-xs">ID: ${btn.id} &middot; ${btn.totalPresses} presses &middot; Last: ${btn.lastPressed}</div>
                             </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:11px;font-weight:600;color:${btn.active !== false ? '#00B48C' : '#9CA3AF'};">${btn.active !== false ? 'ACTIVE' : 'INACTIVE'}</span>
+                            <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;">
+                                <input type="checkbox" ${btn.active !== false ? 'checked' : ''} onchange="toggleButtonActive(${i})" style="opacity:0;width:0;height:0;">
+                                <span style="position:absolute;top:0;left:0;right:0;bottom:0;background:${btn.active !== false ? '#00B48C' : '#D1D5DB'};border-radius:12px;transition:0.3s;"></span>
+                                <span style="position:absolute;top:2px;left:${btn.active !== false ? '22px' : '2px'};width:20px;height:20px;background:white;border-radius:50%;transition:0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></span>
+                            </label>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="badge-${btn.status === 'live' ? 'teal' : 'blue'}">${btn.status.toUpperCase()}</span>
@@ -734,10 +747,48 @@
                                 <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;">Sat</span>
                                 <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;">Sun</span>
                             </div>
+                            <div style="margin-top:16px;padding-top:14px;border-top:1px solid #D1F5E8;">
+                                <div style="font-size:12px;font-weight:700;color:#1A1A2E;margin-bottom:8px;">Missed Press Alert</div>
+                                <div style="font-size:11px;color:#6B7280;margin-bottom:10px;">Get notified if this button is NOT pressed within a time window. Perfect for daily tasks like tending chickens, equipment checks, or wellness check-ins.</div>
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                                    <label style="font-size:11px;font-weight:600;color:#4B5563;">Enable</label>
+                                    <label style="position:relative;display:inline-block;width:36px;height:20px;cursor:pointer;">
+                                        <input type="checkbox" style="opacity:0;width:0;height:0;">
+                                        <span style="position:absolute;top:0;left:0;right:0;bottom:0;background:#D1D5DB;border-radius:10px;transition:0.3s;"></span>
+                                        <span style="position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:0.3s;"></span>
+                                    </label>
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;">
+                                    <div>
+                                        <label style="font-size:11px;font-weight:600;color:#4B5563;display:block;margin-bottom:4px;">Expected between</label>
+                                        <input type="time" value="06:00" style="width:100%;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;background:#F9FAFB;color:#1A1A2E;">
+                                    </div>
+                                    <div>
+                                        <label style="font-size:11px;font-weight:600;color:#4B5563;display:block;margin-bottom:4px;">and</label>
+                                        <input type="time" value="09:00" style="width:100%;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;background:#F9FAFB;color:#1A1A2E;">
+                                    </div>
+                                </div>
+                                <div style="font-size:10px;color:#6B7280;font-style:italic;">Example: Tend Chickens button &#8212; alert me if NOT pressed between 6 AM and 9 AM daily</div>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-4">
                             <button class="text-sm font-semibold cursor-pointer" style="color: var(--teal);" onclick="testButton(${i})">Send Test SMS</button>
+                    <div style="margin-top:16px;padding:14px;background:linear-gradient(135deg,#F0FDF9,#E0F7FA);border-radius:12px;border:1px solid #B2DFDB;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#00B48C,#0099FF);display:flex;align-items:center;justify-content:center;">
+                                <span style="color:white;font-size:18px;">&#128276;</span>
+                            </div>
+                            <div style="flex:1;">
+                                <div style="font-size:13px;font-weight:700;color:#1A1A2E;">Want FREE push notifications?</div>
+                                <div style="font-size:11px;color:#6B7280;">Download the TextMeButton app for instant alerts &mdash; no SMS fees!</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:10px;">
+                            <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#63743; App Store</a>
+                            <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#9654; Google Play</a>
+                        </div>
+                    </div>
                             <button class="text-sm text-gray-500 cursor-pointer hover:text-yellow-500" onclick="toggleButtonStatus(${i})">
                                 ${btn.status === 'live' ? 'Pause' : 'Resume'}
                             </button>
@@ -922,7 +973,12 @@
             buttons.push({id:'btn-'+(buttons.length+1).toString().padStart(3,'0'),name:'New Button',phone:'',message:'Button was pressed!',status:'paused',presses:0,last:'Just now',timezone:'US/Mountain'});
             renderButtons();
         }
-        </script>
+        
+    function toggleButtonActive(idx) {
+      buttons[idx].active = !buttons[idx].active;
+      renderButtons();
+    }
+</script>
 
     <div class="mobile-nav">
         <a href="#" onclick="showSection('buttons')" class="active"><span class="icon">&#9679;</span>Buttons</a>
