@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextMeButton — New Button Setup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --coral:#FF6B47; --coral-dark:#E8512D; --coral-bg:#FFF5F2; }
+        body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:#f8fafc; }
+        .btn-coral { background:var(--coral); color:white; transition:all 0.2s; }
+        .btn-coral:hover { background:var(--coral-dark); transform:translateY(-1px); box-shadow:0 4px 12px rgba(255,107,71,0.3); }
+        .btn-coral:disabled { background:#ccc; cursor:not-allowed; transform:none; box-shadow:none; }
+        .step-dot { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; transition:all 0.3s; }
+        .step-dot.off { background:#e2e8f0; color:#94a3b8; }
+        .step-dot.on { background:var(--coral); color:white; box-shadow:0 0 0 4px rgba(255,107,71,0.2); }
+        .step-dot.done { background:#22c55e; color:white; }
+        .step-line { height:3px; flex:1; transition:background 0.3s; }
+        .step-line.off { background:#e2e8f0; }
+        .step-line.on { background:var(--coral); }
+        .step-line.done { background:#22c55e; }
+        .phone-preview { background:#1a1a2e; border-radius:24px; padding:12px; max-width:300px; margin:0 auto; }
+        .phone-screen { background:white; border-radius:16px; padding:16px; min-height:100px; }
+        .sms-bubble { background:#e5e7eb; border-radius:16px 16px 16px 4px; padding:10px 14px; font-size:13px; line-height:1.5; color:#1f2937; }
+        .char-counter.warning { color:#f59e0b; }
+        .char-counter.danger { color:#ef4444; font-weight:600; }
+        .tz-btn { padding:8px 16px; border-radius:8px; border:2px solid #e2e8f0; font-size:14px; font-weight:500; cursor:pointer; transition:all 0.2s; }
+        .tz-btn:hover { border-color:var(--coral); color:var(--coral); }
+        .tz-btn.sel { border-color:var(--coral); background:var(--coral); color:white; }
+        .fade-in { animation:fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+        .chk { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f1f5f9; }
+        .chk:last-child { border-bottom:none; }
+        .g-btn { display:flex; align-items:center; gap:12px; background:white; border:2px solid #e2e8f0; border-radius:12px; padding:14px 28px; font-size:16px; font-weight:500; cursor:pointer; transition:all 0.2s; }
+        .g-btn:hover { border-color:#4285f4; box-shadow:0 2px 8px rgba(66,133,244,0.15); }
+        input:focus,select:focus,textarea:focus { outline:none; border-color:var(--coral); box-shadow:0 0 0 3px rgba(255,107,71,0.15); }
+    </style>
+</head>
+<body>
+<nav class="bg-gray-900 py-4 px-6"><div class="max-w-4xl mx-auto flex items-center justify-between"><a href="/" class="text-xl font-bold" style="color:var(--coral)">TextMeButton</a><span class="text-gray-400 text-sm">New Button Setup</span></div></nav>
+<div class="max-w-2xl mx-auto px-4 py-8">
+<!-- Progress -->
+<div class="flex items-center justify-center mb-10" id="pbar">
+<div class="step-dot on" id="d1">1</div><div class="step-line off" id="l1"></div>
+<div class="step-dot off" id="d2">2</div><div class="step-line off" id="l2"></div>
+<div class="step-dot off" id="d3">3</div><div class="step-line off" id="l3"></div>
+<div class="step-dot off" id="d4">4</div><div class="step-line off" id="l4"></div>
+<div class="step-dot off" id="d5">5</div>
+</div>
+
+<!-- STEP 1: Google Sign-In -->
+<div id="s1" class="fade-in">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center">
+<div class="text-4xl mb-4">🔐</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2">Sign in to get started</h2>
+<p class="text-gray-500 mb-8">We use your Google account to manage your button. No passwords to remember.</p>
+<button class="g-btn mx-auto" onclick="doSignIn()">
+<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+Sign in with Google
+</button>
+<div id="guser" class="mt-6 hidden"><div class="inline-flex items-center gap-3 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium"><span>✅</span><span id="gemail"></span></div></div>
+</div></div>
+
+<!-- STEP 2: Phone + Timezone -->
+<div id="s2" class="hidden fade-in">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+<div class="text-4xl mb-4 text-center">📱</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Who should get the text?</h2>
+<p class="text-gray-500 mb-6 text-center">This doesn't have to be your number — it can be a boss, teammate, family member, or anyone who needs the alert.</p>
+<div class="mb-6"><label class="block text-sm font-medium text-gray-700 mb-2">Phone number</label>
+<input type="tel" id="phoneIn" placeholder="(555) 123-4567" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-lg" oninput="fmtPh(this);detectTz(this.value)" maxlength="14"></div>
+<div id="tzSec" class="hidden">
+<div class="flex items-center justify-between mb-3"><label class="block text-sm font-medium text-gray-700">Timezone</label>
+<button class="text-sm font-medium underline" style="color:var(--coral)" onclick="toggleTz()" id="tzTog">Switch to International</button></div>
+<div id="tzUS" class="flex flex-wrap gap-2 mb-3">
+<button class="tz-btn" onclick="pickTz(this,'ET')">Eastern (ET)</button>
+<button class="tz-btn" onclick="pickTz(this,'CT')">Central (CT)</button>
+<button class="tz-btn" onclick="pickTz(this,'MT')">Mountain (MT)</button>
+<button class="tz-btn" onclick="pickTz(this,'PT')">Pacific (PT)</button>
+<button class="tz-btn" onclick="pickTz(this,'AKT')">Alaska (AKT)</button>
+<button class="tz-btn" onclick="pickTz(this,'HT')">Hawaii (HT)</button>
+</div>
+<div id="tzIntl" class="hidden mb-3"><input type="text" id="tzIntlIn" placeholder="e.g. GMT, JST, CET, AEST..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl" list="tzList" oninput="S.tz=this.value.toUpperCase();chk2()">
+<datalist id="tzList"><option value="GMT"><option value="BST"><option value="CET"><option value="EET"><option value="IST"><option value="JST"><option value="KST"><option value="AEST"><option value="NZST"><option value="SGT"><option value="PHT"><option value="ICT"><option value="PKT"><option value="SAST"><option value="BRT"><option value="ART"></datalist></div>
+<div id="tzConf" class="hidden bg-blue-50 text-blue-700 px-4 py-3 rounded-xl text-sm" ></div>
+</div>
+<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg mt-4" id="btn2" disabled onclick="go(3)">Continue</button>
+</div></div>
+
+<!-- STEP 3: Name + Message -->
+<div id="s3" class="hidden fade-in">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+<div class="text-4xl mb-4 text-center">✏️</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Name your button & write the alert</h2>
+<p class="text-gray-500 mb-6 text-center">This is what the recipient sees when the button is pressed.</p>
+<div class="mb-4"><label class="block text-sm font-medium text-gray-700 mb-2">Button name</label>
+<input type="text" id="bName" placeholder='e.g. "Line 3 Down", "Need Restock"' class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl" oninput="S.bName=this.value;updPrev()" maxlength="30"></div>
+<div class="mb-4"><label class="block text-sm font-medium text-gray-700 mb-2">Alert message</label>
+<textarea id="bMsg" placeholder="What should the text say?" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl resize-none" rows="2" oninput="S.msg=this.value;updPrev()"></textarea></div>
+<div class="flex justify-between items-center mb-6"><span class="text-xs text-gray-400">Full SMS preview below</span><span class="char-counter text-sm font-medium" id="cc">0 / 160</span></div>
+<div class="phone-preview mb-6"><div class="text-center text-gray-400 text-xs mb-2 font-medium">📱 SMS Preview</div>
+<div class="phone-screen"><div class="text-xs text-gray-400 mb-2">TextMeButton</div>
+<div class="sms-bubble" id="smsPrev"><span class="text-gray-400 italic">Your message will appear here...</span></div></div></div>
+<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg" id="btn3" disabled onclick="go(4)">Continue</button>
+</div></div>
+
+<!-- STEP 4: SMS Opt-In -->
+<div id="s4" class="hidden fade-in">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+<div class="text-4xl mb-4 text-center">📨</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Send opt-in confirmation</h2>
+<p class="text-gray-500 mb-2 text-center">Before alerts go live, the recipient needs to confirm they want texts.</p>
+<p class="text-sm font-medium text-center mb-6" style="color:var(--coral)">Nobody likes spam — and neither do we.</p>
+<div class="phone-preview mb-6"><div class="text-center text-gray-400 text-xs mb-2 font-medium">📱 Confirmation text to <span id="optPh"></span></div>
+<div class="phone-screen"><div class="text-xs text-gray-400 mb-2">TextMeButton</div>
+<div class="sms-bubble" id="optPrev"></div></div></div>
+<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg mb-3" id="sendOpt" onclick="sendOpt()">Send Confirmation Text</button>
+<div id="optSent" class="hidden text-center"><div class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium mb-4">✅ Confirmation text sent! Waiting for recipient to reply YES.</div>
+<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg" onclick="go(5)">Continue</button></div>
+</div></div>
+
+<!-- STEP 5: Summary + Go Live -->
+<div id="s5" class="hidden fade-in">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+<div class="text-4xl mb-4 text-center">🚀</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">You're almost live!</h2>
+<p class="text-gray-500 mb-6 text-center">Review your setup. Once the recipient confirms, you're good to go.</p>
+<div class="bg-gray-50 rounded-xl p-6 mb-6">
+<div class="chk"><span class="text-green-500 text-lg">✅</span><div><span class="text-sm text-gray-500">Google account</span><br><strong id="xEmail" class="text-gray-900"></strong></div></div>
+<div class="chk"><span class="text-green-500 text-lg">✅</span><div><span class="text-sm text-gray-500">Sending alerts to</span><br><strong id="xPhone" class="text-gray-900"></strong></div></div>
+<div class="chk"><span class="text-green-500 text-lg">✅</span><div><span class="text-sm text-gray-500">Button name</span><br><strong id="xName" class="text-gray-900"></strong></div></div>
+<div class="chk"><span class="text-green-500 text-lg">✅</span><div><span class="text-sm text-gray-500">Full message</span><br><strong id="xMsg" class="text-gray-900 text-sm"></strong></div></div>
+<div class="chk"><span class="text-yellow-500 text-lg" id="xOptI">⏳</span><div><span class="text-sm text-gray-500">Opt-in status</span><br><strong id="xOpt" class="text-gray-900">Waiting for YES reply</strong></div></div>
+</div>
+<button class="btn-coral w-full py-4 rounded-xl font-bold text-xl" id="goLiveBtn" onclick="goLive()">🚀 Go Live!</button>
+<div id="liveOk" class="hidden text-center mt-6"><div class="bg-green-50 border-2 border-green-200 rounded-2xl p-8">
+<div class="text-5xl mb-4">🎉</div><h3 class="text-2xl font-bold text-green-700 mb-2">Your button is LIVE!</h3>
+<p class="text-green-600">Every press will now text <strong id="livePh"></strong> instantly.</p></div></div>
+</div></div>
+
+<div class="text-center mt-6"><button class="text-gray-400 hover:text-gray-600 text-sm font-medium" onclick="goBack()" id="backBtn" style="display:none">← Back to previous step</button></div>
+</div>
+
+<script>
+const S={step:1,email:'',phone:'',tz:'',tzMode:'us',bName:'',msg:'',optSent:false};
+const AC={'201':'ET','202':'ET','203':'ET','207':'ET','212':'ET','215':'ET','216':'ET','224':'ET','225':'ET','229':'ET','231':'ET','234':'ET','239':'ET','240':'ET','248':'ET','252':'ET','267':'ET','269':'ET','276':'ET','301':'ET','302':'ET','304':'ET','305':'ET','315':'ET','321':'ET','330':'ET','336':'ET','339':'ET','347':'ET','351':'ET','352':'ET','386':'ET','401':'ET','404':'ET','407':'ET','410':'ET','412':'ET','413':'ET','440':'ET','443':'ET','470':'ET','475':'ET','478':'ET','484':'ET','502':'ET','508':'ET','513':'ET','516':'ET','517':'ET','518':'ET','540':'ET','551':'ET','561':'ET','567':'ET','570':'ET','571':'ET','574':'ET','585':'ET','586':'ET','603':'ET','607':'ET','609':'ET','610':'ET','614':'ET','616':'ET','617':'ET','631':'ET','646':'ET','678':'ET','681':'ET','689':'ET','703':'ET','704':'ET','706':'ET','716':'ET','717':'ET','718':'ET','724':'ET','727':'ET','732':'ET','740':'ET','754':'ET','757':'ET','762':'ET','770':'ET','772':'ET','774':'ET','786':'ET','803':'ET','804':'ET','810':'ET','813':'ET','828':'ET','843':'ET','845':'ET','848':'ET','856':'ET','857':'ET','859':'ET','860':'ET','862':'ET','863':'ET','878':'ET','904':'ET','908':'ET','910':'ET','912':'ET','914':'ET','917':'ET','919':'ET','929':'ET','931':'ET','937':'ET','941':'ET','947':'ET','954':'ET','973':'ET','978':'ET','980':'ET','205':'CT','210':'CT','214':'CT','217':'CT','218':'CT','219':'CT','254':'CT','256':'CT','260':'CT','262':'CT','270':'CT','281':'CT','309':'CT','312':'CT','314':'CT','316':'CT','318':'CT','319':'CT','320':'CT','325':'CT','331':'CT','334':'CT','346':'CT','361':'CT','402':'CT','405':'CT','409':'CT','417':'CT','430':'CT','432':'CT','469':'CT','479':'CT','501':'CT','504':'CT','507':'CT','512':'CT','515':'CT','531':'CT','539':'CT','563':'CT','573':'CT','580':'CT','608':'CT','612':'CT','615':'CT','618':'CT','620':'CT','630':'CT','636':'CT','651':'CT','660':'CT','662':'CT','682':'CT','708':'CT','712':'CT','713':'CT','715':'CT','731':'CT','737':'CT','763':'CT','765':'CT','769':'CT','773':'CT','779':'CT','785':'CT','806':'CT','815':'CT','816':'CT','817':'CT','830':'CT','832':'CT','847':'CT','870':'CT','901':'CT','903':'CT','913':'CT','915':'CT','918':'CT','920':'CT','936':'CT','940':'CT','952':'CT','956':'CT','972':'CT','979':'CT','985':'CT','303':'MT','307':'MT','406':'MT','435':'MT','480':'MT','505':'MT','520':'MT','575':'MT','602':'MT','623':'MT','720':'MT','801':'MT','928':'MT','206':'PT','209':'PT','213':'PT','253':'PT','310':'PT','323':'PT','360':'PT','408':'PT','415':'PT','424':'PT','425':'PT','442':'PT','458':'PT','503':'PT','509':'PT','510':'PT','530':'PT','541':'PT','559':'PT','562':'PT','564':'PT','619':'PT','626':'PT','628':'PT','650':'PT','657':'PT','661':'PT','669':'PT','707':'PT','714':'PT','747':'PT','760':'PT','775':'PT','805':'PT','818':'PT','831':'PT','858':'PT','909':'PT','916':'PT','925':'PT','949':'PT','951':'PT','971':'PT','907':'AKT','808':'HT'};
+const TN={'ET':'Eastern Time','CT':'Central Time','MT':'Mountain Time','PT':'Pacific Time','AKT':'Alaska Time','HT':'Hawaii Time'};
+function doSignIn(){S.email='user@gmail.com';document.getElementById('gemail').textContent=S.email;document.getElementById('guser').classList.remove('hidden');setTimeout(()=>go(2),800)}
+function fmtPh(i){let v=i.value.replace(/\D/g,'');if(v.length>10)v=v.substring(0,10);if(v.length>=7)i.value='('+v.substring(0,3)+') '+v.substring(3,6)+'-'+v.substring(6);else if(v.length>=4)i.value='('+v.substring(0,3)+') '+v.substring(3);else if(v.length>=1)i.value='('+v;S.phone=i.value}
+function detectTz(p){const d=p.replace(/\D/g,'');if(d.length>=3){const a=d.substring(0,3),t=AC[a];document.getElementById('tzSec').classList.remove('hidden');if(t&&S.tzMode==='us'){document.querySelectorAll('#tzUS .tz-btn').forEach(b=>{b.classList.remove('sel');if(b.textContent.includes(t))b.classList.add('sel')});S.tz=t;const c=document.getElementById('tzConf');c.classList.remove('hidden');c.textContent='Detected '+(TN[t]||t)+' from area code '+a+'. Is this correct?'}}chk2()}
+function pickTz(b,t){document.querySelectorAll('#tzUS .tz-btn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');S.tz=t;document.getElementById('tzConf').classList.add('hidden');chk2()}
+function toggleTz(){if(S.tzMode==='us'){S.tzMode='intl';document.getElementById('tzUS').classList.add('hidden');document.getElementById('tzIntl').classList.remove('hidden');document.getElementById('tzTog').textContent='Switch to US Timezones';document.getElementById('tzConf').classList.add('hidden');S.tz=''}else{S.tzMode='us';document.getElementById('tzUS').classList.remove('hidden');document.getElementById('tzIntl').classList.add('hidden');document.getElementById('tzTog').textContent='Switch to International';S.tz='';document.querySelectorAll('#tzUS .tz-btn').forEach(b=>b.classList.remove('sel'))}chk2()}
+function chk2(){const d=S.phone.replace(/\D/g,'');document.getElementById('btn2').disabled=!(d.length===10&&S.tz.length>=2)}
+function updPrev(){const n=S.bName||'ButtonName',m=S.msg||'Your message here',t=S.tz||'TZ';const now=new Date(),h=(now.getHours()%12)||12,mi=now.getMinutes().toString().padStart(2,'0'),ap=now.getHours()>=12?'PM':'AM';const full=n+': '+m+' \u00b7 '+t+' \u00b7 '+h+':'+mi+' '+ap;const pr=document.getElementById('smsPrev');if(!S.bName&&!S.msg)pr.innerHTML='<span class="text-gray-400 italic">Your message will appear here...</span>';else pr.textContent=full;const cc=document.getElementById('cc'),len=full.length;cc.textContent=len+' / 160';cc.className='char-counter text-sm font-medium';if(len>160)cc.classList.add('danger');else if(len>140)cc.classList.add('warning');document.getElementById('btn3').disabled=!(S.bName.length>0&&S.msg.length>0&&len<=160)}
+function sendOpt(){S.optSent=true;document.getElementById('sendOpt').classList.add('hidden');document.getElementById('optSent').classList.remove('hidden')}
+function goLive(){document.getElementById('goLiveBtn').classList.add('hidden');document.getElementById('liveOk').classList.remove('hidden');document.getElementById('livePh').textContent=S.phone;document.getElementById('backBtn').style.display='none'}
+function go(s){for(let i=1;i<=5;i++)document.getElementById('s'+i).classList.add('hidden');document.getElementById('s'+s).classList.remove('hidden');S.step=s;for(let i=1;i<=5;i++){const d=document.getElementById('d'+i);d.className='step-dot';if(i<s){d.classList.add('done');d.innerHTML='\u2713'}else if(i===s){d.classList.add('on');d.innerHTML=i}else{d.classList.add('off');d.innerHTML=i}if(i<5){const l=document.getElementById('l'+i);l.className='step-line';if(i<s)l.classList.add('done');else if(i===s)l.classList.add('on');else l.classList.add('off')}}if(s===4){document.getElementById('optPh').textContent=S.phone;document.getElementById('optPrev').textContent='TextMeButton: You\u2019ve been added to receive button alerts for "'+S.bName+'". Reply YES to confirm, or STOP to opt out. Msg & data rates may apply.'}if(s===5){document.getElementById('xEmail').textContent=S.email;document.getElementById('xPhone').textContent=S.phone+' ('+S.tz+')';document.getElementById('xName').textContent=S.bName;const now=new Date(),h=(now.getHours()%12)||12,mi=now.getMinutes().toString().padStart(2,'0'),ap=now.getHours()>=12?'PM':'AM';document.getElementById('xMsg').textContent=S.bName+': '+S.msg+' \u00b7 '+S.tz+' \u00b7 '+h+':'+mi+' '+ap}document.getElementById('backBtn').style.display=s>1?'inline':'none';window.scrollTo({top:0,behavior:'smooth'})}
+function goBack(){if(S.step>1)go(S.step-1)}
+</script>
+</body>
+</html>
