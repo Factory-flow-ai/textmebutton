@@ -243,6 +243,73 @@
             background: #F0FDF9 !important;
             color: var(--teal) !important;
         }
+        
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { display: none !important; }
+            .main-content { margin-left: 0 !important; padding: 16px !important; }
+            .top-header { flex-direction: column !important; gap: 10px !important; }
+            .button-card { padding: 16px !important; }
+            .button-card .grid-2col, [style*="grid-template-columns: 1fr 1fr"] { 
+                grid-template-columns: 1fr !important; 
+            }
+            .sms-preview { max-width: 100% !important; }
+            input, textarea, select { font-size: 16px !important; }
+            h1 { font-size: 24px !important; }
+            .gradient-btn { font-size: 13px !important; padding: 8px 14px !important; }
+            /* Mobile nav bar at bottom */
+            .mobile-nav {
+                display: flex !important;
+                position: fixed; bottom: 0; left: 0; right: 0;
+                background: #FFFFFF; border-top: 1px solid #E5E7EB;
+                padding: 8px 0; z-index: 100;
+                justify-content: space-around;
+            }
+            .mobile-nav a {
+                display: flex; flex-direction: column; align-items: center;
+                font-size: 10px; color: #6B7280; text-decoration: none; gap: 2px;
+            }
+            .mobile-nav a.active { color: var(--teal); }
+            .mobile-nav a span.icon { font-size: 20px; }
+            body { padding-bottom: 70px !important; }
+        }
+        @media (min-width: 769px) {
+            .mobile-nav { display: none !important; }
+        }
+        /* Pairing modal */
+        .pairing-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center; z-index: 200;
+        }
+        .pairing-card {
+            background: white; border-radius: 20px; padding: 40px; max-width: 420px;
+            width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .pair-btn {
+            width: 120px; height: 120px; border-radius: 50%; border: none;
+            background: linear-gradient(135deg, #00B48C, #0099FF);
+            color: white; font-size: 28px; cursor: pointer;
+            transition: transform 0.1s; margin: 20px auto; display: block;
+            box-shadow: 0 8px 24px rgba(0,180,140,0.3);
+        }
+        .pair-btn:active { transform: scale(0.9); }
+        .pair-btn.pressed { animation: pairPulse 0.2s ease; }
+        @keyframes pairPulse {
+            0% { transform: scale(1); box-shadow: 0 8px 24px rgba(0,180,140,0.3); }
+            50% { transform: scale(0.85); box-shadow: 0 4px 12px rgba(0,180,140,0.5); }
+            100% { transform: scale(1); box-shadow: 0 8px 24px rgba(0,180,140,0.3); }
+        }
+        .pair-dots { display: flex; justify-content: center; gap: 10px; margin: 16px 0; }
+        .pair-dot {
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #E5E7EB; transition: background 0.3s, transform 0.3s;
+        }
+        .pair-dot.filled { background: #00B48C; transform: scale(1.2); }
+        .pair-success { animation: successFade 0.5s ease; }
+        @keyframes successFade {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
         </style>
 </head>
 <body>
@@ -313,7 +380,7 @@
         <!-- ===== MY BUTTONS SECTION ===== -->
         <div id="section-buttons">
             <div class="flex items-center gap-3 mb-6">
-                <button class="gradient-btn px-4 py-2 rounded-lg text-sm font-semibold" onclick="addNewButton()">+ Add Button</button>
+                <button class="gradient-btn px-4 py-2 rounded-lg text-sm font-semibold" onclick="openPairing()">+ Add Button</button>
                 <span class="text-gray-500 text-sm" id="buttonCount">3 buttons registered</span>
             </div>
 
@@ -820,6 +887,86 @@
             link.click();
             URL.revokeObjectURL(url);
         }
+        
+        var pairPresses = 0;
+        function openPairing() {
+            pairPresses = 0;
+            document.getElementById('pairCount').textContent = '0';
+            for (var i = 0; i < 6; i++) document.getElementById('dot' + i).className = 'pair-dot';
+            document.getElementById('pairingStep1').style.display = 'block';
+            document.getElementById('pairingStep2').style.display = 'none';
+            document.getElementById('pairingOverlay').style.display = 'flex';
+        }
+        function closePairing() {
+            document.getElementById('pairingOverlay').style.display = 'none';
+        }
+        function handlePairPress() {
+            if (pairPresses >= 6) return;
+            pairPresses++;
+            document.getElementById('pairCount').textContent = pairPresses;
+            document.getElementById('dot' + (pairPresses - 1)).className = 'pair-dot filled';
+            var btn = document.getElementById('pairPressBtn');
+            btn.classList.remove('pressed');
+            void btn.offsetWidth;
+            btn.classList.add('pressed');
+            if (pairPresses >= 6) {
+                setTimeout(function() {
+                    document.getElementById('pairingStep1').style.display = 'none';
+                    document.getElementById('pairingStep2').style.display = 'block';
+                    document.getElementById('pairingStep2').className = 'pair-success';
+                }, 400);
+            }
+        }
+        function completePairing() {
+            closePairing();
+            buttons.push({id:'btn-'+(buttons.length+1).toString().padStart(3,'0'),name:'New Button',phone:'',message:'Button was pressed!',status:'paused',presses:0,last:'Just now',timezone:'US/Mountain'});
+            renderButtons();
+        }
         </script>
-</body>
+
+    <div class="mobile-nav">
+        <a href="#" onclick="showSection('buttons')" class="active"><span class="icon">&#9679;</span>Buttons</a>
+        <a href="#" onclick="showSection('multiRecipient')"><span class="icon">&#128101;</span>Multi</a>
+        <a href="#" onclick="showSection('activityLog')"><span class="icon">&#128200;</span>Activity</a>
+        <a href="#" onclick="showSection('settings')"><span class="icon">&#9881;</span>Settings</a>
+    </div>
+    
+    <div class="pairing-overlay" id="pairingOverlay" style="display:none;">
+        <div class="pairing-card">
+            <div id="pairingStep1">
+                <h2 style="margin:0 0 8px;color:#1A1A2E;font-size:22px;">Pair Your Button</h2>
+                <p style="color:#6B7280;margin:0 0 24px;font-size:14px;">Press your TextMeButton 6 times rapidly to pair it</p>
+                <button class="pair-btn" id="pairPressBtn" onclick="handlePairPress()">
+                    <span id="pairCount">0</span>/6
+                </button>
+                <div class="pair-dots" id="pairDots">
+                    <div class="pair-dot" id="dot0"></div>
+                    <div class="pair-dot" id="dot1"></div>
+                    <div class="pair-dot" id="dot2"></div>
+                    <div class="pair-dot" id="dot3"></div>
+                    <div class="pair-dot" id="dot4"></div>
+                    <div class="pair-dot" id="dot5"></div>
+                </div>
+                <p style="color:#9CA3AF;font-size:12px;margin:16px 0 0;">Simulating button press for demo</p>
+                <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E5E7EB;">
+                    <p style="color:#6B7280;font-size:13px;margin:0 0 12px;">Or scan the QR code from your phone</p>
+                    <div style="width:140px;height:140px;margin:0 auto;background:#F3F4F6;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed #D1D5DB;">
+                        <div style="text-align:center;">
+                            <div style="font-size:36px;">&#128247;</div>
+                            <div style="font-size:10px;color:#9CA3AF;margin-top:4px;">Scan QR on button</div>
+                        </div>
+                    </div>
+                    <p style="color:#9CA3AF;font-size:11px;margin:8px 0 0;">Each button has a unique QR code on the back</p>
+                </div>
+            </div>
+            <div id="pairingStep2" style="display:none;" class="pair-success">
+                <div style="font-size:64px;margin-bottom:16px;">&#10003;</div>
+                <h2 style="margin:0 0 8px;color:#1A1A2E;">Button Paired!</h2>
+                <p style="color:#6B7280;margin:0 0 20px;">Your new button is ready to configure</p>
+                <button onclick="completePairing()" style="background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:600;">Set Up Button</button>
+            </div>
+            <button onclick="closePairing()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;color:#9CA3AF;cursor:pointer;">&times;</button>
+        </div>
+    </div>
+    </body>
 </html>
