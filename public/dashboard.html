@@ -125,7 +125,7 @@
             border-color: rgba(0,180,140,0.3);
         }
         /* Login screen */
-        .login-overlay {
+        .login-overlay { display:none !important; 
             position: fixed; inset: 0;
             background: var(--dark);
             display: flex;
@@ -382,7 +382,8 @@
         </div>
     </main>
 
-    <script>
+    <script>localStorage.setItem("tmb_logged_in","true");</script>
+<script>
         // ===== DEMO DATA =====
         let buttons = [
             {
