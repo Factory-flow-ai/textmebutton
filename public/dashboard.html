@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextMeButton — Dashboard</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body, * { font-family: Arial, 'Inter', sans-serif; }
+        :root {
+            --teal: #00B48C;
+            --blue: #0099FF;
+            --dark: #0C0C0E;
+            --dark2: #141428;
+        }
+        body { background: var(--dark); color: #e5e7eb; min-height: 100vh; }
+        .gradient-btn {
+            background: linear-gradient(135deg, var(--teal), var(--blue));
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .gradient-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .card {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3e;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        .card:hover { border-color: var(--teal); }
+        .input-dark {
+            background: #0f0f1a;
+            border: 1px solid #2a2a3e;
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 14px;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-dark:focus { border-color: var(--teal); }
+        .input-dark::placeholder { color: #555; }
+        .badge-teal {
+            background: rgba(0,180,140,0.15);
+            color: var(--teal);
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-blue {
+            background: rgba(0,153,255,0.15);
+            color: var(--blue);
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            color: #888;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(0,180,140,0.1);
+            color: var(--teal);
+        }
+        .toggle-track {
+            width: 44px; height: 24px;
+            background: #2a2a3e;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .toggle-track.on { background: var(--teal); }
+        .toggle-thumb {
+            width: 20px; height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px; left: 2px;
+            transition: transform 0.3s;
+        }
+        .toggle-track.on .toggle-thumb { transform: translateX(20px); }
+        .recipient-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #1a1a2e;
+        }
+        .recipient-row:last-child { border-bottom: none; }
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-dot.live { background: var(--teal); }
+        .status-dot.paused { background: #f59e0b; }
+        .status-dot.off { background: #ef4444; }
+        .tab-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            color: #888;
+            background: transparent;
+        }
+        .tab-btn.active {
+            background: rgba(0,180,140,0.1);
+            color: var(--teal);
+            border-color: rgba(0,180,140,0.3);
+        }
+        /* Login screen */
+        .login-overlay {
+            position: fixed; inset: 0;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.5s;
+        }
+        .login-overlay.hidden { opacity: 0; pointer-events: none; }
+        .login-card {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3e;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+        .google-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: white; color: #333; font-weight: 600;
+            padding: 12px 24px; border-radius: 10px;
+            cursor: pointer; border: none; width: 100%;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .google-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            background: var(--teal); color: white;
+            padding: 12px 24px; border-radius: 10px;
+            font-size: 0.9rem; font-weight: 600;
+            transform: translateY(80px);
+            transition: transform 0.3s;
+            z-index: 200;
+        }
+        .toast.show { transform: translateY(0); }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-card">
+            <div class="text-2xl font-bold mb-2">
+                <span class="text-white">Text</span><span style="color:#00B48C">Me</span><span class="text-white">Button</span>
+            </div>
+            <p class="text-gray-500 text-sm mb-8">Sign in to manage your buttons</p>
+            <button class="google-btn" onclick="handleLogin()">
+                <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2a10.3 10.3 0 0 0-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92a8.78 8.78 0 0 0 2.68-6.62z"/><path fill="#34A853" d="M9 18a8.59 8.59 0 0 0 5.96-2.18l-2.92-2.26a5.4 5.4 0 0 1-3.04.86 5.34 5.34 0 0 1-5.02-3.7H.96v2.34A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.98 10.72A5.36 5.36 0 0 1 3.7 9c0-.6.1-1.18.28-1.72V4.94H.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.06l3.02-2.34z"/><path fill="#EA4335" d="M9 3.58a4.86 4.86 0 0 1 3.44 1.34l2.58-2.58A8.65 8.65 0 0 0 9 0 9 9 0 0 0 .96 4.94l3.02 2.34A5.34 5.34 0 0 1 9 3.58z"/></svg>
+                Sign in with Google
+            </button>
+            <p class="text-gray-600 text-xs mt-6">Secure login. We never share your data.</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Saved!</div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar fixed left-0 top-0 bottom-0 w-56 border-r border-gray-800 p-4 flex flex-col" style="background:#0f0f1a;">
+        <div class="text-lg font-bold mb-8 px-2 pt-2">
+            <span class="text-white">Text</span><span style="color:#00B48C">Me</span><span class="text-white">Button</span>
+        </div>
+        <nav class="space-y-1 flex-1">
+            <div class="sidebar-link active" onclick="showSection('buttons')" data-section="buttons">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+                My Buttons
+            </div>
+            <div class="sidebar-link" onclick="showSection('upgrade')" data-section="upgrade">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Multi-Recipient
+                <span class="badge-blue ml-auto">PRO</span>
+            </div>
+            <div class="sidebar-link" onclick="showSection('activity')" data-section="activity">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Activity Log
+            </div>
+            <div class="sidebar-link" onclick="showSection('settings')" data-section="settings">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+            </div>
+        </nav>
+        <div class="border-t border-gray-800 pt-4 mt-4">
+            <div class="sidebar-link" onclick="handleLogout()">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                Sign Out
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" style="margin-left: 224px; padding: 32px;">
+        <!-- Top bar -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-white" id="pageTitle">My Buttons</h1>
+                <p class="text-gray-500 text-sm mt-1" id="pageSubtitle">Manage your TextMeButton devices</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-sm text-gray-500" id="userEmail"></span>
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm" style="background: linear-gradient(135deg, var(--teal), var(--blue)); color: white;" id="userAvatar">J</div>
+            </div>
+        </div>
+
+        <!-- ===== MY BUTTONS SECTION ===== -->
+        <div id="section-buttons">
+            <div class="flex items-center gap-3 mb-6">
+                <button class="gradient-btn px-4 py-2 rounded-lg text-sm font-semibold" onclick="addNewButton()">+ Add Button</button>
+                <span class="text-gray-500 text-sm" id="buttonCount">3 buttons registered</span>
+            </div>
+
+            <div class="grid gap-4" id="buttonGrid">
+                <!-- Buttons rendered by JS -->
+            </div>
+        </div>
+
+        <!-- ===== MULTI-RECIPIENT UPGRADE SECTION ===== -->
+        <div id="section-upgrade" style="display:none;">
+            <div class="card mb-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            Multi-Recipient SMS
+                            <span class="badge-blue">PRO UPGRADE</span>
+                        </h3>
+                        <p class="text-gray-500 text-sm mt-1">Send one button press to up to 5 people at once</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold" style="color: var(--teal);">$4.99<span class="text-gray-500 text-sm font-normal">/mo</span></div>
+                        <div class="text-gray-600 text-xs">per button</div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                        <div>
+                            <div class="text-white font-bold text-lg">5</div>
+                            <div class="text-gray-500">Max recipients</div>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-lg">Instant</div>
+                            <div class="text-gray-500">All sent at once</div>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-lg">Per-button</div>
+                            <div class="text-gray-500">Different lists each</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4">
+                    Perfect for families, teams, or caregivers. When Grandma presses her button, everyone in the family gets the text—not just one person.
+                </p>
+                <button class="gradient-btn px-6 py-3 rounded-lg text-sm font-semibold w-full" onclick="enableMultiRecipient()">
+                    Enable Multi-Recipient
+                </button>
+            </div>
+
+            <!-- Per-button recipient management (shown after enabling) -->
+            <div id="recipientManager" style="display:none;">
+                <h3 class="text-lg font-bold text-white mb-4">Manage Recipients by Button</h3>
+                <div id="recipientCards">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ACTIVITY LOG SECTION ===== -->
+        <div id="section-activity" style="display:none;">
+            <div class="card">
+                <h3 class="text-lg font-bold text-white mb-4">Recent Activity</h3>
+                <div class="space-y-3" id="activityLog">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SETTINGS SECTION ===== -->
+        <div id="section-settings" style="display:none;">
+            <div class="grid gap-4">
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-4">Account</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-gray-500 text-sm block mb-1">Display Name</label>
+                            <input type="text" class="input-dark" id="settingName" value="Jared Eggett">
+                        </div>
+                        <div>
+                            <label class="text-gray-500 text-sm block mb-1">Email</label>
+                            <input type="email" class="input-dark" id="settingEmail" value="jaredeggett@gmail.com" disabled style="opacity:0.5;">
+                            <p class="text-gray-600 text-xs mt-1">Managed by Google sign-in</p>
+                        </div>
+                        <div>
+                            <label class="text-gray-500 text-sm block mb-1">Timezone</label>
+                            <select class="input-dark" id="settingTimezone">
+                                <option>US/Eastern</option>
+                                <option>US/Central</option>
+                                <option selected>US/Mountain</option>
+                                <option>US/Pacific</option>
+                                <option>UTC</option>
+                            </select>
+                        </div>
+                        <button class="gradient-btn px-5 py-2 rounded-lg text-sm font-semibold" onclick="saveSettings()">Save Changes</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-4">Notifications</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white text-sm font-semibold">SMS Delivery Confirmations</div>
+                                <div class="text-gray-500 text-xs">Get notified when texts are delivered</div>
+                            </div>
+                            <div class="toggle-track on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white text-sm font-semibold">Weekly Summary Email</div>
+                                <div class="text-gray-500 text-xs">Button press stats every Monday</div>
+                            </div>
+                            <div class="toggle-track" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-white text-sm font-semibold">Low Battery Alert</div>
+                                <div class="text-gray-500 text-xs">Alert when energy level drops below 10%</div>
+                            </div>
+                            <div class="toggle-track on" onclick="toggleSwitch(this)"><div class="toggle-thumb"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-4">Subscription</h3>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-white font-semibold">Starter Pack</div>
+                            <div class="text-gray-500 text-sm">2 buttons · 100 texts/mo free</div>
+                        </div>
+                        <span class="badge-teal">ACTIVE</span>
+                    </div>
+                    <div class="border-t border-gray-800 mt-4 pt-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Texts used this month</span>
+                            <span class="text-white font-semibold">23 / 100</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2 mt-2">
+                            <div class="h-2 rounded-full" style="width: 23%; background: linear-gradient(135deg, var(--teal), var(--blue));"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== DEMO DATA =====
+        let buttons = [
+            {
+                id: 'btn-001',
+                name: 'Medicine Reminder',
+                message: 'Jake took his medicine \u2705',
+                status: 'live',
+                phone: '+1 (555) 234-5678',
+                lastPressed: '2 hours ago',
+                totalPresses: 147,
+                recipients: ['+1 (555) 234-5678'],
+                multiRecipient: false
+            },
+            {
+                id: 'btn-002',
+                name: 'Kids Home Safe',
+                message: 'The kids made it home safe \ud83c\udfe0',
+                status: 'live',
+                phone: '+1 (555) 234-5678',
+                lastPressed: 'Yesterday, 3:42 PM',
+                totalPresses: 89,
+                recipients: ['+1 (555) 234-5678'],
+                multiRecipient: false
+            },
+            {
+                id: 'btn-003',
+                name: 'Chickens Fed',
+                message: 'Chickens fed and watered \ud83d\udc14',
+                status: 'paused',
+                phone: '+1 (555) 876-5432',
+                lastPressed: '3 days ago',
+                totalPresses: 42,
+                recipients: ['+1 (555) 876-5432'],
+                multiRecipient: false
+            }
+        ];
+
+        const activityData = [
+            { time: 'Today, 10:23 AM', button: 'Medicine Reminder', event: 'Button pressed', status: 'delivered' },
+            { time: 'Today, 8:15 AM', button: 'Medicine Reminder', event: 'Button pressed', status: 'delivered' },
+            { time: 'Yesterday, 3:42 PM', button: 'Kids Home Safe', event: 'Button pressed', status: 'delivered' },
+            { time: 'Yesterday, 3:42 PM', button: 'Kids Home Safe', event: 'Message edited', status: 'system' },
+            { time: 'Mar 2, 7:00 AM', button: 'Chickens Fed', event: 'Button paused', status: 'system' },
+            { time: 'Mar 1, 6:45 PM', button: 'Chickens Fed', event: 'Button pressed', status: 'delivered' },
+            { time: 'Mar 1, 8:12 AM', button: 'Medicine Reminder', event: 'Button pressed', status: 'delivered' },
+            { time: 'Feb 28, 4:30 PM', button: 'Kids Home Safe', event: 'Button pressed', status: 'delivered' }
+        ];
+
+        // ===== LOGIN =====
+        function handleLogin() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+            document.getElementById('userEmail').textContent = 'jaredeggett@gmail.com';
+            localStorage.setItem('tmb_logged_in', 'true');
+            renderButtons();
+            renderActivity();
+        }
+        function handleLogout() {
+            localStorage.removeItem('tmb_logged_in');
+            document.getElementById('loginOverlay').classList.remove('hidden');
+        }
+
+        // ===== NAVIGATION =====
+        function showSection(name) {
+            ['buttons','upgrade','activity','settings'].forEach(s => {
+                document.getElementById('section-' + s).style.display = s === name ? 'block' : 'none';
+            });
+            document.querySelectorAll('.sidebar-link').forEach(l => {
+                l.classList.toggle('active', l.dataset.section === name);
+            });
+            const titles = { buttons: 'My Buttons', upgrade: 'Multi-Recipient', activity: 'Activity Log', settings: 'Settings' };
+            const subs = { buttons: 'Manage your TextMeButton devices', upgrade: 'Send one press to multiple people', activity: 'Recent button presses and events', settings: 'Account and notification preferences' };
+            document.getElementById('pageTitle').textContent = titles[name];
+            document.getElementById('pageSubtitle').textContent = subs[name];
+        }
+
+        // ===== TOAST =====
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg || 'Saved!';
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        // ===== TOGGLE SWITCH =====
+        function toggleSwitch(el) {
+            el.classList.toggle('on');
+            showToast('Preference updated');
+        }
+
+        // ===== RENDER BUTTONS =====
+        function renderButtons() {
+            const grid = document.getElementById('buttonGrid');
+            grid.innerHTML = buttons.map((btn, i) => `
+                <div class="card" id="card-${btn.id}">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="status-dot ${btn.status}"></span>
+                            <div>
+                                <div class="text-white font-bold">${btn.name}</div>
+                                <div class="text-gray-500 text-xs">ID: ${btn.id} &middot; ${btn.totalPresses} presses &middot; Last: ${btn.lastPressed}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="badge-${btn.status === 'live' ? 'teal' : 'blue'}">${btn.status.toUpperCase()}</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="text-gray-500 text-xs block mb-1">Button Name</label>
+                            <input type="text" class="input-dark text-sm" value="${btn.name}" onchange="updateButton(${i}, 'name', this.value)">
+                        </div>
+                        <div>
+                            <label class="text-gray-500 text-xs block mb-1">Send To</label>
+                            <input type="text" class="input-dark text-sm" value="${btn.phone}" onchange="updateButton(${i}, 'phone', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="text-gray-500 text-xs block mb-1">Text Message</label>
+                        <div class="flex gap-2">
+                            <input type="text" class="input-dark text-sm flex-1" value="${btn.message}" onchange="updateButton(${i}, 'message', this.value)" id="msg-${i}">
+                            <button class="gradient-btn px-3 py-2 rounded-lg text-xs font-semibold" onclick="saveButton(${i})">Save</button>
+                        </div>
+                        <p class="text-gray-600 text-xs mt-1">This is the exact text sent when the button is pressed</p>
+                    </div>
+
+                    <div class="flex items-center justify-between border-t border-gray-800 pt-3">
+                        <div class="flex items-center gap-4">
+                            <button class="text-sm font-semibold cursor-pointer" style="color: var(--teal);" onclick="testButton(${i})">Send Test SMS</button>
+                            <button class="text-sm text-gray-500 cursor-pointer hover:text-yellow-500" onclick="toggleButtonStatus(${i})">
+                                ${btn.status === 'live' ? 'Pause' : 'Resume'}
+                            </button>
+                        </div>
+                        <button class="text-sm text-gray-600 cursor-pointer hover:text-red-400" onclick="deleteButton(${i})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('buttonCount').textContent = buttons.length + ' button' + (buttons.length !== 1 ? 's' : '') + ' registered';
+        }
+
+        // ===== BUTTON ACTIONS =====
+        function updateButton(i, field, value) {
+            buttons[i][field] = value;
+        }
+        function saveButton(i) {
+            showToast('Button "' + buttons[i].name + '" saved!');
+            renderButtons();
+        }
+        function testButton(i) {
+            showToast('Test SMS sent to ' + buttons[i].phone);
+        }
+        function toggleButtonStatus(i) {
+            buttons[i].status = buttons[i].status === 'live' ? 'paused' : 'live';
+            showToast(buttons[i].name + ' ' + (buttons[i].status === 'live' ? 'resumed' : 'paused'));
+            renderButtons();
+        }
+        function deleteButton(i) {
+            if (confirm('Delete "' + buttons[i].name + '"? This cannot be undone.')) {
+                buttons.splice(i, 1);
+                showToast('Button deleted');
+                renderButtons();
+            }
+        }
+        function addNewButton() {
+            const id = 'btn-' + String(buttons.length + 1).padStart(3, '0');
+            buttons.push({
+                id: id,
+                name: 'New Button',
+                message: 'Button was pressed!',
+                status: 'paused',
+                phone: '',
+                lastPressed: 'Never',
+                totalPresses: 0,
+                recipients: [],
+                multiRecipient: false
+            });
+            renderButtons();
+            showToast('New button added — configure it below');
+            document.getElementById('card-' + id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ===== MULTI-RECIPIENT =====
+        function enableMultiRecipient() {
+            document.getElementById('recipientManager').style.display = 'block';
+            buttons.forEach(b => b.multiRecipient = true);
+            renderRecipientCards();
+            showToast('Multi-Recipient enabled!');
+        }
+
+        function renderRecipientCards() {
+            const container = document.getElementById('recipientCards');
+            container.innerHTML = buttons.map((btn, i) => {
+                const recipientRows = btn.recipients.map((r, ri) => `
+                    <div class="recipient-row">
+                        <span class="text-gray-400 text-xs w-5">${ri + 1}.</span>
+                        <input type="text" class="input-dark text-sm flex-1" value="${r}" onchange="updateRecipient(${i}, ${ri}, this.value)">
+                        <button class="text-red-400 text-xs cursor-pointer hover:text-red-300" onclick="removeRecipient(${i}, ${ri})">&times;</button>
+                    </div>
+                `).join('');
+                const canAdd = btn.recipients.length < 5;
+                return `
+                    <div class="card mb-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="status-dot ${btn.status}"></span>
+                                <span class="text-white font-semibold">${btn.name}</span>
+                            </div>
+                            <span class="text-gray-500 text-xs">${btn.recipients.length}/5 recipients</span>
+                        </div>
+                        <div>${recipientRows}</div>
+                        ${canAdd ? `<button class="text-sm font-semibold mt-2 cursor-pointer" style="color: var(--teal);" onclick="addRecipient(${i})">+ Add Recipient</button>` : `<p class="text-yellow-500 text-xs mt-2">Maximum 5 recipients reached</p>`}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateRecipient(btnIdx, recIdx, value) {
+            buttons[btnIdx].recipients[recIdx] = value;
+            showToast('Recipient updated');
+        }
+        function addRecipient(btnIdx) {
+            if (buttons[btnIdx].recipients.length < 5) {
+                buttons[btnIdx].recipients.push('');
+                renderRecipientCards();
+            }
+        }
+        function removeRecipient(btnIdx, recIdx) {
+            buttons[btnIdx].recipients.splice(recIdx, 1);
+            renderRecipientCards();
+            showToast('Recipient removed');
+        }
+
+        // ===== ACTIVITY LOG =====
+        function renderActivity() {
+            const log = document.getElementById('activityLog');
+            log.innerHTML = activityData.map(a => `
+                <div class="flex items-center justify-between py-3 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs" style="background: ${a.status === 'delivered' ? 'rgba(0,180,140,0.15)' : 'rgba(100,100,140,0.15)'}; color: ${a.status === 'delivered' ? 'var(--teal)' : '#888'};">
+                            ${a.status === 'delivered' ? '\u2713' : '\u2699'}
+                        </div>
+                        <div>
+                            <div class="text-white text-sm">${a.event}</div>
+                            <div class="text-gray-500 text-xs">${a.button}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-gray-400 text-xs">${a.time}</div>
+                        <span class="badge-${a.status === 'delivered' ? 'teal' : 'blue'} text-xs">${a.status}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== SETTINGS =====
+        function saveSettings() {
+            showToast('Settings saved!');
+        }
+
+        // ===== INIT =====
+        if (localStorage.getItem('tmb_logged_in') === 'true') {
+            handleLogin();
+        }
+    </script>
+</body>
+</html>
