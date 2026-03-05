@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextMeButton - Press It Once. Get a Text. That's It.</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="TextMeButton: A self-powered accountability button. Peel it, stick it anywhere, press it Ã¢ÂÂ someone gets a text. No batteries. No app required. Just notifications.">
+    <meta name="keywords" content="SMS button, text message notifications, self-powered button, family accountability, no batteries, kinetic energy button">
+    <meta name="author" content="TextMeButton">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="TextMeButton - Press It Once. Get a Text. That's It.">
+    <meta property="og:description" content="Self-powered accountability button. Peel, stick, press Ã¢ÂÂ get a text. No batteries ever. No app required.">
+    <meta property="og:image" content="https://textmebutton.com/og-image.png">
+    <meta property="og:url" content="https://textmebutton.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TextMeButton - Press It Once. Get a Text. That's It.">
+    <meta name="twitter:description" content="Self-powered accountability button. Peel, stick, press Ã¢ÂÂ get a text. No batteries ever. No app required.">
+    <meta name="twitter:image" content="https://textmebutton.com/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230D9488'/><text x='50' y='60' font-size='50' text-anchor='middle' fill='white' font-weight='bold'>&#x2713;</text></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 71, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 107, 71, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 71, 0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+        .animate-pulse-ring { animation: pulse-ring 2s infinite; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .scroll-reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B47 0%, #FF8A6A 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #E8512D 0%, #FF6B47 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 71, 0.3);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .input-focus:focus {
+            outline: none; border-color: #FF6B47;
+            box-shadow: 0 0 0 3px rgba(255, 107, 71, 0.1);
+        }
+        .button-3d { position: relative; width: 240px; height: 240px; margin: 0 auto; }
+        .button-disc {
+            width: 100%; height: 100%;
+            background: linear-gradient(160deg, #F8F8F6 0%, #EEEEE8 40%, #E8E8E2 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.2),
+                0 8px 20px rgba(0,0,0,0.1),
+                inset 0 2px 4px rgba(255,255,255,0.9),
+                inset 0 -3px 6px rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            border: 6px solid #A8B8C0;
+        }
+        .button-disc::before {
+            content: ''; position: absolute; top: 8%; left: 12%;
+            width: 35%; height: 25%;
+            background: radial-gradient(ellipse at 40% 40%, rgba(255,255,255,0.7), transparent);
+            border-radius: 50%;
+        }
+        .button-disc::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 12px;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.06));
+            border-radius: 0 0 50% 50%;
+        }
+        .button-ring {
+            position: absolute; width: 270px; height: 270px;
+            border: 2px solid rgba(255, 107, 71, 0.4); border-radius: 50%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            opacity: 0.3; animation: pulse-ring 2s infinite;
+        }
+        .product-label {
+            position: absolute; bottom: -40px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem; color: #999; white-space: nowrap;
+        }
+        .accordion-item { border-bottom: 1px solid #E5E7EB; }
+        .accordion-header {
+            padding: 1.25rem; cursor: pointer; user-select: none;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .accordion-header:hover { background-color: #F9FAFB; }
+        .accordion-header.active { background-color: #FFF5F2; }
+        .accordion-toggle {
+            width: 24px; height: 24px; background: #FF6B47; border-radius: 50%;
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold; transition: transform 0.3s ease; flex-shrink: 0;
+        }
+        .accordion-header.active .accordion-toggle { transform: rotate(180deg); }
+        .accordion-content {
+            display: none; padding: 0 1.25rem 1.25rem;
+            background-color: #FAFAFA; color: #555; line-height: 1.6;
+        }
+        .accordion-content.active { display: block; }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B47 0%, #FF8A6A 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255, 107, 71,0.15); }
+        .stat-number {
+            font-size: 2.5rem; font-weight: bold;
+            background: linear-gradient(135deg, #FF6B47 0%, #FF8A6A 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .use-case-card { cursor: pointer; }
+        .use-case-card .use-case-desc {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 1rem;
+        }
+        .use-case-card.expanded .use-case-desc {
+            max-height: 600px; padding: 0.75rem 1rem 1rem;
+        }
+        .stretch-line {
+            position: relative; padding-left: 2rem;
+        }
+        .stretch-line::before {
+            content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0;
+            width: 3px; background: linear-gradient(to bottom, #FF6B47, #FB923C);
+            border-radius: 2px;
+        }
+        .stretch-dot {
+            position: absolute; left: 0.25rem; top: 1.5rem;
+            width: 1.25rem; height: 1.25rem; background: #FF6B47;
+            border-radius: 50%; border: 3px solid white;
+            box-shadow: 0 0 0 2px #FF6B47;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-gray-900 bg-opacity-95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold gradient-text">TextMeButton</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#howitworks" class="text-gray-300 hover:text-orange-500 transition">How It Works</a>
+                <a href="#usecases" class="text-gray-300 hover:text-orange-500 transition">Use Cases</a>
+                <a href="#pricing" class="text-gray-300 hover:text-orange-500 transition">Pricing</a>
+                <a href="#faq" class="text-gray-300 hover:text-orange-500 transition">FAQ</a>
+            </div>
+            <button class="md:hidden text-gray-300" aria-label="Toggle menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">&#9776;</button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2">
+            <a href="#howitworks" class="block text-gray-300 hover:text-orange-500 transition py-1">How It Works</a>
+            <a href="#usecases" class="block text-gray-300 hover:text-orange-500 transition py-1">Use Cases</a>
+            <a href="#pricing" class="block text-gray-300 hover:text-orange-500 transition py-1">Pricing</a>
+            <a href="#faq" class="block text-gray-300 hover:text-orange-500 transition py-1">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #121218 0%, #1a1a24 50%, #1e1e2a 100%);">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                        <span class="gradient-text">Press it once.</span><br>
+                        <span class="text-white">Get a text.</span><br>
+                        <span class="text-white">That's it.</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-400 mb-6 leading-relaxed">
+                        TextMeButton is a self-powered accountability button. Peel it, stick it anywhere, and when someone presses it, you get a text. Runs 20+ years without a single battery change. No wiring. No app required. Just instant notifications that something got done.
+                    </p>
+
+                    <p class="text-lg font-semibold text-gray-300 mb-8">No Batteries. No Excuses.</p>
+
+                    <!-- Email Form -->
+                    <form id="hero-form" class="space-y-4 mb-6" action="#" method="POST">
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <input type="text" name="name" placeholder="Your name" class="input-focus px-4 py-3 border border-gray-600 bg-gray-800 rounded-lg text-white placeholder-gray-500 w-full" required>
+                            <input type="email" name="email" placeholder="your@email.com" class="input-focus px-4 py-3 border border-gray-600 bg-gray-800 rounded-lg text-white placeholder-gray-500 w-full" required>
+                        </div>
+                        <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full sm:w-auto text-lg">
+                            Get Early Access
+                        </button>
+                    </form>
+
+                    <p class="text-gray-500 text-sm">
+                        We'll notify you the moment TextMeButton is available. No spam, ever.
+                    </p>
+                </div>
+
+                <!-- Right: Product Visual -->
+                <div class="flex justify-center items-center scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="animate-float">
+                        <img src="images/hero-product.png" alt="TextMeButton - self-powered accountability button" class="w-80 md:w-96 drop-shadow-2xl" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works (Simplified) -->
+    <section id="howitworks" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">How It Works</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                Three steps. That's all.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center scroll-reveal bg-white p-10 rounded-2xl shadow-lg" style="animation-delay: 0.2s">
+                    <div class="text-6xl mb-6">&#x1F4E6;</div>
+                    <h3 class="text-2xl font-bold mb-3">1. Peel It</h3>
+                    <p class="text-gray-600">Adhesive back. Stick it anywhere &mdash; under a sink, next to a medicine cabinet, on the chicken coop door, by the front door. No drilling. No wiring.</p>
+                </div>
+
+                <div class="text-center scroll-reveal bg-white p-10 rounded-2xl shadow-lg" style="animation-delay: 0.3s">
+                    <div class="text-6xl mb-6">&#x1F44B;</div>
+                    <h3 class="text-2xl font-bold mb-3">2. Press It</h3>
+                    <p class="text-gray-600">One press sends a text notification. The physical act of pressing generates all the electricity needed. No batteries inside. Ever.</p>
+                </div>
+
+                <div class="text-center scroll-reveal bg-white p-10 rounded-2xl shadow-lg" style="animation-delay: 0.4s">
+                    <div class="text-6xl mb-6">&#x2705;</div>
+                    <h3 class="text-2xl font-bold mb-3">3. That's It</h3>
+                    <p class="text-gray-600">You now have proof. A real text message on your phone with a timestamp. No nagging required.</p>
+                </div>
+            </div>
+
+            <!-- Technical flow -->
+            <div class="bg-gradient-to-r from-orange-50 via-white to-orange-50 p-10 rounded-2xl scroll-reveal" style="animation-delay: 0.5s">
+                <div class="grid md:grid-cols-4 gap-6 items-center text-center">
+                    <div>
+                        <div class="inline-flex w-14 h-14 bg-orange-500 rounded-full items-center justify-center text-white font-bold text-lg mb-2">1</div>
+                        <p class="font-semibold text-gray-900">Press Button</p>
+                        <p class="text-sm text-gray-600">Kinetic energy harvested</p>
+                    </div>
+                    <div>
+                        <div class="inline-flex w-14 h-14 bg-orange-500 rounded-full items-center justify-center text-white font-bold text-lg mb-2">2</div>
+                        <p class="font-semibold text-gray-900">Wireless Signal</p>
+                        <p class="text-sm text-gray-600">902 MHz to Hub</p>
+                    </div>
+                    <div>
+                        <div class="inline-flex w-14 h-14 bg-orange-500 rounded-full items-center justify-center text-white font-bold text-lg mb-2">3</div>
+                        <p class="font-semibold text-gray-900">Hub Sends Text</p>
+                        <p class="text-sm text-gray-600">Via Ethernet &amp; SMS gateway</p>
+                    </div>
+                    <div>
+                        <div class="inline-flex w-14 h-14 bg-orange-500 rounded-full items-center justify-center text-white font-bold text-lg mb-2">4</div>
+                        <p class="font-semibold text-gray-900">You Get a Text</p>
+                        <p class="text-sm text-gray-600">Any phone. Any carrier.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Never Needs Batteries Section -->
+    <section id="batteries" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <h2 class="text-4xl font-bold mb-6">20 Years. Zero Batteries. Zero Maintenance.</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        TextMeButton is powered by kinetic energy harvesting. The physical act of pressing the button generates all the electricity needed to send a wireless signal. There is no battery inside. There is no charging port. There is no solar panel. It runs for 20+ years without ever changing a single battery.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        The mechanical energy from your finger press is converted into electrical energy on the spot. This is the same proven technology used in commercial buildings worldwide for over two decades &mdash; now available for your home and business. Backed by a 5-year guarantee.
+                    </p>
+                    <p class="text-lg font-semibold text-gray-800">
+                        Install it once. It works for 20 years. There is no battery to replace &mdash; ever.
+                    </p>
+                </div>
+                <div class="scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-10 rounded-2xl">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center">
+                                <div class="stat-number mb-2">0</div>
+                                <p class="text-sm font-semibold text-gray-700">Batteries Ever</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-2">20+</div>
+                                <p class="text-sm font-semibold text-gray-700">Years, No Battery</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-2">150ft+</div>
+                                <p class="text-sm font-semibold text-gray-700">Range Through Walls</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-2">2 min</div>
+                                <p class="text-sm font-semibold text-gray-700">Setup Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Grid -->
+    <section id="usecases" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">Real Accountability Scenarios</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                Tap any card to see how it works
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Primary Use Cases -->
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.1s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/01-medicine-reminder-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F48A;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Did my son take his anxiety medicine?</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Your 14-year-old has a daily prescription for anxiety. You're at work by 7am. He's supposed to take it before school, but "I forgot" has become a weekly thing. You don't want to nag Ã¢ÂÂ and honestly, you can't always check.<br><br>
+                        <strong>The fix:</strong> Stick a TextMeButton right next to his pill bottle on the bathroom counter. Every morning, he takes his pill and presses the button. You get a text at 7:15am that says <em>"Lincoln took his medicine."</em> If 8am rolls around and no text? You send one quick reminder. No arguments, no interrogation Ã¢ÂÂ just a gentle system that works for both of you.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.15s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/02-kids-home-safe-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F3E0;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Press this when you get home</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Your kids ride the bus home and get there around 3:30pm. You're still at the office until 5. They're old enough to be home alone, but young enough that you want to know they actually made it. Texts go unanswered. Calls go to voicemail.<br><br>
+                        <strong>The fix:</strong> Stick a TextMeButton right inside the front door, eye level. The rule is simple: walk in, drop your backpack, press the button. You get a text at work: <em>"Kids are home."</em> It takes one second. No phone required. No app to open. Just press and done. You breathe easier for the rest of the afternoon.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.2s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/03-self-medicine-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F48A;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Did I take my medicine today?</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> It's 2pm and you're staring at your pill organizer trying to remember if you took your morning dose. You do this three times a week. Sometimes you double-dose by accident. Sometimes you skip entirely.<br><br>
+                        <strong>The fix:</strong> TextMeButton sits right next to your pills. Take your dose, press the button. The text goes to your own phone as a timestamp. Can't remember if you took it? Scroll your texts. There it is: <em>"Medicine taken at 7:42am."</em> No more guessing, no more anxiety about whether you already took it.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.25s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/04-chicken-coop-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F414;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Have the chickens been taken care of?</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> You've got 12 hens out back. Feeding and watering is supposed to rotate between your two teenagers, but "I thought it was your turn" is a daily argument. Meanwhile the chickens are thirsty and you're the one who ends up doing it at 9pm in your pajamas.<br><br>
+                        <strong>The fix:</strong> Mount a TextMeButton right on the coop door. Whoever does the morning chores presses it when they're done. The whole family gets a text: <em>"Chickens fed and watered."</em> No more finger-pointing. No more dried-out water bowls. And you stay in your pajamas.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.3s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/05-sos-emergency-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F198;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">SOS / Emergency Alert</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Your mom lives alone and had a fall last year. She doesn't always have her phone nearby. You've tried medical alert necklaces but she hates wearing them Ã¢ÂÂ says they make her feel old.<br><br>
+                        <strong>The fix:</strong> Stick TextMeButtons in three spots: next to her bed, in the bathroom, and by her favorite chair. If she falls or feels dizzy or just needs help, one press sends an alert text to you, your sister, and her neighbor: <em>"Mom needs help."</em> No necklace. No phone. No fumbling. Just one press from wherever she is.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.35s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/06-chores-done-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F9F9;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">I cleaned the bathroom</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Saturday chore list says "clean the bathroom." Your daughter says she did it. You walk in Ã¢ÂÂ the mirror is still spotted, the counter is wet, and the toilet? Let's not talk about the toilet. "I DID clean it!" she insists.<br><br>
+                        <strong>The fix:</strong> Stick a TextMeButton under the bathroom sink. The deal: clean the bathroom properly, then press the button. You get a text: <em>"Bathroom cleaned."</em> Now there's a record. And somehow, knowing there's a button to press makes the job feel more official. Kids take it more seriously when there's a system.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.4s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/07-goodnight-checkin-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F319;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Goodnight check-in</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Bedtime is 9pm. You're downstairs finishing dishes. Your kid is supposedly in bed but you've caught them on their tablet at 10:30 twice this week. You're tired of being the bedtime police.<br><br>
+                        <strong>The fix:</strong> TextMeButton goes on the wall next to their bed. Lights out, press the button. You get a text downstairs: <em>"In bed. Goodnight."</em> It's their way of checking in without you having to march upstairs. It builds trust and gives them a tiny bit of ownership over their routine.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.45s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/08-dog-walker-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F6B6;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Did my dog walker come?</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> You pay a dog walker $20 a visit to come while you're at work. They say they came at noon, but your dog still seems full of energy when you get home. You have no way to verify without installing cameras Ã¢ÂÂ and even then, who wants to review footage every day?<br><br>
+                        <strong>The fix:</strong> Stick a TextMeButton right inside your front door. The walker presses it when they arrive. You get a text at work: <em>"Dog walker is here Ã¢ÂÂ 12:04pm."</em> No cameras. No awkward conversations. Just a simple timestamp that gives you peace of mind. You know your dog is getting the walk you're paying for.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.5s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/09-senior-checkin-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F474;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Senior check-in</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The scenario:</strong> Your 82-year-old dad lives alone in his house 45 minutes away. He's independent and proud of it, but you worry. Calling every morning feels like hovering. Not calling feels irresponsible. He forgets to charge his phone half the time anyway.<br><br>
+                        <strong>The fix:</strong> TextMeButton goes on the kitchen counter next to the coffee maker. Every morning when he makes his coffee, he presses the button. You get a text: <em>"Dad is up and moving."</em> No phone needed. No app to learn. Just one press with his morning routine. If 10am comes and no text? That's when you call. Simple peace of mind for everyone.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commercial Use Cases -->
+    <section id="business" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">TextMeButton for Business</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                Physical proof of presence. No apps. No accounts. No excuses.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.1s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/10-construction-checkin-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F3D7;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Construction Site Check-In</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> You're managing a job site with 8 subs. Half of them bill by the hour. You can't be on-site every morning to verify arrivals, and sign-in sheets get lost, forged, or forgotten.<br><br>
+                        <strong>The fix:</strong> Mount a TextMeButton at the site entrance. Workers press it when they arrive. You get a timestamped text: <em>"Worker arrived Ã¢ÂÂ 6:47am."</em> Now you have proof for billing disputes, compliance audits, and OSHA documentation. No app to install on anyone's phone. No training. Just press and go.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.15s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/11-security-patrol-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F6E1;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Security Guard Patrol</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> Your security company charges for hourly patrols, but how do you know the guard actually walked every checkpoint? GPS can be spoofed. Paper logs get fabricated. Guard tour wand systems cost $500+ and need proprietary tags.<br><br>
+                        <strong>The fix:</strong> Mount TextMeButtons at each checkpoint along the patrol route. The guard presses each one as they pass. You get a complete timestamped patrol log: <em>"Checkpoint B3 Ã¢ÂÂ 2:14am."</em> Physical proof of presence that can't be faked from the parking lot. Zero maintenance Ã¢ÂÂ no batteries to replace across dozens of checkpoints.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.2s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/12-restroom-cleaning-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F9F9;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Restroom Cleaning Log</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> Every hotel, airport, and restaurant has a paper sign-off sheet on the bathroom wall. Nobody trusts it. Managers can't verify if cleaning actually happened. Customers complain. Health inspectors ask questions.<br><br>
+                        <strong>The fix:</strong> Replace the clipboard with a TextMeButton inside each restroom. Janitor cleans, then presses. Management gets a timestamped log: <em>"Restroom B cleaned Ã¢ÂÂ 11:32am."</em> Digital compliance records with zero training. Works for any facility Ã¢ÂÂ hotels, schools, offices, retail.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.25s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/13-school-bus-sweep-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F68C;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">School Bus Sweep</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> Every year, children are left on school buses. Drivers are required to walk the bus after each route to check every seat, but there's no way to prove the sweep happened. Districts face lawsuits and tragedy.<br><br>
+                        <strong>The fix:</strong> Mount a TextMeButton at the very back of the bus. After walking every row, the driver presses it at the rear. Dispatch gets a text: <em>"Bus #47 swept clear Ã¢ÂÂ 3:52pm."</em> If no text comes in, dispatch calls immediately. Simple proof that saves lives. No app, no tablet, no training.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.3s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/14-lone-worker-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x1F332;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Lone Worker Check-In</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> Your field crew works remote sites Ã¢ÂÂ forestry, utilities, oil & gas, cell towers. OSHA requires regular welfare checks for lone workers, but cell service is spotty and guys forget to radio in.<br><br>
+                        <strong>The fix:</strong> TextMeButton at the work site. Worker presses every hour as a check-in. Dispatch gets a text: <em>"Site 14 check-in Ã¢ÂÂ 2:00pm."</em> If an hour passes with no press, dispatch triggers a welfare check. Simple, reliable, no phone needed. Meets OSHA lone worker compliance requirements.
+                    </div>
+                </div>
+
+                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100" style="animation-delay: 0.35s" onclick="toggleUseCase(this)">
+                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('https://read-website-assets.s3.amazonaws.com/15-equipment-inspection-v1.webp'); background-color: #FFF5F2;"></div>
+                    <div class="p-5">
+                        <div class="text-3xl mb-2">&#x2705;</div>
+                        <h4 class="font-bold text-gray-900 text-lg">Equipment Inspection</h4>
+                    </div>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
+                        <strong>The problem:</strong> Pre-shift equipment inspections are required but rarely verified. Did someone actually check the forklift? Walk the dock? Inspect the fire extinguishers? Nobody knows until something goes wrong.<br><br>
+                        <strong>The fix:</strong> Mount TextMeButtons at each inspection point. Technician inspects, then presses. Supervisors get a complete log: <em>"Forklift A inspected Ã¢ÂÂ 5:58am."</em> Missed inspections trigger alerts. Compliance documentation happens automatically. Perfect for warehouses, manufacturing floors, and fleet operations.
+                    </div>
+                </div>
+
+            <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal border border-gray-100">
+                <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('images/counseling-arrival.jpg')"></div>
+                <div class="p-5">
+                    <div class="text-3xl mb-2">ð§ââï¸</div>
+                    <h4 class="font-bold text-gray-900 text-lg">Counseling Appointment Check-In</h4>
+                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">Client arrives at the therapy office and presses the button to notify the counselor they are in the waiting room. Therapist gets a text instantlyâno front desk needed.</div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Credibility Section -->
+    <section id="credibility" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">This Isn't a Concept &mdash; It's a Product</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                Backed by 20+ years in hardware manufacturing
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl text-center scroll-reveal card-hover" style="animation-delay: 0.1s">
+                    <div class="stat-number mb-3">20+</div>
+                    <p class="font-semibold text-gray-900 mb-2">Years Manufacturing</p>
+                    <p class="text-gray-600 text-sm">Proven kinetic energy harvesting technology at scale</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl text-center scroll-reveal card-hover" style="animation-delay: 0.2s">
+                    <div class="stat-number mb-3">5 yr</div>
+                    <p class="font-semibold text-gray-900 mb-2">Product Guarantee</p>
+                    <p class="text-gray-600 text-sm">Built to last. Backed by a 5-year guarantee.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-xl text-center scroll-reveal card-hover" style="animation-delay: 0.3s">
+                    <div class="stat-number mb-3">Ready</div>
+                    <p class="font-semibold text-gray-900 mb-2">Designed &amp; Quoted</p>
+                    <p class="text-gray-600 text-sm">Tooling designed and quoted for manufacturing. This isn't a concept &mdash; it's a product.</p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 scroll-reveal text-center" style="animation-delay: 0.4s">
+                <p class="text-blue-900">
+                    <strong>Built by Jared Eggett</strong> &mdash; built for his family, now available for yours. TextMeButton uses the same kinetic energy harvesting technology trusted in commercial buildings worldwide.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4 scroll-reveal">Super Early Bird Pricing</h2>
+            <p class="text-gray-600 mb-12 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                Lock in the lowest price before Kickstarter launches
+            </p>
+
+            <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Single Button -->
+                <div class="bg-white p-7 rounded-2xl shadow-xl scroll-reveal border-2 border-gray-200" style="animation-delay: 0.2s">
+                    <div class="mb-6">
+                        <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">BASIC</p>
+                        <div class="mb-2">
+                            <span class="text-4xl font-bold gradient-text">$39.99</span>
+                        </div>
+                        <p class="text-gray-500 text-sm">Get started with one button</p>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-6 mb-6">
+                        <ul class="space-y-3 text-left">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>1 &times; Ethernet Hub</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span><strong>1 &times; TextMeButton</strong></span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>Mobile app for iOS &amp; Android</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>5-year product guarantee</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>No batteries for 20+ years</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                        Join the Waitlist
+                    </button>
+                </div>
+
+                <!-- Starter Pack -->
+                <div class="bg-white p-7 rounded-2xl shadow-xl scroll-reveal border-2 border-orange-400 relative" style="animation-delay: 0.3s">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Popular</span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">STARTER PACK</p>
+                        <div class="mb-2">
+                            <span class="text-4xl font-bold gradient-text">$54.99</span>
+                        </div>
+                        <p class="text-gray-500 text-sm">Two buttons, twice the coverage</p>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-6 mb-6">
+                        <ul class="space-y-3 text-left">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>1 &times; Ethernet Hub</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span><strong>2 &times; TextMeButtons</strong></span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>Mobile app for iOS &amp; Android</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>5-year product guarantee</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>No batteries for 20+ years</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                        Join the Waitlist
+                    </button>
+                </div>
+
+                <!-- Family Pack -->
+                <div class="bg-white p-7 rounded-2xl shadow-xl scroll-reveal border-2 border-gray-200 relative" style="animation-delay: 0.4s">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gray-700 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Best Value</span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">FAMILY PACK</p>
+                        <div class="mb-2">
+                            <span class="text-4xl font-bold gradient-text">$69.99</span>
+                        </div>
+                        <p class="text-gray-500 text-sm">Cover the whole household</p>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-6 mb-6">
+                        <ul class="space-y-3 text-left">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>1 &times; Ethernet Hub</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span><strong>3 &times; TextMeButtons</strong></span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>Mobile app for iOS &amp; Android</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>5-year product guarantee</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-orange-500 font-bold mr-3 mt-0.5">&#x2713;</span>
+                                <span>No batteries for 20+ years</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                        Join the Waitlist
+                    </button>
+                </div>
+            </div>
+
+            <!-- Custom Etching Callout -->
+            <div class="max-w-5xl mx-auto mt-8">
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-8 scroll-reveal" style="animation-delay: 0.5s">
+                    <p class="text-orange-800 font-semibold mb-1">&#x2728; First 50 Buyers: Custom Etching</p>
+                    <p class="text-orange-700 text-sm">For the first 50 people who purchase a TextMeButton, we will custom etch the words you want directly onto the product. Once 50 are claimed, this offer is gone.</p>
+                </div>
+
+                <form action="#" method="POST" class="space-y-4 scroll-reveal" style="animation-delay: 0.6s">
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <input type="text" name="name" placeholder="Your name" class="input-focus px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" required>
+                        <input type="email" name="email" placeholder="your@email.com" class="input-focus px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" required>
+                    </div>
+                    <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full text-lg">
+                        Join the Waitlist
+                    </button>
+                </form>
+
+                <p class="text-gray-400 text-xs mt-6 leading-relaxed">
+                    <strong class="text-gray-500">About texting costs:</strong> Every text TextMeButton sends is a real SMS delivered through our messaging infrastructure. Each message costs us real money to deliver, which is why texting isn't free forever. That said, your first 12 months include 100 texts/month completely free. After that, text packs start at just $2.99/month for 500 texts, or go unlimited for $7.99/month. Most families never exceed the free tier.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stretch Goals Section -->
+    <section id="stretch" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">Kickstarter Stretch Goals</h2>
+            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                The more backers we get, the more we unlock for everyone
+            </p>
+
+            <div class="stretch-line space-y-12 scroll-reveal" style="animation-delay: 0.2s">
+                <!-- Goal 1 -->
+                <div class="relative pl-10">
+                    <div class="stretch-dot"></div>
+                    <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                        <p class="text-sm text-orange-600 font-semibold mb-1">Stretch Goal 1</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Bonus 3rd Button</h3>
+                        <p class="text-gray-600">All early bird backers receive a <strong>2nd TextMeButton free</strong> &mdash; that's 1 hub + 2 buttons total.</p>
+                    </div>
+                </div>
+
+                <!-- Goal 2 -->
+                <div class="relative pl-10">
+                    <div class="stretch-dot"></div>
+                    <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                        <p class="text-sm text-orange-600 font-semibold mb-1">Stretch Goal 2</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Alexa &amp; Google Home Announcements</h3>
+                        <p class="text-gray-600">Configure your button to trigger voice announcements on smart speakers. <em>"Lincoln took his medicine"</em> or <em>"Dinner is ready"</em> &mdash; announced on every speaker in the house.</p>
+                    </div>
+                </div>
+
+                <!-- Goal 3 -->
+                <div class="relative pl-10">
+                    <div class="stretch-dot"></div>
+                    <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                        <p class="text-sm text-orange-600 font-semibold mb-1">Stretch Goal 3</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Rules Engine</h3>
+                        <p class="text-gray-600">Set up conditional logic: time-based reminders (<em>"If button not pressed by 8am, send a reminder text"</em>), repeat alerts, multi-person notification chains, and custom schedules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <div class="max-w-4xl mx-auto text-center scroll-reveal">
+            <h2 class="text-4xl font-bold mb-6">
+                The easiest way to know it happened
+            </h2>
+            <p class="text-xl mb-8 text-orange-100">
+                Press it. Get a text. No app. No batteries. Just relief.
+            </p>
+
+            <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <input type="email" name="email" placeholder="your@email.com" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus" required>
+                <button type="submit" class="bg-white text-orange-600 font-bold py-4 px-8 rounded-lg hover:bg-orange-50 transition">
+                    Notify Me
+                </button>
+            </form>
+
+            <p class="text-orange-100 text-sm">
+                Be first to know when TextMeButton launches on Kickstarter
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">Frequently Asked Questions</h2>
+            <p class="text-center text-gray-600 mb-16 scroll-reveal" style="animation-delay: 0.1s">
+                Everything you need to know about TextMeButton
+            </p>
+
+            <div class="space-y-2" id="accordion">
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.1s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">How does SMS work without an app?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>SMS is a text message. Any phone that receives texts can get them. No app download needed. No account to create. Your recipients just get a text message like any other text they receive. Your grandma's phone works. So does yours.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.15s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">How does the button power itself?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>TextMeButton uses kinetic energy harvesting. When you press the button, the mechanical motion is converted directly into electrical power that sends a wireless signal to the hub. There is no battery inside. There is no charging port. There is no solar panel. This technology has been proven over 20+ years in commercial buildings and is designed to run for 20+ years without ever changing a battery. Backed by a 5-year guarantee.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">What happens if the internet goes down?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>The button still sends the wireless signal to the hub. When your internet connection returns, the hub automatically sends the pending SMS messages. Since the hub uses a wired Ethernet connection, it's more reliable than WiFi-based systems that can drop signal.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.25s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">Can I customize the text message?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes! You can configure each button to send custom messages. For example: "Medicine confirmed at 7:32 AM", "Chickens fed at 6:15 PM", "Dinner ready". You set up the message through the web portal or the app.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.3s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">How do I set it up?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Plug the hub into your router with the included Ethernet cable. Scan the QR code with your phone camera. Add the phone numbers of people who should receive texts. Configure your message. That's it. 2 minutes total. No app download required for basic setup.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.35s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">Are there any ongoing costs?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>TextMeButton includes 100 text notifications per month at no extra charge. Most families never hit this limit. If you need more, additional text packs are available in the app starting at $2.99/month for 500 texts, or you can upgrade to unlimited texts for $7.99/month. There are no other subscriptions, fees, or hidden costs.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.4s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">Why do text notifications have a limit?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Every text notification TextMeButton sends is a real SMS message delivered through cell carriers &mdash; the same way any text message works. Carriers charge us a fee for every single message we send on your behalf. Your first 12 months of texting (100/month) are on us &mdash; we want the core experience to just work out of the box. After that, text packs start at $2.99/month for 500 texts or $7.99/month unlimited. We're not making money on texts &mdash; we're just making sure we can keep sending them.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.45s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">Is my data private?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes. The hub is local to your home &mdash; no unnecessary cloud storage. Your phone numbers and press history are encrypted. We never sell or share your information.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.5s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">Do I need multiple hubs?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>One hub can support multiple buttons. You can add additional buttons for different rooms or different purposes. Each button can be configured to send different SMS messages to different people.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item scroll-reveal" style="animation-delay: 0.55s">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="text-lg font-semibold text-gray-900">What about smart home integration?</span>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>SMS is our core feature and works out of the box. Smart home integration (Alexa announcements, Google Home, Matter protocol) is on our stretch goal roadmap. If we hit our funding goals, we'll add it. If all you ever need is a text, that works perfectly too.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold gradient-text mb-4">TextMeButton</h3>
+                    <p class="text-gray-400 text-sm">
+                        Press it once. Get a text. That's it. Self-powered accountability button. No batteries. No app required. Just notifications.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Product</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#howitworks" class="hover:text-white transition">How It Works</a></li>
+                        <li><a href="#usecases" class="hover:text-white transition">Use Cases</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Contact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="mailto:hello@textmebutton.com" class="hover:text-white transition">hello@textmebutton.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        &copy; 2026 TextMeButton. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 text-gray-400 text-sm">
+                        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('active');
+                    h.nextElementSibling.classList.remove('active');
+                }
+            });
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Use case card expand/collapse
+        function toggleUseCase(card) {
+            const wasExpanded = card.classList.contains('expanded');
+            document.querySelectorAll('.use-case-card').forEach(c => c.classList.remove('expanded'));
+            if (!wasExpanded) card.classList.add('expanded');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
