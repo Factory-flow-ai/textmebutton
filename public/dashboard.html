@@ -11,20 +11,27 @@
         :root {
             --teal: #00B48C;
             --blue: #0099FF;
-            --dark: #0C0C0E;
-            --dark2: #141428;
+            --dark: #F5F7FA;
+            --dark2: #FFFFFF;
+            --dark3: #E8ECF1;
+            --text-primary: #1A1A2E;
+            --text-secondary: #6B7280;
+            --card-bg: #FFFFFF;
+            --card-border: #E5E7EB;
+            --sidebar-bg: #FFFFFF;
+            --sidebar-border: #E5E7EB;
         }
-        body { background: var(--dark); color: #e5e7eb; min-height: 100vh; }
+        body { background: #F5F7FA; color: #1A1A2E; min-height: 100vh; }
         .gradient-btn {
             background: linear-gradient(135deg, var(--teal), var(--blue));
-            color: white;
+            color: #1A1A2E;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
         }
         .gradient-btn:hover { opacity: 0.9; transform: translateY(-1px); }
         .card {
-            background: #1a1a2e;
+            background: #FFFFFF;
             border: 1px solid #2a2a3e;
             border-radius: 16px;
             padding: 24px;
@@ -34,7 +41,7 @@
         .input-dark {
             background: #0f0f1a;
             border: 1px solid #2a2a3e;
-            color: #e5e7eb;
+            color: #1A1A2E;
             border-radius: 8px;
             padding: 10px 14px;
             width: 100%;
@@ -42,7 +49,7 @@
             transition: border-color 0.2s;
         }
         .input-dark:focus { border-color: var(--teal); }
-        .input-dark::placeholder { color: #555; }
+        .input-dark::placeholder { color: #9CA3AF; }
         .badge-teal {
             background: rgba(0,180,140,0.15);
             color: var(--teal);
@@ -65,7 +72,7 @@
             gap: 10px;
             padding: 10px 16px;
             border-radius: 10px;
-            color: #888;
+            color: #6B7280;
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
@@ -97,7 +104,7 @@
             align-items: center;
             gap: 8px;
             padding: 8px 0;
-            border-bottom: 1px solid #1a1a2e;
+            border-bottom: 1px solid #1A1A2E;
         }
         .recipient-row:last-child { border-bottom: none; }
         .status-dot {
@@ -116,7 +123,7 @@
             cursor: pointer;
             transition: all 0.2s;
             border: 1px solid transparent;
-            color: #888;
+            color: #6B7280;
             background: transparent;
         }
         .tab-btn.active {
@@ -127,7 +134,7 @@
         /* Login screen */
         .login-overlay { display:none !important; 
             position: fixed; inset: 0;
-            background: var(--dark);
+            background: #F5F7FA;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -136,7 +143,7 @@
         }
         .login-overlay.hidden { opacity: 0; pointer-events: none; }
         .login-card {
-            background: #1a1a2e;
+            background: #FFFFFF;
             border: 1px solid #2a2a3e;
             border-radius: 20px;
             padding: 48px;
@@ -146,16 +153,16 @@
         }
         .google-btn {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: white; color: #333; font-weight: 600;
+            background: white; color: #E5E7EB; font-weight: 600;
             padding: 12px 24px; border-radius: 10px;
             cursor: pointer; border: none; width: 100%;
             font-size: 0.95rem;
             transition: all 0.2s;
         }
-        .google-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .google-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .toast {
             position: fixed; bottom: 24px; right: 24px;
-            background: var(--teal); color: white;
+            background: var(--teal); color: #1A1A2E;
             padding: 12px 24px; border-radius: 10px;
             font-size: 0.9rem; font-weight: 600;
             transform: translateY(80px);
@@ -167,7 +174,46 @@
             .sidebar { display: none; }
             .main-content { margin-left: 0 !important; }
         }
-    </style>
+    
+        input, textarea, select { 
+            background: #F9FAFB !important; 
+            color: #1A1A2E !important; 
+            border: 1px solid #D1D5DB !important; 
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--teal) !important;
+            outline: none;
+        }
+        .button-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E5E7EB !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+        }
+        .sidebar {
+            border-right: 1px solid #E5E7EB !important;
+        }
+        .sidebar a.active {
+            background: #F0FDF9 !important;
+            color: var(--teal) !important;
+        }
+        h1, h2, h3, h4, h5, h6, .text-2xl, .font-bold {
+            color: #1A1A2E !important;
+        }
+        .badge-live { background: #D1FAE5 !important; color: #065F46 !important; }
+        .badge-paused { background: #FEF3C7 !important; color: #92400E !important; }
+        
+        .main-content { background: #F5F7FA !important; }
+        .top-bar, .header { background: #FFFFFF !important; border-bottom: 1px solid #E5E7EB !important; }
+        .activity-item { background: #FFFFFF !important; border: 1px solid #E5E7EB !important; }
+        .settings-card, .upgrade-card, .pro-card { background: #FFFFFF !important; border: 1px solid #E5E7EB !important; }
+        p, span, label, small, .text-sm { color: #4B5563 !important; }
+        .sidebar .logo span { color: var(--teal) !important; }
+        .progress-bar { background: #E5E7EB !important; }
+        .toggle-track { background: #D1D5DB !important; }
+        .toggle-track.active { background: var(--teal) !important; }
+        a:not(.gradient-btn):not(.sidebar a) { color: var(--teal) !important; }
+        .delete-btn, [onclick*="delete"] { color: #DC2626 !important; }
+        </style>
 </head>
 <body>
     <!-- Login Overlay -->
@@ -230,7 +276,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <span class="text-sm text-gray-500" id="userEmail"></span>
-                <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm" style="background: linear-gradient(135deg, var(--teal), var(--blue)); color: white;" id="userAvatar">J</div>
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm" style="background: linear-gradient(135deg, var(--teal), var(--blue)); color: #1A1A2E;" id="userAvatar">J</div>
             </div>
         </div>
 
@@ -623,7 +669,7 @@
             log.innerHTML = activityData.map(a => `
                 <div class="flex items-center justify-between py-3 border-b border-gray-800">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs" style="background: ${a.status === 'delivered' ? 'rgba(0,180,140,0.15)' : 'rgba(100,100,140,0.15)'}; color: ${a.status === 'delivered' ? 'var(--teal)' : '#888'};">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs" style="background: ${a.status === 'delivered' ? 'rgba(0,180,140,0.15)' : 'rgba(100,100,140,0.15)'}; color: ${a.status === 'delivered' ? 'var(--teal)' : '#6B7280'};">
                             ${a.status === 'delivered' ? '\u2713' : '\u2699'}
                         </div>
                         <div>
