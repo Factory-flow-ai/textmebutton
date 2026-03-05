@@ -774,6 +774,13 @@
                     </div>
                     <div class="flex items-center gap-4">
                             <button class="text-sm font-semibold cursor-pointer" style="color: var(--teal);" onclick="testButton(${i})">Send Test SMS</button>
+                    <button class="text-sm text-gray-500 cursor-pointer hover:text-yellow-500" onclick="toggleButtonStatus(${i})">
+                                ${btn.status === 'live' ? 'Pause' : 'Resume'}
+                            </button>
+                        </div>
+                        <button class="text-sm text-gray-600 cursor-pointer hover:text-red-400" onclick="deleteButton(${i})">Delete</button>
+                    </div>
+                </div>
                     <div style="margin-top:16px;padding:14px;background:linear-gradient(135deg,#F0FDF9,#E0F7FA);border-radius:12px;border:1px solid #B2DFDB;">
                         <div style="display:flex;align-items:center;gap:10px;">
                             <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#00B48C,#0099FF);display:flex;align-items:center;justify-content:center;">
@@ -781,7 +788,7 @@
                             </div>
                             <div style="flex:1;">
                                 <div style="font-size:13px;font-weight:700;color:#1A1A2E;">Want FREE push notifications?</div>
-                                <div style="font-size:11px;color:#6B7280;">Download the TextMeButton app for instant alerts &mdash; no SMS fees!</div>
+                                <div style="font-size:11px;color:#6B7280;">Download the TextMeButton app for instant alerts &#8212; no SMS fees!</div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px;">
@@ -789,13 +796,6 @@
                             <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#9654; Google Play</a>
                         </div>
                     </div>
-                            <button class="text-sm text-gray-500 cursor-pointer hover:text-yellow-500" onclick="toggleButtonStatus(${i})">
-                                ${btn.status === 'live' ? 'Pause' : 'Resume'}
-                            </button>
-                        </div>
-                        <button class="text-sm text-gray-600 cursor-pointer hover:text-red-400" onclick="deleteButton(${i})">Delete</button>
-                    </div>
-                </div>
             `).join('');
             document.getElementById('buttonCount').textContent = buttons.length + ' button' + (buttons.length !== 1 ? 's' : '') + ' registered';
         }
