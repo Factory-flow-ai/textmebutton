@@ -645,9 +645,18 @@
     <!-- Pricing Section -->
     <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4 scroll-reveal">Super Early Bird Pricing</h2>
-            <p class="text-gray-600 mb-12 text-lg scroll-reveal" style="animation-delay: 0.1s">
-                Lock in the lowest price before Kickstarter launches
+            <div class="inline-block mb-4 scroll-reveal">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider" style="background: rgba(0,180,140,0.15); color: #00B48C;">
+                    <span style="display:inline-block;width:8px;height:8px;background:#00B48C;border-radius:50%;animation:pulse 2s infinite;"></span>
+                    Kickstarter Exclusive
+                </span>
+            </div>
+            <h2 class="text-4xl font-bold mb-4 scroll-reveal" style="animation-delay: 0.05s">Super Early Bird Pricing</h2>
+            <p class="text-gray-600 mb-3 text-lg scroll-reveal" style="animation-delay: 0.1s">
+                These prices are <strong>only available during our Kickstarter campaign</strong>. Once it ends, retail pricing kicks in.
+            </p>
+            <p class="text-gray-400 mb-12 text-sm scroll-reveal" style="animation-delay: 0.15s">
+                Limited quantities at each tier
             </p>
 
             <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -656,9 +665,10 @@
                     <div class="mb-6">
                         <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">BASIC</p>
                         <div class="mb-2">
+                            <span class="text-gray-400 text-lg line-through mr-2">$59.99</span>
                             <span class="text-4xl font-bold gradient-text">$39.99</span>
                         </div>
-                        <p class="text-gray-500 text-sm">Get started with one button</p>
+                        <p class="text-teal-600 text-sm font-semibold">Save 33% — Kickstarter only</p>
                     </div>
 
                     <div class="border-t border-gray-200 pt-6 mb-6">
@@ -699,9 +709,10 @@
                     <div class="mb-6">
                         <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">STARTER PACK</p>
                         <div class="mb-2">
+                            <span class="text-gray-400 text-lg line-through mr-2">$89.99</span>
                             <span class="text-4xl font-bold gradient-text">$54.99</span>
                         </div>
-                        <p class="text-gray-500 text-sm">Two buttons, twice the coverage</p>
+                        <p class="text-teal-600 text-sm font-semibold">Save 39% — Kickstarter only</p>
                     </div>
 
                     <div class="border-t border-gray-200 pt-6 mb-6">
@@ -742,9 +753,10 @@
                     <div class="mb-6">
                         <p class="text-gray-600 text-sm uppercase tracking-wider mb-2">FAMILY PACK</p>
                         <div class="mb-2">
+                            <span class="text-gray-400 text-lg line-through mr-2">$149.99</span>
                             <span class="text-4xl font-bold gradient-text">$99.99</span>
                         </div>
-                        <p class="text-gray-500 text-sm">Cover the whole household</p>
+                        <p class="text-teal-600 text-sm font-semibold">Save 33% — Kickstarter only</p>
                     </div>
 
                     <div class="border-t border-gray-200 pt-6 mb-6">
@@ -775,6 +787,28 @@
                     <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
                         Join the Waitlist
                     </button>
+                </div>
+            </div>
+
+            
+            <!-- Retail Pricing Note -->
+            <div class="max-w-5xl mx-auto mt-10 scroll-reveal" style="animation-delay: 0.5s">
+                <div class="border border-gray-200 rounded-xl p-6 bg-white">
+                    <p class="text-sm font-semibold text-gray-700 mb-3">After Kickstarter, retail pricing will be:</p>
+                    <div class="flex justify-center gap-8 text-sm text-gray-500">
+                        <div class="text-center">
+                            <div class="font-bold text-gray-700">$59.99</div>
+                            <div>Basic</div>
+                        </div>
+                        <div class="text-center border-l border-r border-gray-200 px-8">
+                            <div class="font-bold text-gray-700">$89.99</div>
+                            <div>Starter Pack</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold text-gray-700">$149.99</div>
+                            <div>Family Pack</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
