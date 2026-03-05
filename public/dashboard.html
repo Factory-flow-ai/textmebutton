@@ -213,6 +213,36 @@
         .toggle-track.active { background: var(--teal) !important; }
         a:not(.gradient-btn):not(.sidebar a) { color: var(--teal) !important; }
         .delete-btn, [onclick*="delete"] { color: #DC2626 !important; }
+        
+        /* LIGHT SIDEBAR OVERRIDE */
+        .sidebar {
+            background: #FFFFFF !important;
+            border-right: 1px solid #E5E7EB !important;
+        }
+        .sidebar .logo span:first-child { color: #1A1A2E !important; }
+        .sidebar .logo span:last-child { color: var(--teal) !important; }
+        .sidebar a {
+            color: #6B7280 !important;
+        }
+        .sidebar a:hover {
+            color: #1A1A2E !important;
+            background: #F3F4F6 !important;
+        }
+        .sidebar a.active {
+            background: #F0FDF9 !important;
+            color: var(--teal) !important;
+        }
+        .sidebar .sign-out, .sidebar [onclick*="sign"] {
+            color: #6B7280 !important;
+            border-top: 1px solid #E5E7EB !important;
+        }
+        .sidebar .sign-out:hover, .sidebar [onclick*="sign"]:hover {
+            color: #DC2626 !important;
+        }
+        .sidebar .pro-badge, .sidebar .badge {
+            background: #F0FDF9 !important;
+            color: var(--teal) !important;
+        }
         </style>
 </head>
 <body>
