@@ -155,6 +155,73 @@
             border-radius: 50%; border: 3px solid white;
             box-shadow: 0 0 0 2px #00B48C;
         }
+    
+        /* Setup Demo Section */
+        .setup-step {
+            opacity: 0.4;
+            transform: translateX(-10px);
+            transition: all 0.5s ease;
+        }
+        .setup-step.step-complete {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .setup-step.step-complete .step-check {
+            background: linear-gradient(135deg, #00B48C, #0099FF);
+            color: white;
+            transform: scale(1.1);
+        }
+        .step-check {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+        #setup-timer {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00B48C, #0099FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+            font-variant-numeric: tabular-nums;
+        }
+        #setup-timer.timer-done {
+            animation: timerPulse 0.6s ease;
+        }
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .phone-mockup {
+            background: #1a1a2e;
+            border-radius: 24px;
+            padding: 12px;
+            max-width: 260px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .phone-screen {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            min-height: 180px;
+        }
+        .sms-bubble {
+            background: #e8faf5;
+            border: 1px solid #00B48C;
+            border-radius: 16px 16px 16px 4px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            color: #333;
+            margin-top: 8px;
+        }
+
     </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -619,7 +686,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99" onclick="trackWaitlist(this)">
                         Join the Waitlist
                     </button>
                 </div>
@@ -662,7 +729,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="99.99" onclick="trackWaitlist(this)">
                         Join the Waitlist
                     </button>
                 </div>
@@ -705,7 +772,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base">
+                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="149.99" onclick="trackWaitlist(this)">
                         Join the Waitlist
                     </button>
                 </div>
@@ -731,6 +798,101 @@
                 <p class="text-gray-400 text-xs mt-6 leading-relaxed">
                     <strong class="text-gray-500">About texting costs:</strong> Every text TextMeButton sends is a real SMS delivered through our messaging infrastructure. Each message costs us real money to deliver, which is why texting isn't free forever. That said, your first 12 months include 100 texts/month completely free. After that, text packs start at just $2.99/month for 500 texts, or go unlimited for $7.99/month. Most families never exceed the free tier.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Setup Demo Section - "Can I customize the text message?" -->
+    <section id="setup-demo" class="py-20 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(180deg, #0C0C0E 0%, #141428 100%);">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-3 scroll-reveal text-white">
+                Can I customize the text message?
+            </h2>
+            <p class="text-center text-gray-400 mb-4 scroll-reveal" style="animation-delay: 0.1s">
+                Absolutely. Name your button, write your message, and you're done.
+            </p>
+            <p class="text-center mb-14 scroll-reveal" style="animation-delay: 0.15s">
+                <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background: rgba(0,180,140,0.15); color: #00B48C;">
+                    Average setup time: 37 seconds
+                </span>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left: Steps with live timer -->
+                <div class="scroll-reveal" style="animation-delay: 0.2s">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="text-center">
+                            <div id="setup-timer" class="leading-none">0s</div>
+                            <div class="text-gray-500 text-xs mt-1 font-medium">ELAPSED</div>
+                        </div>
+                        <div class="h-12 w-px bg-gray-700"></div>
+                        <div class="text-gray-400 text-sm">Watch how fast setup takes</div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="setup-step flex items-center gap-4">
+                            <div class="step-check">1</div>
+                            <div>
+                                <div class="text-white font-semibold">Sign in with Google</div>
+                                <div class="text-gray-500 text-sm">One-tap authentication</div>
+                            </div>
+                        </div>
+                        <div class="setup-step flex items-center gap-4">
+                            <div class="step-check">2</div>
+                            <div>
+                                <div class="text-white font-semibold">Enter your phone number</div>
+                                <div class="text-gray-500 text-sm">Auto-detects your timezone</div>
+                            </div>
+                        </div>
+                        <div class="setup-step flex items-center gap-4">
+                            <div class="step-check">3</div>
+                            <div>
+                                <div class="text-white font-semibold">Name your button & write your message</div>
+                                <div class="text-gray-500 text-sm">e.g. "Medicine Reminder" → "Jake took his medicine ✅"</div>
+                            </div>
+                        </div>
+                        <div class="setup-step flex items-center gap-4">
+                            <div class="step-check">4</div>
+                            <div>
+                                <div class="text-white font-semibold">Confirm SMS opt-in</div>
+                                <div class="text-gray-500 text-sm">Quick legal checkbox</div>
+                            </div>
+                        </div>
+                        <div class="setup-step flex items-center gap-4">
+                            <div class="step-check">✓</div>
+                            <div>
+                                <div class="text-white font-semibold">Go Live!</div>
+                                <div class="text-gray-500 text-sm">Your button is ready to use</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Phone mockup showing custom SMS -->
+                <div class="scroll-reveal flex justify-center" style="animation-delay: 0.3s">
+                    <div class="phone-mockup">
+                        <div class="flex justify-center mb-2">
+                            <div style="width: 80px; height: 6px; background: #333; border-radius: 3px;"></div>
+                        </div>
+                        <div class="phone-screen">
+                            <div class="text-xs text-gray-500 mb-1">Messages</div>
+                            <div class="text-sm font-semibold text-gray-800 mb-3">TextMeButton</div>
+                            <div class="sms-bubble">
+                                Jake took his medicine ✅
+                            </div>
+                            <div class="text-xs text-gray-400 mt-2 text-right">Just now</div>
+                            <div class="sms-bubble" style="margin-top: 12px; background: #f0f4ff; border-color: #0099FF;">
+                                Chickens fed and watered 🐔
+                            </div>
+                            <div class="text-xs text-gray-400 mt-2 text-right">2 min ago</div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <span class="text-gray-500 text-xs">Your messages. Your words.</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -997,6 +1159,61 @@
                 }
             });
         });
-    </script>
+    
+        // Waitlist button tracking - logs tier selection invisibly
+        function trackWaitlist(btn) {
+            const tier = btn.getAttribute('data-tier');
+            const price = btn.getAttribute('data-price');
+            const timestamp = new Date().toISOString();
+            // Store locally
+            const clicks = JSON.parse(localStorage.getItem('tmb_waitlist_clicks') || '[]');
+            clicks.push({ tier, price, timestamp, page: window.location.href });
+            localStorage.setItem('tmb_waitlist_clicks', JSON.stringify(clicks));
+            // Send to analytics endpoint (beacon for reliability)
+            if (navigator.sendBeacon) {
+                const data = new Blob([JSON.stringify({ event: 'waitlist_click', tier, price, timestamp })], { type: 'application/json' });
+                navigator.sendBeacon('https://textmebutton.com/api/track', data);
+            }
+            // Also fire Google Analytics event if available
+            if (typeof gtag === 'function') {
+                gtag('event', 'waitlist_click', { tier: tier, price: price });
+            }
+            // Console log for owner debugging
+            console.log('[TMB Track] Waitlist click:', tier, price, timestamp);
+        }
+
+        // Setup demo timer animation
+        function startSetupTimer() {
+            const timerEl = document.getElementById('setup-timer');
+            const stepsEl = document.querySelectorAll('.setup-step');
+            if (!timerEl) return;
+            let seconds = 0;
+            const stepTimes = [0, 8, 18, 28, 34];
+            const interval = setInterval(() => {
+                seconds++;
+                timerEl.textContent = seconds + 's';
+                stepsEl.forEach((step, i) => {
+                    if (seconds >= stepTimes[i]) {
+                        step.classList.add('step-complete');
+                    }
+                });
+                if (seconds >= 37) {
+                    clearInterval(interval);
+                    timerEl.classList.add('timer-done');
+                }
+            }, 80);
+        }
+        // Trigger timer when section scrolls into view
+        const setupObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startSetupTimer();
+                    setupObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        const setupSection = document.getElementById('setup-demo');
+        if (setupSection) setupObserver.observe(setupSection);
+</script>
 </body>
 </html>
