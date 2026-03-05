@@ -1183,11 +1183,10 @@
         }
 
         // Attach tracking to all waitlist buttons with data-tier
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('[data-tier]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    trackWaitlist(this);
-                });
+        // Attach tracking immediately (script runs after DOM is parsed)
+        document.querySelectorAll('[data-tier]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                trackWaitlist(this);
             });
         });
 
