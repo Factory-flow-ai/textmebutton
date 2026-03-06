@@ -45,8 +45,7 @@
 <div class="step-dot on" id="d1">1</div><div class="step-line off" id="l1"></div>
 <div class="step-dot off" id="d2">2</div><div class="step-line off" id="l2"></div>
 <div class="step-dot off" id="d3">3</div><div class="step-line off" id="l3"></div>
-<div class="step-dot off" id="d4">4</div><div class="step-line off" id="l4"></div>
-<div class="step-dot off" id="d5">5</div>
+<div class="step-dot off" id="d4">4</div>
 </div>
 
 <!-- STEP 1: Google Sign-In -->
@@ -117,11 +116,10 @@ Sign in with Google
 <div class="sms-bubble" id="optPrev"></div></div></div>
 <button class="btn-coral w-full py-3 rounded-xl font-bold text-lg mb-3" id="sendOpt" onclick="sendOpt()">Send Confirmation Text</button>
 <div id="optSent" class="hidden text-center"><div class="bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium mb-4">✅ Confirmation text sent! Waiting for recipient to reply YES.</div>
-<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg" onclick="go(5)">Continue</button></div>
-</div></div>
+<button class="btn-coral w-full py-3 rounded-xl font-bold text-lg" onclick="go(4)">Continue</button></div>
+</div>
+<!-- Review & Go Live -->
 
-<!-- STEP 5: Summary + Go Live -->
-<div id="s5" class="hidden fade-in">
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
 <div class="text-4xl mb-4 text-center">🚀</div>
 <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">You're almost live!</h2>
@@ -137,7 +135,11 @@ Sign in with Google
 <div id="liveOk" class="hidden text-center mt-6"><div class="bg-green-50 border-2 border-green-200 rounded-2xl p-8">
 <div class="text-5xl mb-4">🎉</div><h3 class="text-2xl font-bold text-green-700 mb-2">Your button is LIVE!</h3>
 <p class="text-green-600">Every press will now text <strong id="livePh"></strong> instantly.</p></div></div>
-</div></div>
+</div>
+</div>
+
+<!-- STEP 5: Summary + Go Live -->
+
 
 <div class="text-center mt-6"><button class="text-gray-400 hover:text-gray-600 text-sm font-medium" onclick="goBack()" id="backBtn" style="display:none">← Back to previous step</button></div>
 </div>
@@ -155,7 +157,7 @@ function chk2(){const d=S.phone.replace(/\D/g,'');document.getElementById('btn2'
 function updPrev(){const n=S.bName||'ButtonName',m=S.msg||'Your message here',t=S.tz||'TZ';const now=new Date(),h=(now.getHours()%12)||12,mi=now.getMinutes().toString().padStart(2,'0'),ap=now.getHours()>=12?'PM':'AM';const full=n+': '+m+' \u00b7 '+t+' \u00b7 '+h+':'+mi+' '+ap;const pr=document.getElementById('smsPrev');if(!S.bName&&!S.msg)pr.innerHTML='<span class="text-gray-400 italic">Your message will appear here...</span>';else pr.textContent=full;const cc=document.getElementById('cc'),len=full.length;cc.textContent=len+' / 160';cc.className='char-counter text-sm font-medium';if(len>160)cc.classList.add('danger');else if(len>140)cc.classList.add('warning');document.getElementById('btn3').disabled=!(S.bName.length>0&&S.msg.length>0&&len<=160)}
 function sendOpt(){S.optSent=true;document.getElementById('sendOpt').classList.add('hidden');document.getElementById('optSent').classList.remove('hidden')}
 function goLive(){document.getElementById('goLiveBtn').classList.add('hidden');document.getElementById('liveOk').classList.remove('hidden');document.getElementById('livePh').textContent=S.phone;document.getElementById('backBtn').style.display='none'}
-function go(s){for(let i=1;i<=5;i++)document.getElementById('s'+i).classList.add('hidden');document.getElementById('s'+s).classList.remove('hidden');S.step=s;for(let i=1;i<=5;i++){const d=document.getElementById('d'+i);d.className='step-dot';if(i<s){d.classList.add('done');d.innerHTML='\u2713'}else if(i===s){d.classList.add('on');d.innerHTML=i}else{d.classList.add('off');d.innerHTML=i}if(i<5){const l=document.getElementById('l'+i);l.className='step-line';if(i<s)l.classList.add('done');else if(i===s)l.classList.add('on');else l.classList.add('off')}}if(s===4){document.getElementById('optPh').textContent=S.phone;document.getElementById('optPrev').textContent='TextMeButton: You\u2019ve been added to receive button alerts for "'+S.bName+'". Reply YES to confirm, or STOP to opt out. Msg & data rates may apply.'}if(s===5){document.getElementById('xEmail').textContent=S.email;document.getElementById('xPhone').textContent=S.phone+' ('+S.tz+')';document.getElementById('xName').textContent=S.bName;const now=new Date(),h=(now.getHours()%12)||12,mi=now.getMinutes().toString().padStart(2,'0'),ap=now.getHours()>=12?'PM':'AM';document.getElementById('xMsg').textContent=S.bName+': '+S.msg+' \u00b7 '+S.tz+' \u00b7 '+h+':'+mi+' '+ap}document.getElementById('backBtn').style.display=s>1?'inline':'none';window.scrollTo({top:0,behavior:'smooth'})}
+function go(s){for(let i=1;i<=4;i++)document.getElementById('s'+i).classList.add('hidden');document.getElementById('s'+s).classList.remove('hidden');S.step=s;for(let i=1;i<=4;i++){const d=document.getElementById('d'+i);d.className='step-dot';if(i<s){d.classList.add('done');d.innerHTML='\u2713'}else if(i===s){d.classList.add('on');d.innerHTML=i}else{d.classList.add('off');d.innerHTML=i}if(i<5){const l=document.getElementById('l'+i);l.className='step-line';if(i<s)l.classList.add('done');else if(i===s)l.classList.add('on');else l.classList.add('off')}}if(s===4){document.getElementById('optPh').textContent=S.phone;document.getElementById('optPrev').textContent='TextMeButton: You\u2019ve been added to receive button alerts for "'+S.bName+'". Reply YES to confirm, or STOP to opt out. Msg & data rates may apply.'}if(s===5){document.getElementById('xEmail').textContent=S.email;document.getElementById('xPhone').textContent=S.phone+' ('+S.tz+')';document.getElementById('xName').textContent=S.bName;const now=new Date(),h=(now.getHours()%12)||12,mi=now.getMinutes().toString().padStart(2,'0'),ap=now.getHours()>=12?'PM':'AM';document.getElementById('xMsg').textContent=S.bName+': '+S.msg+' \u00b7 '+S.tz+' \u00b7 '+h+':'+mi+' '+ap}document.getElementById('backBtn').style.display=s>1?'inline':'none';window.scrollTo({top:0,behavior:'smooth'})}
 function goBack(){if(S.step>1)go(S.step-1)}
 </script>
 </body>
