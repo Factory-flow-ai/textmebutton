@@ -531,6 +531,8 @@
         let buttons = [
             {
                 id: 'btn-001',
+                mac: 'A4:C1:38:2B:9E:01',
+                type: 'Kinetic Switch',
                 name: 'Medicine Reminder', timezone: 'US/Mountain',
                 message: 'Jake took his medicine \u2705',
                 status: 'live',
@@ -543,6 +545,8 @@
             },
             {
                 id: 'btn-002',
+                mac: 'A4:C1:38:2B:9E:02',
+                type: 'Kinetic Switch',
                 name: 'Kids Home Safe', timezone: 'US/Mountain',
                 message: 'The kids made it home safe \ud83c\udfe0',
                 status: 'live',
@@ -555,6 +559,8 @@
             },
             {
                 id: 'btn-003',
+                mac: 'A4:C1:38:2B:9E:03',
+                type: 'Kinetic Switch',
                 name: 'Chickens Fed', timezone: 'US/Mountain',
                 message: 'Chickens fed and watered \ud83d\udc14',
                 status: 'paused',
@@ -627,8 +633,9 @@
                         <div class="flex items-center gap-3">
                             <span class="status-dot ${btn.status}"></span>
                             <div>
-                                <div class="text-white font-bold">${btn.name}</div>
-                                <div class="text-gray-500 text-xs">ID: ${btn.id} &middot; ${btn.totalPresses} presses &middot; Last: ${btn.lastPressed}</div>
+                                <div class="font-bold" style="color:#1A1A2E;display:flex;align-items:center;gap:6px;"><span id="name-display-${i}" onclick="startEditName(${i})" style="cursor:pointer;" title="Click to rename">${btn.name}</span><span onclick="startEditName(${i})" style="cursor:pointer;font-size:11px;color:#9CA3AF;" title="Edit name">&#9998;</span><input id="name-input-${i}" type="text" value="${btn.name}" onblur="saveName(${i})" onkeydown="if(event.key==='Enter')saveName(${i})" style="display:none;font-size:14px;font-weight:700;color:#1A1A2E;border:1px solid #00B48C;border-radius:4px;padding:2px 6px;background:#F9FAFB;width:200px;"></div>
+                                <div class="text-gray-500 text-xs">${btn.type || 'Kinetic Switch'} &middot; ${btn.totalPresses} presses &middot; Last: ${btn.lastPressed}</div>
+                                <div class="text-gray-500" style="font-size:9px;opacity:0.7;">MAC: ${btn.mac || '--'} &middot; ID: ${btn.id}</div>
                             </div>
                         </div>
                         <div style="display:flex;align-items:center;gap:8px;">
@@ -644,6 +651,8 @@
                         </div>
                     </div>
 
+                    <div style="display:flex;align-items:center;justify-content:center;margin:-8px 0 8px;"><button onclick="toggleCardExpand(${i})" style="background:none;border:none;cursor:pointer;color:#9CA3AF;font-size:11px;display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:16px;transition:0.2s;" onmouseover="this.style.background='#F0FDF9';this.style.color='#00B48C'" onmouseout="this.style.background='none';this.style.color='#9CA3AF'"><span id="expand-icon-${i}" style="transition:0.3s;display:inline-block;transform:rotate(0deg);">&#9660;</span> <span id="expand-text-${i}">Show Settings</span></button></div>
+<div id="card-details-${i}" style="display:none;">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="text-gray-500 text-xs block mb-1">Button Name</label>
@@ -795,6 +804,7 @@
                             <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#63743; App Store</a>
                             <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#9654; Google Play</a>
                         </div>
+                    </div>
                     </div>
             `).join('');
             document.getElementById('buttonCount').textContent = buttons.length + ' button' + (buttons.length !== 1 ? 's' : '') + ' registered';
@@ -977,6 +987,35 @@
     function toggleButtonActive(idx) {
       buttons[idx].active = !buttons[idx].active;
       renderButtons();
+    }
+
+    function startEditName(idx) {
+      document.getElementById("name-display-" + idx).style.display = "none";
+      document.getElementById("name-display-" + idx).nextElementSibling.style.display = "none";
+      var input = document.getElementById("name-input-" + idx);
+      input.style.display = "inline-block";
+      input.focus();
+      input.select();
+    }
+    function saveName(idx) {
+      var input = document.getElementById("name-input-" + idx);
+      var val = input.value.trim();
+      if (val) buttons[idx].name = val;
+      renderButtons();
+    }
+    function toggleCardExpand(idx) {
+      var details = document.getElementById("card-details-" + idx);
+      var icon = document.getElementById("expand-icon-" + idx);
+      var text = document.getElementById("expand-text-" + idx);
+      if (details.style.display === "none") {
+        details.style.display = "block";
+        icon.style.transform = "rotate(180deg)";
+        text.textContent = "Hide Settings";
+      } else {
+        details.style.display = "none";
+        icon.style.transform = "rotate(0deg)";
+        text.textContent = "Show Settings";
+      }
     }
 </script>
 
