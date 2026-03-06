@@ -633,7 +633,7 @@
                         <div class="flex items-center gap-3">
                             <span class="status-dot ${btn.status}"></span>
                             <div>
-                                <div class="font-bold" style="color:#1A1A2E;display:flex;align-items:center;gap:6px;"><span id="name-display-${i}" onclick="startEditName(${i})" style="cursor:pointer;" title="Click to rename">${btn.name}</span><span onclick="startEditName(${i})" style="cursor:pointer;font-size:11px;color:#9CA3AF;" title="Edit name">&#9998;</span><input id="name-input-${i}" type="text" value="${btn.name}" onblur="saveName(${i})" onkeydown="if(event.key==='Enter')saveName(${i})" style="display:none;font-size:14px;font-weight:700;color:#1A1A2E;border:1px solid #00B48C;border-radius:4px;padding:2px 6px;background:#F9FAFB;width:200px;"></div>
+                                <div class="font-bold" style="color:#1A1A2E;display:flex;align-items:center;gap:6px;"><span id="name-display-${i}" onclick="startEditName(${i})" style="cursor:pointer;" title="Click to rename">${btn.name}</span><span onclick="startEditName(${i})" style="cursor:pointer;font-size:13px;color:#6B7280;background:#F3F4F6;padding:2px 6px;border-radius:4px;border:1px solid #E5E7EB;transition:all 0.2s;" title="Edit name" onmouseover="this.style.background='#E5E7EB';this.style.color='#374151'" onmouseout="this.style.background='#F3F4F6';this.style.color='#6B7280'">&#9998; Edit</span><input id="name-input-${i}" type="text" value="${btn.name}" onblur="saveName(${i})" onkeydown="if(event.key==='Enter')saveName(${i})" style="display:none;font-size:14px;font-weight:700;color:#1A1A2E;border:1px solid #00B48C;border-radius:4px;padding:2px 6px;background:#F9FAFB;width:200px;"></div>
                                 <div class="text-gray-500 text-xs">${btn.type || 'Kinetic Switch'} &middot; ${btn.totalPresses} presses &middot; Last: ${btn.lastPressed}</div>
                                 <div class="text-gray-500" style="font-size:9px;opacity:0.7;">MAC: ${btn.mac || '--'} &middot; ID: ${btn.id}</div>
                             </div>
@@ -665,7 +665,6 @@
                     </div>
 
                     
-                    </div>
                     <div style="margin-top:10px;">
                         <label style="font-size:12px;font-weight:600;color:#4B5563;display:block;margin-bottom:4px;">Timezone</label>
                         <select data-btn-id="${btn.id}" data-field="timezone" style="width:100%;padding:8px 12px;border-radius:8px;font-size:14px;background:#F9FAFB;color:#1A1A2E;border:1px solid #D1D5DB;">
@@ -748,13 +747,13 @@
                         <div style="margin-top:10px;">
                             <label style="font-size:11px;font-weight:600;color:#6B7280;display:block;margin-bottom:3px;">Schedule (only active during)</label>
                             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;">Mon</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;">Tue</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;">Wed</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;">Thu</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;">Fri</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;">Sat</span>
-                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;">Sun</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;" onclick="toggleDay(this)">Mon</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;" onclick="toggleDay(this)">Tue</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;" onclick="toggleDay(this)">Wed</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;" onclick="toggleDay(this)">Thu</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#00B48C;color:white;cursor:pointer;" onclick="toggleDay(this)">Fri</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;" onclick="toggleDay(this)">Sat</span>
+                                <span style="padding:4px 10px;border-radius:16px;font-size:11px;background:#E5E7EB;color:#6B7280;cursor:pointer;" onclick="toggleDay(this)">Sun</span>
                             </div>
                             <div style="margin-top:16px;padding-top:14px;border-top:1px solid #D1F5E8;">
                                 <div style="font-size:12px;font-weight:700;color:#1A1A2E;margin-bottom:8px;">Missed Press Alert</div>
@@ -767,7 +766,8 @@
                                         <span style="position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:0.3s;"></span>
                                     </label>
                                 </div>
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;">
+                                <div id="missed-press-times-${i}" style="display:none;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;">
                                     <div>
                                         <label style="font-size:11px;font-weight:600;color:#4B5563;display:block;margin-bottom:4px;">Expected between</label>
                                         <input type="time" value="06:00" style="width:100%;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;background:#F9FAFB;color:#1A1A2E;">
@@ -778,6 +778,7 @@
                                     </div>
                                 </div>
                                 <div style="font-size:10px;color:#6B7280;font-style:italic;">Example: Tend Chickens button &#8212; alert me if NOT pressed between 6 AM and 9 AM daily</div>
+                    </div>
                             </div>
                         </div>
                     </div>
@@ -804,6 +805,7 @@
                             <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#63743; App Store</a>
                             <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:#000;color:white;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;">&#9654; Google Play</a>
                         </div>
+                    </div>
                     </div>
                     </div>
             `).join('');
@@ -989,7 +991,33 @@
       document.getElementById("pair-mac").textContent = "MAC: " + mac + " | Kinetic Switch";
       document.getElementById("setup-step-1").style.display = "block";
     }
-    function toggleButtonActive(idx) {
+    
+        function toggleDay(el) {
+            var isActive = el.style.background === 'rgb(0, 180, 140)' || el.style.background === '#00B48C';
+            if (isActive) {
+                el.style.background = '#E5E7EB';
+                el.style.color = '#6B7280';
+            } else {
+                el.style.background = '#00B48C';
+                el.style.color = 'white';
+            }
+        }
+        function toggleMissedPress(cb, idx) {
+            var timesDiv = document.getElementById('missed-press-times-' + idx);
+            if (timesDiv) {
+                timesDiv.style.display = cb.checked ? 'block' : 'none';
+            }
+            // Also update toggle track color
+            var track = cb.parentElement.querySelector('span');
+            if (track) {
+                track.style.background = cb.checked ? '#00B48C' : '#D1D5DB';
+            }
+            var thumb = cb.parentElement.querySelectorAll('span')[1];
+            if (thumb) {
+                thumb.style.left = cb.checked ? '18px' : '2px';
+            }
+        }
+        function toggleButtonActive(idx) {
       buttons[idx].active = !buttons[idx].active;
       renderButtons();
     }
