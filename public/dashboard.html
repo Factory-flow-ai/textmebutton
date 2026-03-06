@@ -652,8 +652,8 @@
                     </div>
 
                     <div style="display:flex;align-items:center;justify-content:center;margin:-8px 0 8px;"><button onclick="toggleCardExpand(${i})" style="background:none;border:none;cursor:pointer;color:#9CA3AF;font-size:11px;display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:16px;transition:0.2s;" onmouseover="this.style.background='#F0FDF9';this.style.color='#00B48C'" onmouseout="this.style.background='none';this.style.color='#9CA3AF'"><span id="expand-icon-${i}" style="transition:0.3s;display:inline-block;transform:rotate(0deg);">&#9660;</span> <span id="expand-text-${i}">Show Settings</span></button></div>
-<div id="card-details-${i}" style="display:none;">
-                    <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div id="card-details-${i}" style="display:none;">
+<div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="text-gray-500 text-xs block mb-1">Button Name</label>
                             <input type="text" class="input-dark text-sm" value="${btn.name}" onchange="updateButton(${i}, 'name', this.value)">
@@ -699,7 +699,7 @@
                 </div>
                     </div>
 
-                    <div class="flex items-center justify-between border-t border-gray-800 pt-3">
+                    <div class="flex items-center justify-between flex-wrap gap-2 border-t border-gray-200 pt-3">
                         
                     <div style="margin-top:16px;padding:16px;background:#F8FFFE;border:1px solid #D1FAE5;border-radius:12px;">
                         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
@@ -921,6 +921,7 @@
                         <span class="badge-${a.status === 'delivered' ? 'teal' : 'blue'} text-xs">${a.status}</span>
                     </div>
                 </div>
+                    </div>
             `).join('');
         }
 
