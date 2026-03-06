@@ -593,7 +593,10 @@
         }
         function handleLogout() {
             localStorage.removeItem('tmb_logged_in');
-            document.getElementById('loginOverlay').classList.remove('hidden');
+            if (document.getElementById('loginOverlay')) {
+                document.getElementById('loginOverlay').classList.remove('hidden');
+            }
+            window.location.href = '/';
         }
 
         // ===== NAVIGATION =====
@@ -651,7 +654,7 @@
                         </div>
                     </div>
 
-                    <div style="display:flex;align-items:center;justify-content:center;margin:-8px 0 8px;"><button onclick="toggleCardExpand(${i})" style="background:none;border:none;cursor:pointer;color:#9CA3AF;font-size:11px;display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:16px;transition:0.2s;" onmouseover="this.style.background='#F0FDF9';this.style.color='#00B48C'" onmouseout="this.style.background='none';this.style.color='#9CA3AF'"><span id="expand-icon-${i}" style="transition:0.3s;display:inline-block;transform:rotate(0deg);">&#9660;</span> <span id="expand-text-${i}">Show Settings</span></button></div>
+                    <div style="display:flex;align-items:center;justify-content:center;margin:-8px 0 8px;"><button onclick="toggleCardExpand(${i})" style="background:#F0FDF9;border:1px solid #00B48C;cursor:pointer;color:#00B48C;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:20px;transition:0.2s;" onmouseover="this.style.background='#00B48C';this.style.color='white'" onmouseout="this.style.background='#F0FDF9';this.style.color='#00B48C'"><span id="expand-icon-${i}" style="transition:0.3s;display:inline-block;transform:rotate(0deg);">&#9660;</span> <span id="expand-text-${i}">Show Settings</span></button></div>
                     <div id="card-details-${i}" style="display:none;">
 <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
@@ -783,12 +786,12 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-4">
-                            <button class="text-sm font-semibold cursor-pointer" style="color: var(--teal);" onclick="testButton(${i})">Send Test SMS</button>
-                    <button class="text-sm text-gray-500 cursor-pointer hover:text-yellow-500" onclick="toggleButtonStatus(${i})">
+                            <button class="text-sm font-semibold cursor-pointer" style="color:#00B48C;background:#F0FDF9;border:1px solid #00B48C;padding:8px 16px;border-radius:8px;transition:0.2s;" onmouseover="this.style.background='#00B48C';this.style.color='white'" onmouseout="this.style.background='#F0FDF9';this.style.color='#00B48C'" onclick="testButton(${i})">Send Test SMS</button>
+                    <button class="text-sm font-semibold cursor-pointer" style="color:#F59E0B;background:#FFFBEB;border:1px solid #F59E0B;padding:8px 16px;border-radius:8px;transition:0.2s;" onmouseover="this.style.background='#F59E0B';this.style.color='white'" onmouseout="this.style.background='#FFFBEB';this.style.color='#F59E0B'" onclick="toggleButtonStatus(${i})">
                                 ${btn.status === 'live' ? 'Pause' : 'Resume'}
                             </button>
                         </div>
-                        <button class="text-sm text-gray-600 cursor-pointer hover:text-red-400" onclick="deleteButton(${i})">Delete</button>
+                        <button class="text-sm font-semibold cursor-pointer" style="color:#EF4444;background:#FEF2F2;border:1px solid #EF4444;padding:8px 16px;border-radius:8px;transition:0.2s;" onmouseover="this.style.background='#EF4444';this.style.color='white'" onmouseout="this.style.background='#FEF2F2';this.style.color='#EF4444'" onclick="deleteButton(${i})">Delete</button>
                     </div>
                 </div>
                     <div style="margin-top:16px;padding:14px;background:linear-gradient(135deg,#F0FDF9,#E0F7FA);border-radius:12px;border:1px solid #B2DFDB;">
