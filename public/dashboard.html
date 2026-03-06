@@ -980,11 +980,15 @@
             }
         }
         function completePairing() {
-            closePairing();
-            buttons.push({id:'btn-'+(buttons.length+1).toString().padStart(3,'0'),name:'New Button',phone:'',message:'Button was pressed!',status:'paused',presses:0,last:'Just now',timezone:'US/Mountain'});
-            renderButtons();
-        }
-        
+      // Show setup wizard instead of immediately adding
+      document.querySelector(".pairing-card").style.display = "none";
+      document.getElementById("setup-wizard").style.display = "block";
+      // Generate random MAC
+      var mac = "A4:C1:38:" + Math.random().toString(16).substring(2,4).toUpperCase() + ":" + Math.random().toString(16).substring(2,4).toUpperCase() + ":" + Math.random().toString(16).substring(2,4).toUpperCase();
+      window._newButtonMAC = mac;
+      document.getElementById("pair-mac").textContent = "MAC: " + mac + " | Kinetic Switch";
+      document.getElementById("setup-step-1").style.display = "block";
+    }
     function toggleButtonActive(idx) {
       buttons[idx].active = !buttons[idx].active;
       renderButtons();
@@ -1017,6 +1021,43 @@
         icon.style.transform = "rotate(0deg)";
         text.textContent = "Show Settings";
       }
+    }
+
+    function setupNext(step) {
+      // Update message preview in real-time
+      if (step === 3) {
+        var msgInput = document.getElementById("setup-message");
+        msgInput.addEventListener("input", function() {
+          document.getElementById("setup-preview-msg").textContent = this.value || "Your message preview";
+        });
+      }
+      for (var s = 1; s <= 3; s++) {
+        document.getElementById("setup-step-" + s).style.display = s === step ? "block" : "none";
+      }
+    }
+    function finishSetup() {
+      var name = document.getElementById("setup-name").value.trim() || "New Button";
+      var phone = document.getElementById("setup-phone").value.trim() || "+1 (555) 000-0000";
+      var message = document.getElementById("setup-message").value.trim() || "Button was pressed";
+      buttons.push({
+        id: "btn-" + String(buttons.length + 1).padStart(3, "0"),
+        name: name,
+        mac: window._newButtonMAC || "A4:C1:38:00:00:00",
+        type: "Kinetic Switch",
+        timezone: "US/Mountain",
+        message: message,
+        status: "live",
+        active: true,
+        phone: phone,
+        lastPressed: "Just now",
+        totalPresses: 0,
+        recipients: [phone],
+        multiRecipient: false
+      });
+      closePairing();
+      document.getElementById("setup-wizard").style.display = "none";
+      document.querySelector(".pairing-card").style.display = "block";
+      renderButtons();
     }
 </script>
 
@@ -1057,9 +1098,9 @@
             </div>
             <div id="pairingStep2" style="display:none;" class="pair-success">
                 <div style="font-size:64px;margin-bottom:16px;">&#10003;</div>
-                <h2 style="margin:0 0 8px;color:#1A1A2E;">Button Paired!</h2>
+                <h2 style="margin:0 0 8px;color:#1A1A2E;">Button Detected!</h2>
                 <p style="color:#6B7280;margin:0 0 20px;">Your new button is ready to configure</p>
-                <button onclick="completePairing()" style="background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:600;">Set Up Button</button>
+                <button onclick="completePairing()" style="background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:600;">Continue Setup</button></div><div id="setup-wizard" style="display:none;width:100%;max-width:360px;margin:0 auto;"><div style="font-size:10px;color:#9CA3AF;text-align:center;margin-bottom:16px;" id="pair-mac">MAC: generating...</div><div id="setup-step-1" style="display:block;"><div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;"><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span><span style="width:8px;height:8px;border-radius:50%;background:#D1D5DB;"></span><span style="width:8px;height:8px;border-radius:50%;background:#D1D5DB;"></span></div><div style="font-size:16px;font-weight:700;color:#1A1A2E;text-align:center;margin-bottom:4px;">Name Your Button</div><div style="font-size:12px;color:#6B7280;text-align:center;margin-bottom:16px;">Give it a name you will remember</div><input id="setup-name" type="text" placeholder="e.g. Medicine Reminder" style="width:100%;padding:12px;border:1px solid #D1D5DB;border-radius:10px;font-size:14px;margin-bottom:12px;box-sizing:border-box;"><button onclick="setupNext(2)" style="width:100%;padding:12px;background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">Next</button></div><div id="setup-step-2" style="display:none;"><div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;"><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span><span style="width:8px;height:8px;border-radius:50%;background:#D1D5DB;"></span></div><div style="font-size:16px;font-weight:700;color:#1A1A2E;text-align:center;margin-bottom:4px;">Who should receive the text?</div><div style="font-size:12px;color:#6B7280;text-align:center;margin-bottom:16px;">Enter the phone number to notify</div><input id="setup-phone" type="tel" placeholder="+1 (555) 123-4567" style="width:100%;padding:12px;border:1px solid #D1D5DB;border-radius:10px;font-size:14px;margin-bottom:12px;box-sizing:border-box;"><button onclick="setupNext(3)" style="width:100%;padding:12px;background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">Next</button></div><div id="setup-step-3" style="display:none;"><div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;"><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span><span style="width:8px;height:8px;border-radius:50%;background:#00B48C;"></span></div><div style="font-size:16px;font-weight:700;color:#1A1A2E;text-align:center;margin-bottom:4px;">What message should be sent?</div><div style="font-size:12px;color:#6B7280;text-align:center;margin-bottom:16px;">This is the text they will receive each press</div><input id="setup-message" type="text" placeholder="e.g. Jake took his medicine" style="width:100%;padding:12px;border:1px solid #D1D5DB;border-radius:10px;font-size:14px;margin-bottom:12px;box-sizing:border-box;"><div style="background:#F0F2F5;border-radius:12px;padding:12px;margin-bottom:12px;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#00B48C,#0099FF);display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:bold;">T</div><div style="font-size:11px;font-weight:600;color:#1A1A2E;">TextMeButton <span style="color:#9CA3AF;font-weight:400;">SMS</span></div></div><div id="setup-preview-msg" style="background:white;border-radius:10px;padding:8px 12px;font-size:13px;color:#1A1A2E;">Your message preview</div></div><button onclick="finishSetup()" style="width:100%;padding:12px;background:linear-gradient(135deg,#00B48C,#0099FF);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">Add Button</button></div></div>
             </div>
             <button onclick="closePairing()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;color:#9CA3AF;cursor:pointer;">&times;</button>
         </div>
