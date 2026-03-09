@@ -258,10 +258,13 @@
                     </h1>
 
                     <p class="text-xl text-gray-400 mb-6 leading-relaxed">
-                        TextMeButton is a self-powered accountability button. Peel it, stick it anywhere, and when someone presses it, you get a text. Runs 20+ years without a single battery change. No wiring. No app required. Just instant notifications that something got done.
+                        TextMeButton is a self-powered accountability button. Peel it, stick it anywhere, and when someone presses it, you get a text. Runs 20+ years without a single battery change. No wiring. No app required. Just instant notifications that something got done.</p>
+                    <p class="text-lg text-gray-400 mb-8">Works out of the box with SMS. No app needed. Download the app later for free push notifications and advanced settings.
                     </p>
 
-                    <p class="text-lg font-semibold text-gray-300 mb-8">No Batteries. No Excuses.</p>
+                    <p class="text-lg font-semibold text-gray-300 mb-8">No Batteries. No Excuses.</h2>
+                    <p class="text-lg text-gray-400 mb-6">Plug the hub into your router. Stick the button anywhere. That&#39;s your whole setup.</p>
+                    <h2 class="hidden</p>
 
                     <!-- Email Form -->
                     <form id="hero-form" class="space-y-4 mb-6" action="#" method="POST">
@@ -270,7 +273,7 @@
                             <input type="email" name="email" placeholder="your@email.com" class="input-focus px-4 py-3 border border-gray-600 bg-gray-800 rounded-lg text-white placeholder-gray-500 w-full" required>
                         </div>
                         <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full sm:w-auto text-lg">
-                            Get Early Access
+                            Preorder for $1
                         </button>
                     </form>
 
@@ -318,7 +321,29 @@
         </div>
     </section>
 
-    <!-- Never Needs Batteries Section -->
+    
+    <!-- Where's the Science? -->
+    <div class="text-center mt-8 mb-4">
+        <button onclick="document.getElementById('scienceModal').classList.remove('hidden')" class="inline-flex items-center text-teal-500 hover:text-teal-400 text-lg font-medium transition">
+            <span class="mr-2">&#x1F52C;</span> Where&#39;s the science?
+        </button>
+    </div>
+    <!-- Science Modal -->
+    <div id="scienceModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+        <div class="bg-gray-900 rounded-2xl max-w-lg w-full p-8 border border-gray-700 relative">
+            <button onclick="document.getElementById('scienceModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold text-white mb-6">How TextMeButton Actually Works</h3>
+            <ul class="space-y-4 text-gray-300">
+                <li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#x26A1;</span><span>Button press generates kinetic energy via energy harvesting</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#x1F504;</span><span>Mechanical energy converts to electrical energy on the spot</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#x1F4E1;</span><span>Wireless signal sent to the Ethernet hub (150ft+ range)</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#x1F4F1;</span><span>Hub sends SMS via internet to configured phone numbers</span></li>
+                <li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#x267E;&#xFE0F;</span><span>No battery, no charging, no solar &mdash; runs 20+ years</span></li>
+            </ul>
+        </div>
+    </div>
+
+<!-- Never Needs Batteries Section -->
     <section id="batteries" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -418,17 +443,7 @@
                     </div>
                 </div>
 
-                <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.3s" onclick="toggleUseCase(this)">
-                    <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('images/sos-emergency.webp'); background-color: #F0FAF7;"></div>
-                    <div class="p-5">
-                        <div class="text-3xl mb-2">&#x1F198;</div>
-                        <h4 class="font-bold text-gray-900 text-lg">SOS / Emergency Alert</h4>
-                    </div>
-                    <div class="use-case-desc text-sm text-gray-600 border-t border-gray-100">
-                        <strong>The scenario:</strong> Your mom lives alone and had a fall last year. She doesn't always have her phone nearby. You've tried medical alert necklaces but she hates wearing them  —  says they make her feel old.<br><br>
-                        <strong>The fix:</strong> Stick TextMeButtons in three spots: next to her bed, in the bathroom, and by her favorite chair. If she falls or feels dizzy or just needs help, one press sends an alert text to you, your sister, and her neighbor: <em>"Mom needs help."</em> No necklace. No phone. No fumbling. Just one press from wherever she is.
-                    </div>
-                </div>
+                
 
                 <div class="use-case-card bg-white rounded-xl shadow-md card-hover scroll-reveal" style="animation-delay: 0.35s" onclick="toggleUseCase(this)">
                     <div class="use-case-img h-44 rounded-t-xl bg-cover bg-center" style="background-image: url('images/chores-done.webp'); background-color: #F0FAF7;"></div>
@@ -571,6 +586,20 @@
         </div>
     </section>
 
+    <!-- Social Proof / Founder Story -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8" style="background: #0C0C0E;">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="bg-gray-800 bg-opacity-40 rounded-2xl p-10 border border-gray-700">
+                <div class="text-4xl mb-6">&#x1F4AC;</div>
+                <blockquote class="text-xl text-gray-300 italic leading-relaxed mb-6">
+                    &ldquo;I built TextMeButton because my wife was tired of wondering if our son Lincoln took his anxiety medicine before school. We tested it in our own home first. It works.&rdquo;
+                </blockquote>
+                <p class="text-teal-500 font-semibold">&mdash; Jared Eggett, Founder</p>
+                <p class="text-gray-500 text-sm mt-2">Currently testing with families in Utah County</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Credibility Section -->
     <section id="credibility" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-6xl mx-auto">
@@ -648,11 +677,12 @@
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>Mobile app for iOS &amp; Android</span>
+                                <span>Mobile app for iOS &amp; Android (optional &mdash; for push notifications &amp; advanced settings)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>5-year product guarantee</span>
+                                <span>5-year product guarantee</span></li>
+                        <li class="flex items-center text-gray-300"><span class="text-teal-500 mr-3">&#x2713;</span><span>Includes 12 months of free texting (100 texts/month)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
@@ -662,7 +692,7 @@
                     </div>
 
                     <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
-                        Join the Waitlist
+                        Preorder for $1
                     </button>
                 </div>
 
@@ -692,11 +722,12 @@
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>Mobile app for iOS &amp; Android</span>
+                                <span>Mobile app for iOS &amp; Android (optional &mdash; for push notifications &amp; advanced settings)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>5-year product guarantee</span>
+                                <span>5-year product guarantee</span></li>
+                        <li class="flex items-center text-gray-300"><span class="text-teal-500 mr-3">&#x2713;</span><span>Includes 12 months of free texting (100 texts/month)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
@@ -706,7 +737,7 @@
                     </div>
 
                     <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
-                        Join the Waitlist
+                        Preorder for $1
                     </button>
                 </div>
 
@@ -736,11 +767,12 @@
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>Mobile app for iOS &amp; Android</span>
+                                <span>Mobile app for iOS &amp; Android (optional &mdash; for push notifications &amp; advanced settings)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
-                                <span>5-year product guarantee</span>
+                                <span>5-year product guarantee</span></li>
+                        <li class="flex items-center text-gray-300"><span class="text-teal-500 mr-3">&#x2713;</span><span>Includes 12 months of free texting (100 texts/month)</span>
                             </li>
                             <li class="flex items-start text-gray-700">
                                 <span class="text-teal-500 font-bold mr-3 mt-0.5">&#x2713;</span>
@@ -750,13 +782,19 @@
                     </div>
 
                     <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
-                        Join the Waitlist
+                        Preorder for $1
                     </button>
                 </div>
             </div>
 
             
-            <!-- Retail Pricing Note -->
+            
+                <!-- After First Year Note -->
+                <div class="mt-8 text-center max-w-2xl mx-auto">
+                    <p class="text-gray-400 text-sm">After your first year, switch to free push notifications through our app &mdash; or keep SMS starting at $2.99/month for 500 texts.</p>
+                </div>
+
+<!-- Retail Pricing Note -->
             <div class="max-w-5xl mx-auto mt-10 scroll-reveal" style="animation-delay: 0.5s">
                 <div class="border border-gray-200 rounded-xl p-6 bg-white">
                     <p class="text-sm font-semibold text-gray-700 mb-3">After Kickstarter, retail pricing will be:</p>
@@ -790,7 +828,7 @@
                         <input type="email" name="email" placeholder="your@email.com" class="input-focus px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" required>
                     </div>
                     <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full text-lg">
-                        Join the Waitlist
+                        Preorder for $1
                     </button>
                 </form>
 
@@ -897,43 +935,82 @@
     </section>
 
     <!-- Stretch Goals Section -->
-    <section id="stretch" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-4 scroll-reveal">Kickstarter Stretch Goals</h2>
-            <p class="text-center text-gray-600 mb-16 text-lg scroll-reveal" style="animation-delay: 0.1s">
-                The more backers we get, the more we unlock for everyone
-            </p>
+    <section class="py-20 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #0C0C0E 0%, #0F0F12 100%);">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Kickstarter Stretch Goals</h2>
+                <p class="text-xl text-gray-400">The more backers we get, the more we unlock for everyone</p>
+            </div>
 
-            <div class="stretch-line space-y-12 scroll-reveal" style="animation-delay: 0.2s">
+            <div class="grid md:grid-cols-2 gap-8">
+
                 <!-- Goal 1 -->
-                <div class="relative pl-10">
-                    <div class="stretch-dot"></div>
-                    <div class="bg-teal-50 p-6 rounded-xl border border-teal-200">
-                        <p class="text-sm text-teal-600 font-semibold mb-1">Stretch Goal 1</p>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Community Sticker Packs for Your Button</h3>
-                        <p class="text-gray-600">Every backer gets a <strong>community sticker pack</strong> to personalize the face of their TextMeButton. The community votes on their favorite sticker designs, and the top-voted labels ship in every box. Pick the ones you want and make each button your own.</p>
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x1F3F7;&#xFE0F;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 1</h3>
                     </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Functional Label Packs</h4>
+                    <p class="text-gray-300">Pre-printed labels for common use cases: Medicine, Chickens Fed, Home Safe, Cleaned, Check-In, and more. Community votes on favorite designs. Every backer gets a label pack in their box. Peel, stick, done. No sharpie required.</p>
                 </div>
 
                 <!-- Goal 2 -->
-                <div class="relative pl-10">
-                    <div class="stretch-dot"></div>
-                    <div class="bg-teal-50 p-6 rounded-xl border border-teal-200">
-                        <p class="text-sm text-teal-600 font-semibold mb-1">Stretch Goal 2</p>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Community Sticker Design Contest</h3>
-                        <p class="text-gray-600">We're opening a <strong>community design contest</strong> where backers submit and vote on new sticker designs for the button face. Winning designs get produced and shipped to all backers. Your creativity, on every button.</p>
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x2699;&#xFE0F;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 2</h3>
                     </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Rules Engine</h4>
+                    <p class="text-gray-300">Time-based triggers and conditional logic. &ldquo;If button not pressed by 8:00am, auto-send a reminder.&rdquo; Double-press for urgent alerts. Quiet hours, repeat alerts, custom schedules, and escalation chains.</p>
                 </div>
 
+            </div>
+
+            <p class="text-center text-gray-500 mt-10 text-sm">More stretch goals coming during the campaign&hellip; stay tuned.</p>
+
+            <!-- Hidden Goals 3-6 (revealed mid-campaign) -->
+            <div id="hiddenGoals" class="hidden grid md:grid-cols-2 gap-8 mt-8">
+
                 <!-- Goal 3 -->
-                <div class="relative pl-10">
-                    <div class="stretch-dot"></div>
-                    <div class="bg-teal-50 p-6 rounded-xl border border-teal-200">
-                        <p class="text-sm text-teal-600 font-semibold mb-1">Stretch Goal 3</p>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Rules Engine</h3>
-                        <p class="text-gray-600">Set up conditional logic: time-based reminders (<em>"If button not pressed by 8am, send a reminder text"</em>), repeat alerts, multi-person notification chains, and custom schedules.</p>
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x1F4CA;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 3</h3>
                     </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Timestamp Dashboard</h4>
+                    <p class="text-gray-300">A searchable web-based log of every button press with timestamps, organized by button. Exportable to CSV. Built for families (medicine tracking) and businesses (compliance records, cleaning logs, patrol documentation).</p>
                 </div>
+
+                <!-- Goal 4 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x1F381;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 4</h3>
+                    </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Bonus Button for Pack Backers</h4>
+                    <p class="text-gray-300">Family Pack backers get a 6th TextMeButton free &mdash; making it 6 buttons + 1 hub for $99.99. Starter Pack backers get a 3rd button free.</p>
+                </div>
+
+                <!-- Goal 5 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x1F3E0;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 5</h3>
+                    </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Smart Home Integration</h4>
+                    <p class="text-gray-300">Webhooks, Home Assistant, IFTTT, and Google Sheets support. &ldquo;When button is pressed, turn on the porch light.&rdquo; &ldquo;Log a row in a Google Sheet.&rdquo; &ldquo;Trigger an Alexa announcement.&rdquo;</p>
+                </div>
+
+                <!-- Goal 6 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-2xl p-8 border border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">&#x1F465;</span>
+                        <h3 class="text-xl font-bold text-white">Stretch Goal 6</h3>
+                    </div>
+                    <h4 class="text-lg font-semibold text-teal-500 mb-3">Shared Family / Team Dashboard</h4>
+                    <p class="text-gray-300">Multiple users can view the same button press history. Mom, Dad, and Grandma all see that medicine was taken. The construction PM and GC both see worker check-ins. Shared visibility without everyone receiving every text.</p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -951,7 +1028,7 @@
             <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <input type="email" name="email" placeholder="your@email.com" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus" required>
                 <button type="submit" class="bg-white text-teal-600 font-bold py-4 px-8 rounded-lg hover:bg-teal-50 transition">
-                    Notify Me
+                    Preorder for $1
                 </button>
             </form>
 
@@ -1026,7 +1103,7 @@
                         <span class="accordion-toggle">+</span>
                     </div>
                     <div class="accordion-content">
-                        <p>TextMeButton includes 100 text notifications per month at no extra charge. Most families never hit this limit. If you need more, additional text packs are available in the app starting at $2.99/month for 500 texts, or you can upgrade to unlimited texts for $7.99/month. There are no other subscriptions, fees, or hidden costs.</p>
+                        <p>TextMeButton includes 100 text notifications per month at no extra charge. Most families never hit this limit. If you need more, additional text packs are available in the app starting at $2.99/month for 500 texts, or you can keep SMS starting at $2.99/month for 500 texts or $7.99/month unlimited. Or switch to free push notifications through our app &mdash; there&#39;s always a free option. There are no other subscriptions, fees, or hidden costs.</p>
                     </div>
                 </div>
 
@@ -1056,7 +1133,7 @@
                         <span class="accordion-toggle">+</span>
                     </div>
                     <div class="accordion-content">
-                        <p>One hub can support multiple buttons. You can add additional buttons for different rooms or different purposes. Each button can be configured to send different SMS messages to different people.</p>
+                        <p>One hub can support multiple buttons. Need more buttons? After Kickstarter, order additional buttons anytime &mdash; no extra hub required. You can add additional buttons for different rooms or different purposes. Each button can be configured to send different SMS messages to different people.</p>
                     </div>
                 </div>
 
@@ -1094,7 +1171,7 @@
                     <p class="text-gray-600 text-sm leading-relaxed mb-3"><strong>Important:</strong> TextMeButton is NOT a medical device, life-safety device, or emergency communication system. Do not rely on TextMeButton for medical alerts, emergency notifications, or any situation where failure to deliver a message could result in injury or death.</p>
                     <p class="text-gray-600 text-sm leading-relaxed mb-3"><strong>Not a substitute for 911:</strong> Always call 911 or your local emergency number in an emergency. TextMeButton is designed for convenience and accountability use cases only.</p>
                     <p class="text-gray-600 text-sm leading-relaxed mb-3"><strong>Carrier Disclaimer:</strong> TextMeButton relies on third-party SMS carriers for message delivery. We are not responsible for carrier delays, failures, filtering, or any interactions between you and your wireless carrier. Message delivery times and reliability are subject to carrier network conditions beyond our control.</p>
-                    <p class="text-gray-600 text-sm leading-relaxed"><strong>FCC Compliance:</strong> This device complies with Part 15 of the FCC Rules. Operation is subject to the following two conditions: (1) this device may not cause harmful interference, and (2) this device must accept any interference received, including interference that may cause undesired operation. FCC ID: TMB-TX433WH.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed"><strong>FCC Compliance:</strong> This device complies with Part 15 of the FCC Rules. Operation is subject to the following two conditions: (1) this device may not cause harmful interference, and (2) this device must accept any interference received, including interference that may cause undesired operation. FCC ID: TMB-TX433WH <!-- PLACEHOLDER: Update before Kickstarter launch -->.</p>
                 </div>
             </div>
         </div>
