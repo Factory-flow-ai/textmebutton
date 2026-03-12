@@ -691,7 +691,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
+                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
                         Preorder for $1
                     </button>
                 </div>
@@ -736,7 +736,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
+                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
                         Preorder for $1
                     </button>
                 </div>
@@ -781,7 +781,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.querySelector('#pricing form input[name=name]').focus()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
+                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
                         Preorder for $1
                     </button>
                 </div>
@@ -1027,7 +1027,7 @@
 
             <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <input type="email" name="email" placeholder="your@email.com" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus" required>
-                <button type="submit" class="bg-white text-teal-600 font-bold py-4 px-8 rounded-lg hover:bg-teal-50 transition">
+                <button type="submit" class="bg-white text-teal-600 font-bold py-4 px-8 rounded-lg hover:bg-teal-50 transition" onclick="event.preventDefault();document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)">
                     Preorder for $1
                 </button>
             </form>
