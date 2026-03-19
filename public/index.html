@@ -1346,6 +1346,10 @@
         <h3>Reserve your TextMeButton</h3>
         <p class="subtitle">Be first in line when we launch on Kickstarter. No spam, ever.</p>
         <div class="input-group">
+          <span class="icon">👤</span>
+          <input type="text" id="reserveNameInput" placeholder="Your name" autocomplete="given-name">
+        </div>
+        <div class="input-group">
           <span class="icon">✉</span>
           <input type="email" id="reserveEmailInput" placeholder="you@example.com" autocomplete="email">
         </div>
@@ -1408,6 +1412,7 @@
           <h3>You're on the list!</h3>
           <p>We'll notify you the moment TextMeButton launches.</p>
           <div class="success-summary">
+            <div class="row"><span class="label">Name</span><span class="value" id="summaryName"></span></div>
             <div class="row"><span class="label">Email</span><span class="value" id="summaryEmail"></span></div>
             <div class="row" id="summaryPhoneRow"><span class="label">Phone</span><span class="value" id="summaryPhone"></span></div>
             <div class="row"><span class="label">Interest</span><span class="value" id="summaryTier"></span></div>
@@ -1518,6 +1523,7 @@ detectUTM();
 async function sendData(stepName) {
   const payload = {
     session_id: sessionId, step: stepName,
+    name: reserveData.name || '',
     email: reserveData.email || '', phone: reserveData.phone || '', tier: reserveData.tier || '',
     video_source: reserveData.video_source || '', utm_source: reserveData.utm_source || '', utm_campaign: reserveData.utm_campaign || '',
     shared_via: reserveData.shared_via || '', share_vibe: reserveData.share_vibe || '',
@@ -1535,6 +1541,7 @@ async function completeStep1() {
   if (!validateEmail()) return;
   var btn = document.getElementById('btn1');
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  reserveData.name = document.getElementById('reserveNameInput').value.trim();
   reserveData.email = document.getElementById('reserveEmailInput').value.trim();
   await sendData('Step 1 \u2014 Email Captured');
   btn.innerHTML = 'Continue \u2192'; btn.disabled = false;
@@ -1559,6 +1566,7 @@ async function completeStep3() {
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Reserving...';
   reserveData.tier = selectedTier;
   await sendData('Step 3 \u2014 Reservation Complete');
+  document.getElementById('summaryName').textContent = reserveData.name || '(not provided)';
   document.getElementById('summaryEmail').textContent = reserveData.email;
   if (reserveData.phone && reserveData.phone !== '(skipped)') {
     document.getElementById('summaryPhone').textContent = reserveData.phone;
@@ -1673,8 +1681,9 @@ function openModal(prefillEmail, prefillTier) {
   selectedVideoKey = detectedVideoKey || '';
   sharedPlatforms = [];
   sessionId = generateSessionId();
-  reserveData.email = ''; reserveData.phone = ''; reserveData.tier = ''; reserveData.shared_via = ''; reserveData.share_vibe = '';
+  reserveData.name = ''; reserveData.email = ''; reserveData.phone = ''; reserveData.tier = ''; reserveData.shared_via = ''; reserveData.share_vibe = '';
   if (!detectedVideoKey) reserveData.video_source = '';
+  document.getElementById('reserveNameInput').value = '';
   document.getElementById('reserveEmailInput').value = prefillEmail || '';
   document.getElementById('reservePhoneInput').value = '';
   document.querySelectorAll('.tier-card, .video-card, .vibe-card').forEach(function(c) { c.classList.remove('selected', 'expanded'); });
