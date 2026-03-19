@@ -1472,7 +1472,7 @@
 
 // ═══ RESERVE MODAL CONFIG ═══
 const CONFIG = {
-  FORMSPREE_ID: 'YOUR_FORMSPREE_ID',
+  FORMSPREE_ID: 'mgondnab',
   GOOGLE_SHEET_URL: 'YOUR_GOOGLE_APPS_SCRIPT_URL',
   SHARE_URL: 'https://textmebutton.com',
 };
@@ -1515,7 +1515,7 @@ async function sendData(stepName) {
     shared_via: reserveData.shared_via || '', share_vibe: reserveData.share_vibe || '',
     timestamp: new Date().toISOString(), _subject: '\uD83D\uDD14 TextMeButton Reserve \u2014 ' + stepName
   };
-  if (CONFIG.FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
+  if (CONFIG.FORMSPREE_ID !== 'mgondnab') {
     try { fetch('https://formspree.io/f/' + CONFIG.FORMSPREE_ID, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }); } catch (e) {}
   }
   if (CONFIG.GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
