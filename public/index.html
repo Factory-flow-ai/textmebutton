@@ -232,6 +232,11 @@
         }
 
     </style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px}.modal-overlay.active{opacity:1;pointer-events:all}.modal{background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:14px;width:100%;max-width:440px;overflow:hidden;overflow-y:auto;max-height:90vh;transform:translateY(20px) scale(0.97);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);box-shadow:0 24px 80px rgba(0,0,0,0.6),0 0 60px rgba(249,115,22,0.25)}.modal-overlay.active .modal{transform:translateY(0) scale(1)}.progress-bar{height:3px;background:rgba(255,255,255,0.05);overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,#f97316,#fbbf24);width:0%;transition:width 0.5s cubic-bezier(0.16,1,0.3,1);border-radius:0 2px 2px 0}.modal-header{display:flex;justify-content:flex-end;align-items:center;padding:16px 24px 0}.btn-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#a3a3a3;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}.btn-close:hover{background:rgba(255,255,255,0.05);color:#f5f5f5}.modal-body{padding:8px 24px 28px}.step{display:none}.step.active{display:block;animation:fadeSlideIn 0.35s ease forwards}@keyframes fadeSlideIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}.step h3{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:600;margin-bottom:6px;letter-spacing:-0.02em}.step .subtitle{color:#a3a3a3;font-size:0.9rem;margin-bottom:22px;line-height:1.45}.input-group{position:relative;margin-bottom:18px}.input-group input{width:100%;padding:14px 16px 14px 44px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;color:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:1rem;outline:none;transition:all 0.2s}.input-group input::placeholder{color:#666}.input-group input:focus{border-color:rgba(249,115,22,0.5);box-shadow:0 0 0 3px rgba(249,115,22,0.08);background:rgba(255,255,255,0.06)}.input-group .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1.1rem;opacity:0.45;pointer-events:none}.input-error{color:#ef4444;font-size:0.8rem;margin-top:-12px;margin-bottom:14px;display:none}.input-error.show{display:block}.tier-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}.tier-card{background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}.tier-card:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15)}.tier-card.selected{border-color:#f97316;background:rgba(249,115,22,0.08);box-shadow:0 0 16px rgba(249,115,22,0.1)}.tier-card-main{display:flex;align-items:center;gap:14px;padding:16px 18px}.tier-card .radio{width:20px;height:20px;border-radius:50%;border:2px solid #666;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}.tier-card.selected .radio{border-color:#f97316;background:#f97316}.tier-card.selected .radio::after{content:'\2713';color:#fff;font-size:0.7rem;font-weight:700}.tier-info{flex:1}.tier-name{font-weight:600;font-size:0.95rem;margin-bottom:2px}.tier-desc{color:#a3a3a3;font-size:0.8rem}.tier-price{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#f97316;font-size:1.05rem;white-space:nowrap}.tier-price .original{color:#666;text-decoration:line-through;font-size:0.8rem;font-weight:400;margin-right:4px}.tier-badge{position:absolute;top:-1px;right:12px;background:#f97316;color:#fff;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:0 0 8px 8px;text-transform:uppercase;letter-spacing:0.05em}.tier-expand-toggle{display:flex;align-items:center;justify-content:center;gap:4px;padding:8px 18px;font-size:0.75rem;color:#666;cursor:pointer;border-top:1px solid rgba(255,255,255,0.04);transition:color 0.2s;background:none;border-left:none;border-right:none;border-bottom:none;width:100%;font-family:'DM Sans',sans-serif}.tier-expand-toggle:hover{color:#a3a3a3}.tier-expand-toggle .arrow{transition:transform 0.25s;display:inline-block}.tier-card.expanded .tier-expand-toggle .arrow{transform:rotate(180deg)}.tier-details{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 18px;font-size:0.8rem;color:#a3a3a3;line-height:1.55}.tier-card.expanded .tier-details{max-height:200px;padding:0 18px 14px}.tier-details ul{list-style:none;padding:0}.tier-details ul li{padding:3px 0}.tier-details ul li::before{content:'\2713 ';color:#f97316;font-weight:700}.video-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}.video-card{padding:16px 18px;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;position:relative}.video-card:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15)}.video-card.selected{border-color:#f97316;background:rgba(249,115,22,0.08);box-shadow:0 0 16px rgba(249,115,22,0.1)}.video-card .radio{width:20px;height:20px;border-radius:50%;border:2px solid #666;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}.video-card.selected .radio{border-color:#f97316;background:#f97316}.video-card.selected .radio::after{content:'\2713';color:#fff;font-size:0.7rem;font-weight:700}.video-info{flex:1}.video-name{font-weight:600;font-size:0.95rem;margin-bottom:2px}.video-desc{color:#a3a3a3;font-size:0.8rem}.video-icon{font-size:1.4rem;flex-shrink:0}.video-card-detected{padding:14px 18px;background:rgba(249,115,22,0.08);border:1.5px solid #f97316;border-radius:10px;display:flex;align-items:center;gap:14px;margin-bottom:18px}.video-card-detected .video-icon{font-size:1.4rem}.video-card-detected .video-info{flex:1}.video-card-detected .video-name{font-weight:600;font-size:0.95rem;margin-bottom:2px}.video-card-detected .video-desc{color:#a3a3a3;font-size:0.8rem}.video-detected-badge{font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#f97316;letter-spacing:0.05em}.btn-next{width:100%;padding:14px;background:#f97316;color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:10px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:6px}.btn-next:hover{background:#fb923c}.btn-next:disabled{opacity:0.4;cursor:not-allowed}.btn-back{width:100%;padding:10px;background:transparent;color:#a3a3a3;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.85rem;border:none;cursor:pointer;margin-top:8px;transition:color 0.2s}.btn-back:hover{color:#f5f5f5}.btn-skip{width:100%;padding:10px;background:transparent;color:#666;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.8rem;border:none;cursor:pointer;margin-top:4px;transition:color 0.2s}.btn-skip:hover{color:#a3a3a3}.privacy-note{text-align:center;font-size:0.75rem;color:#666;margin-top:12px;line-height:1.4}.success-state{text-align:center;padding:12px 0 4px}.success-icon{width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,0.2);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 18px;animation:scaleIn 0.4s cubic-bezier(0.16,1,0.3,1)}@keyframes scaleIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}.success-state h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:8px}.success-state p{color:#a3a3a3;font-size:0.9rem;line-height:1.5}.success-summary{margin-top:20px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-align:left;font-size:0.85rem}.success-summary .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}.success-summary .row:last-child{border-bottom:none}.success-summary .label{color:#666}.success-summary .value{color:#f5f5f5;font-weight:500}.share-section{text-align:center}.reward-banner{background:linear-gradient(135deg,rgba(234,179,8,0.08),rgba(249,115,22,0.06));border:1px solid rgba(234,179,8,0.25);border-radius:10px;padding:16px;margin-bottom:22px;position:relative;overflow:hidden}.reward-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent 0%,rgba(234,179,8,0.05) 25%,transparent 50%);animation:shimmer 4s linear infinite}@keyframes shimmer{to{transform:rotate(360deg)}}.reward-banner .reward-icon{font-size:1.6rem;margin-bottom:6px;position:relative}.reward-banner .reward-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;color:#eab308;position:relative;margin-bottom:4px}.reward-banner .reward-desc{font-size:0.8rem;color:#a3a3a3;position:relative;line-height:1.4}.section-label{font-size:0.8rem;color:#666;text-transform:uppercase;letter-spacing:0.05em;font-weight:500;margin-bottom:10px;text-align:left}.vibe-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}.vibe-card{padding:14px 16px;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:all 0.2s;text-align:left}.vibe-card:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15)}.vibe-card.selected{border-color:#f97316;background:rgba(249,115,22,0.08)}.vibe-tag{display:inline-block;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:2px 8px;border-radius:20px;margin-bottom:6px}.vibe-tag.funny{background:rgba(168,85,247,0.15);color:#c084fc}.vibe-tag.heartfelt{background:rgba(239,68,68,0.12);color:#fca5a5}.vibe-tag.techy{background:rgba(34,211,238,0.12);color:#67e8f9}.vibe-text{font-size:0.85rem;color:#f5f5f5;line-height:1.45}.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}.platform-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#f5f5f5;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s}.platform-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);transform:translateY(-1px)}.platform-btn svg{width:18px;height:18px;flex-shrink:0}.platform-btn.twitter:hover{border-color:rgba(29,161,242,0.5);background:rgba(29,161,242,0.08)}.platform-btn.facebook:hover{border-color:rgba(24,119,242,0.5);background:rgba(24,119,242,0.08)}.platform-btn.linkedin:hover{border-color:rgba(10,102,194,0.5);background:rgba(10,102,194,0.08)}.platform-btn.tiktok:hover{border-color:rgba(255,0,80,0.5);background:rgba(255,0,80,0.08)}
+.platform-btn.copylink:hover{border-color:rgba(249,115,22,0.5);background:rgba(249,115,22,0.08)}.platform-btn .copied-text{display:none}.platform-btn.copied .default-text{display:none}.platform-btn.copied .copied-text{display:inline}.platform-btn.copied{border-color:#22c55e;background:rgba(34,197,94,0.2)}.platform-btn .shared-text{display:none}.platform-btn.shared .default-text{display:none}.platform-btn.shared .shared-text{display:inline}.platform-btn.shared{border-color:#22c55e;background:rgba(34,197,94,0.2);opacity:0.85}.platform-btn.shared:hover{transform:none}.btn-claim-labels{width:100%;padding:14px;background:#eab308;color:#000;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:10px;cursor:pointer;transition:all 0.25s;display:none;margin-top:12px;box-shadow:0 0 20px rgba(234,179,8,0.15)}.btn-claim-labels.visible{display:flex;align-items:center;justify-content:center;gap:6px;animation:fadeSlideIn 0.35s ease forwards}.btn-claim-labels:hover{background:#facc15;transform:translateY(-1px)}.share-count{font-size:0.75rem;color:#666;text-align:center;margin-top:8px}.reward-unlocked{text-align:center;padding:12px 0 4px}.reward-unlocked-icon{width:72px;height:72px;border-radius:50%;background:rgba(234,179,8,0.15);border:2px solid #eab308;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 18px;animation:scaleIn 0.4s cubic-bezier(0.16,1,0.3,1)}.reward-unlocked h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:8px;color:#eab308}.reward-unlocked p{color:#a3a3a3;font-size:0.9rem;line-height:1.5}.btn-done{width:100%;padding:14px;background:rgba(255,255,255,0.06);color:#f5f5f5;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;margin-top:20px;transition:all 0.2s}.btn-done:hover{background:rgba(255,255,255,0.1)}.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:480px){.modal-body{padding:8px 18px 24px}.step h3{font-size:1.2rem}.tier-card-main{padding:12px 14px}.video-card{padding:12px 14px}}
+</style>
 </head>
 <body class="bg-white text-gray-900">
 
@@ -278,7 +283,7 @@
                     <!-- Email Form -->
                     <form id="hero-form" class="space-y-4 mb-6" action="#" method="POST">
                         <div class="flex gap-3">                            <input type="email" name="email" placeholder="your@email.com" id="heroEmail" class="input-focus px-4 py-3 border border-gray-600 bg-gray-800 rounded-lg text-white placeholder-gray-500 w-full" required>                        </div>
-                        <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full sm:w-auto text-lg">
+                        <button type="button" onclick="openModalWithEmail()" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full sm:w-auto text-lg">
                             Register Now
                         </button>
                     </form>
@@ -696,7 +701,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
+                    <button type="button" onclick="openModalWithEmail('Basic \u2014 $39.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
                         Register Now
                     </button>
                 </div>
@@ -740,7 +745,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
+                    <button type="button" onclick="openModalWithEmail('Starter Pack \u2014 $54.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
                         Register Now
                     </button>
                 </div>
@@ -784,7 +789,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
+                    <button type="button" onclick="openModalWithEmail('Family Pack \u2014 $99.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
                         Register Now
                     </button>
                 </div>
@@ -827,7 +832,7 @@
 
                 <form action="#" method="POST" class="space-y-4 scroll-reveal" style="animation-delay: 0.6s">
                     <div class="flex gap-3">                        <input type="email" name="email" placeholder="your@email.com" class="input-focus px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" required>                    </div>
-                    <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full text-lg">
+                    <button type="button" onclick="openModalWithEmail()" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full text-lg">
                         Register Now
                     </button>
                 </form>
@@ -1026,7 +1031,9 @@
             </p>
 
             <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-                <input type="email" name="email" placeholder="your@email.com" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus" required>                <button type="submit" class="bg-white text-orange-600 font-bold py-4 px-8 rounded-lg hover:bg-orange-50 transition" onclick="event.preventDefault();document.getElementById('hero').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.querySelector('#hero form input[name=name]').focus(),500)">
+                <input type="email" name="email" placeholder="your@email.com" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus" required>
+                            <input type="tel" name="phone" placeholder="Phone # (optional)" class="px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 flex-1 sm:max-w-xs input-focus">
+                <button type="submit" class="bg-white text-orange-600 font-bold py-4 px-8 rounded-lg hover:bg-orange-50 transition" onclick="event.preventDefault();openModalWithEmail()">
                     Register Now
                 </button>
             </form>
@@ -1325,6 +1332,416 @@
         }, { threshold: 0.3 });
         const setupSection = document.getElementById('setup-demo');
         if (setupSection) setupObserver.observe(setupSection);
+</script>
+
+<!-- ═══ RESERVE MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="modal-header">
+      <button class="btn-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="step active" id="step1">
+        <h3>Reserve your TextMeButton</h3>
+        <p class="subtitle">Be first in line when we launch on Kickstarter. No spam, ever.</p>
+        <div class="input-group">
+          <span class="icon">✉</span>
+          <input type="email" id="reserveEmailInput" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="input-error" id="emailError">Please enter a valid email address.</div>
+        <button class="btn-next" id="btn1" onclick="completeStep1()">Continue →</button>
+        <p class="privacy-note">🔒 Your info stays private. We never share or sell it.</p>
+      </div>
+      <div class="step" id="step2">
+        <h3>Get a launch-day text</h3>
+        <p class="subtitle">We'll text you once — the moment TextMeButton goes live. That's it.</p>
+        <div class="input-group">
+          <span class="icon">📱</span>
+          <input type="tel" id="reservePhoneInput" placeholder="(555) 123-4567" autocomplete="tel">
+        </div>
+        <div class="input-error" id="phoneError">Please enter a valid phone number.</div>
+        <button class="btn-next" id="btn2" onclick="completeStep2()">Continue →</button>
+        <button class="btn-skip" onclick="skipPhone()">Skip — just email me</button>
+        <button class="btn-back" onclick="goToStep(1)">← Back</button>
+      </div>
+      <div class="step" id="step3">
+        <h3>Which pack catches your eye?</h3>
+        <p class="subtitle">No commitment — just helps us plan inventory. You can change later.</p>
+        <div class="tier-grid">
+          <div class="tier-card" id="tierBasic">
+            <div class="tier-card-main" onclick="selectTier('tierBasic', 'Basic — $39.99')">
+              <div class="radio"></div>
+              <div class="tier-info"><div class="tier-name">Basic</div><div class="tier-desc">1 Hub + 1 Button</div></div>
+              <div class="tier-price"><span class="original">$59.99</span> $39.99</div>
+            </div>
+            <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierBasic')">What's included <span class="arrow">▾</span></button>
+            <div class="tier-details"><ul><li>1 Ethernet Hub (connects to your router)</li><li>1 Self-powered TextMeButton</li><li>Mobile app for iOS & Android</li><li>5-year product guarantee</li><li>No batteries for 20+ years</li></ul></div>
+          </div>
+          <div class="tier-card" id="tierStarter">
+            <span class="tier-badge">Popular</span>
+            <div class="tier-card-main" onclick="selectTier('tierStarter', 'Starter Pack — $54.99')">
+              <div class="radio"></div>
+              <div class="tier-info"><div class="tier-name">Starter Pack</div><div class="tier-desc">1 Hub + 2 Buttons</div></div>
+              <div class="tier-price"><span class="original">$89.99</span> $54.99</div>
+            </div>
+            <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierStarter')">What's included <span class="arrow">▾</span></button>
+            <div class="tier-details"><ul><li>1 Ethernet Hub (connects to your router)</li><li>2 Self-powered TextMeButtons</li><li>Configure each button with different messages</li><li>Send to different phone numbers per button</li><li>Mobile app for iOS & Android</li><li>5-year product guarantee</li><li>No batteries for 20+ years</li></ul></div>
+          </div>
+          <div class="tier-card" id="tierFamily">
+            <span class="tier-badge">Best Value</span>
+            <div class="tier-card-main" onclick="selectTier('tierFamily', 'Family Pack — $99.99')">
+              <div class="radio"></div>
+              <div class="tier-info"><div class="tier-name">Family Pack</div><div class="tier-desc">1 Hub + 5 Buttons</div></div>
+              <div class="tier-price"><span class="original">$149.99</span> $99.99</div>
+            </div>
+            <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierFamily')">What's included <span class="arrow">▾</span></button>
+            <div class="tier-details"><ul><li>1 Ethernet Hub (connects to your router)</li><li>5 Self-powered TextMeButtons</li><li>Configure each button with different messages</li><li>Send to different phone numbers per button</li><li>Cover every room, every routine</li><li>Mobile app for iOS & Android</li><li>5-year product guarantee</li><li>No batteries for 20+ years</li></ul></div>
+          </div>
+        </div>
+        <button class="btn-next" id="submitBtn" onclick="completeStep3()" disabled>Reserve My Spot →</button>
+        <button class="btn-back" onclick="goToStep(2)">← Back</button>
+      </div>
+      <div class="step" id="step4">
+        <div class="success-state">
+          <div class="success-icon">✓</div>
+          <h3>You're on the list!</h3>
+          <p>We'll notify you the moment TextMeButton launches.</p>
+          <div class="success-summary">
+            <div class="row"><span class="label">Email</span><span class="value" id="summaryEmail"></span></div>
+            <div class="row" id="summaryPhoneRow"><span class="label">Phone</span><span class="value" id="summaryPhone"></span></div>
+            <div class="row"><span class="label">Interest</span><span class="value" id="summaryTier"></span></div>
+          </div>
+          <button class="btn-next" style="margin-top:20px;" onclick="goToStep(5)">Share & Get Free Custom Labels →</button>
+          <button class="btn-skip" onclick="closeModal()">Skip for now</button>
+        </div>
+      </div>
+      <div class="step" id="step5">
+        <div class="share-section">
+          <div class="reward-banner">
+            <div class="reward-icon">✨</div>
+            <div class="reward-title">Share & Get Free Custom Labels</div>
+            <div class="reward-desc">Share TextMeButton with your friends and we'll include a set of custom labels for your buttons — free. Your words, your labels, your buttons.</div>
+          </div>
+          <div id="videoDetected" style="display:none;">
+            <div class="section-label">Video that brought you here</div>
+            <div class="video-card-detected">
+              <div class="video-icon" id="detectedVideoIcon">🎬</div>
+              <div class="video-info"><div class="video-name" id="detectedVideoName"></div><div class="video-desc" id="detectedVideoDesc"></div></div>
+              <div class="video-detected-badge">Auto-detected ✓</div>
+            </div>
+          </div>
+          <div id="videoPicker" style="display:none;">
+            <div class="section-label">Which video brought you here?</div>
+            <div class="video-grid">
+              <div class="video-card" onclick="selectVideo(this, 'medicine_reminder')"><div class="radio"></div><div class="video-icon">💊</div><div class="video-info"><div class="video-name">Medicine Reminder</div><div class="video-desc">The one about tracking daily medication</div></div></div>
+              <div class="video-card" onclick="selectVideo(this, 'family_chores')"><div class="radio"></div><div class="video-icon">🐔</div><div class="video-info"><div class="video-name">Family Chores</div><div class="video-desc">The one about kids, chickens, and chore accountability</div></div></div>
+              <div class="video-card" onclick="selectVideo(this, 'business_security')"><div class="radio"></div><div class="video-icon">🏗</div><div class="video-info"><div class="video-name">Business Use Cases</div><div class="video-desc">Security patrols, cleaning logs, construction check-ins</div></div></div>
+              <div class="video-card" onclick="selectVideo(this, 'none')"><div class="radio"></div><div class="video-icon">🔍</div><div class="video-info"><div class="video-name">I just found the site</div><div class="video-desc">No specific video brought me here</div></div></div>
+            </div>
+          </div>
+          <div class="section-label">Pick your share message</div>
+          <div class="vibe-grid">
+            <div class="vibe-card" onclick="selectVibe(this, 'funny')"><span class="vibe-tag funny">😂 Funny</span><div class="vibe-text">I just reserved a button that texts me when someone presses it. No battery. No app. No, I'm not making this up.</div></div>
+            <div class="vibe-card" onclick="selectVibe(this, 'heartfelt')"><span class="vibe-tag heartfelt">❤️ Heartfelt</span><div class="vibe-text">Found the simplest way to stay connected with my family. One press = one text. No batteries, no app, just peace of mind.</div></div>
+            <div class="vibe-card" onclick="selectVibe(this, 'techy')"><span class="vibe-tag techy">⚡ Early Adopter</span><div class="vibe-text">Just reserved a self-powered IoT button that runs 20+ years on kinetic energy harvesting. Zero batteries. Real SMS delivery.</div></div>
+          </div>
+          <div class="section-label">Share on</div>
+          <div class="platform-grid">
+            <button class="platform-btn twitter" onclick="shareOn('twitter')" id="btn-twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="default-text">X / Twitter</span><span class="shared-text">Shared ✓</span></button>
+            <button class="platform-btn facebook" onclick="shareOn('facebook')" id="btn-facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><span class="default-text">Facebook</span><span class="shared-text">Shared ✓</span></button>
+            <button class="platform-btn linkedin" onclick="shareOn('linkedin')" id="btn-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span class="default-text">LinkedIn</span><span class="shared-text">Shared ✓</span></button>
+            <button class="platform-btn tiktok" onclick="shareOn('tiktok')" id="btn-tiktok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.98a8.18 8.18 0 0 0 4.76 1.52V7.05a4.84 4.84 0 0 1-1-.36z"/></svg><span class="default-text">TikTok</span><span class="shared-text">Shared ✓</span></button>
+            <button class="platform-btn copylink" onclick="shareOn('copy')" id="btn-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="default-text">Copy Link</span><span class="copied-text">Copied! ✓</span><span class="shared-text">Copied ✓</span></button>
+          </div>
+          <p class="privacy-note" id="selectVibeHint">👆 Pick a vibe above to customize your share message (optional)</p>
+          <p class="share-count" id="shareCount" style="display:none;"></p>
+          <button class="btn-claim-labels" id="btnClaimLabels" onclick="finishSharing()">Done — Claim My Free Labels →</button>
+          <button class="btn-skip" id="btnSkipShare" onclick="closeModal()">No thanks, I'm done</button>
+        </div>
+      </div>
+      <div class="step" id="step6">
+        <div class="reward-unlocked">
+          <div class="reward-unlocked-icon">🏆</div>
+          <h3>Free Custom Labels Unlocked!</h3>
+          <p>Thanks for sharing! We'll include a set of custom labels with your order — your words, printed and ready to stick on your buttons.</p>
+          <div class="success-summary" style="margin-top:16px;">
+            <div class="row"><span class="label">Reward</span><span class="value" style="color:#eab308;">Free Custom Labels</span></div>
+            <div class="row"><span class="label">Shared via</span><span class="value" id="summaryPlatform"></span></div>
+            <div class="row" id="summaryVideoRow2"><span class="label">Video shared</span><span class="value" id="summaryVideo"></span></div>
+          </div>
+          <button class="btn-done" onclick="closeModal()">Done — See You at Launch!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+// ═══ RESERVE MODAL CONFIG ═══
+const CONFIG = {
+  FORMSPREE_ID: 'mgondnab',
+  GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbwgnhh5UAm5ydhpEa40mEvrCOftZ3WUQINeaqtCygOm6Uijbl6t6IF8OD9lYKzbOBxm/exec',
+  SHARE_URL: 'https://textmebutton.com',
+};
+const VIDEOS = {
+  medicine_reminder: { name: 'Medicine Reminder', desc: 'How TextMeButton helps track daily medication', icon: '\uD83D\uDC8A', url: 'YOUR_MEDICINE_VIDEO_URL' },
+  family_chores: { name: 'Family Chores', desc: 'Kids, chickens, and chore accountability', icon: '\uD83D\uDC14', url: 'YOUR_FAMILY_CHORES_VIDEO_URL' },
+  business_security: { name: 'Business Use Cases', desc: 'Security patrols, cleaning logs, construction check-ins', icon: '\uD83C\uDFD7', url: 'YOUR_BUSINESS_VIDEO_URL' },
+};
+const SHARE_MESSAGES = {
+  funny: "I just reserved a button that texts me when someone presses it. No battery. No app. No, I'm not making this up.",
+  heartfelt: "Found the simplest way to stay connected with my family. One press = one text. No batteries, no app, just peace of mind.",
+  techy: "Just reserved a self-powered IoT button that runs 20+ years on kinetic energy harvesting. Zero batteries. Real SMS delivery.",
+};
+let currentStep = 1;
+let selectedTier = '';
+let selectedVibe = '';
+let selectedVideoKey = '';
+let detectedVideoKey = '';
+let sharedPlatforms = [];
+const TOTAL_STEPS = 3;
+const reserveData = { email: '', phone: '', tier: '', shared_via: '', share_vibe: '', video_source: '', utm_source: '', utm_campaign: '' };
+function generateSessionId() { return 'tmb_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7); }
+let sessionId = generateSessionId();
+function detectUTM() {
+  const params = new URLSearchParams(window.location.search);
+  reserveData.utm_source = params.get('utm_source') || '';
+  reserveData.utm_campaign = params.get('utm_campaign') || '';
+  if (reserveData.utm_campaign && VIDEOS[reserveData.utm_campaign]) {
+    detectedVideoKey = reserveData.utm_campaign;
+    selectedVideoKey = reserveData.utm_campaign;
+    reserveData.video_source = VIDEOS[reserveData.utm_campaign].name + ' (auto-detected via UTM)';
+  }
+}
+detectUTM();
+async function sendData(stepName) {
+  const payload = {
+    session_id: sessionId, step: stepName,
+    email: reserveData.email || '', phone: reserveData.phone || '', tier: reserveData.tier || '',
+    video_source: reserveData.video_source || '', utm_source: reserveData.utm_source || '', utm_campaign: reserveData.utm_campaign || '',
+    shared_via: reserveData.shared_via || '', share_vibe: reserveData.share_vibe || '',
+    timestamp: new Date().toISOString(), _subject: '\uD83D\uDD14 TextMeButton Reserve \u2014 ' + stepName
+  };
+  if (CONFIG.FORMSPREE_ID !== 'mgondnab') {
+    try { fetch('https://formspree.io/f/' + CONFIG.FORMSPREE_ID, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }); } catch (e) {}
+  }
+  if (CONFIG.GOOGLE_SHEET_URL !== 'https://script.google.com/macros/s/AKfycbwgnhh5UAm5ydhpEa40mEvrCOftZ3WUQINeaqtCygOm6Uijbl6t6IF8OD9lYKzbOBxm/exec') {
+    try { fetch(CONFIG.GOOGLE_SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch (e) {}
+  }
+  console.log('[Reserve]', stepName, payload);
+}
+async function completeStep1() {
+  if (!validateEmail()) return;
+  var btn = document.getElementById('btn1');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  reserveData.email = document.getElementById('reserveEmailInput').value.trim();
+  await sendData('Step 1 \u2014 Email Captured');
+  btn.innerHTML = 'Continue \u2192'; btn.disabled = false;
+  goToStep(2);
+}
+async function completeStep2() {
+  if (!validatePhone()) return;
+  var btn = document.getElementById('btn2');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  reserveData.phone = document.getElementById('reservePhoneInput').value.trim();
+  await sendData('Step 2 \u2014 Phone Captured');
+  btn.innerHTML = 'Continue \u2192'; btn.disabled = false;
+  goToStep(3);
+}
+async function skipPhone() {
+  reserveData.phone = '(skipped)';
+  await sendData('Step 2 \u2014 Phone Skipped');
+  goToStep(3);
+}
+async function completeStep3() {
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Reserving...';
+  reserveData.tier = selectedTier;
+  await sendData('Step 3 \u2014 Reservation Complete');
+  document.getElementById('summaryEmail').textContent = reserveData.email;
+  if (reserveData.phone && reserveData.phone !== '(skipped)') {
+    document.getElementById('summaryPhone').textContent = reserveData.phone;
+  } else {
+    document.getElementById('summaryPhoneRow').style.display = 'none';
+  }
+  document.getElementById('summaryTier').textContent = reserveData.tier;
+  btn.innerHTML = 'Reserve My Spot \u2192'; btn.disabled = false;
+  currentStep = 4;
+  updateUI();
+}
+function selectTier(cardId, tier) {
+  document.querySelectorAll('.tier-card').forEach(function(c) { c.classList.remove('selected'); });
+  document.getElementById(cardId).classList.add('selected');
+  selectedTier = tier;
+  document.getElementById('submitBtn').disabled = false;
+}
+function toggleExpand(event, cardId) {
+  event.stopPropagation();
+  document.getElementById(cardId).classList.toggle('expanded');
+}
+function selectVideo(card, key) {
+  document.querySelectorAll('.video-card').forEach(function(c) { c.classList.remove('selected'); });
+  card.classList.add('selected');
+  selectedVideoKey = key;
+  reserveData.video_source = key === 'none' ? 'No specific video' : (VIDEOS[key] ? VIDEOS[key].name + ' (self-selected)' : '');
+}
+function selectVibe(card, vibe) {
+  document.querySelectorAll('.vibe-card').forEach(function(c) { c.classList.remove('selected'); });
+  card.classList.add('selected');
+  selectedVibe = vibe;
+  document.querySelectorAll('.platform-btn').forEach(function(b) { b.disabled = false; });
+  document.getElementById('selectVibeHint').style.display = 'none';
+}
+function getVideoUrl() {
+  if (selectedVideoKey && selectedVideoKey !== 'none' && VIDEOS[selectedVideoKey] && !VIDEOS[selectedVideoKey].url.startsWith('YOUR_')) {
+    return VIDEOS[selectedVideoKey].url;
+  }
+  return null;
+}
+function getShareText() {
+  var msg = selectedVibe ? SHARE_MESSAGES[selectedVibe] : 'Check out TextMeButton - a self-powered button that sends a text when pressed. No batteries, no app, no wires.';
+  var videoUrl = getVideoUrl();
+  return videoUrl ? msg + ' Watch this:' : msg;
+}
+function getShareUrl() {
+  return getVideoUrl() || CONFIG.SHARE_URL;
+}
+async function shareOn(platform) {
+  // vibe is optional - use default if not selected
+  var msg = getShareText();
+  var shareUrl = getShareUrl();
+  var videoUrl = getVideoUrl();
+  var fullText = videoUrl ? msg + ' ' + videoUrl + '\nReserve yours: ' + CONFIG.SHARE_URL : msg + ' ' + CONFIG.SHARE_URL;
+  var platformName = '';
+  var btnId = '';
+  switch (platform) {
+    case 'twitter':
+      var tweetText = videoUrl ? msg + ' ' + videoUrl + ' ' + CONFIG.SHARE_URL : msg + ' ' + CONFIG.SHARE_URL;
+      window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText), '_blank', 'width=550,height=420');
+      platformName = 'X / Twitter'; btnId = 'btn-twitter'; break;
+    case 'facebook':
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl) + '&quote=' + encodeURIComponent(msg), '_blank', 'width=550,height=420');
+      platformName = 'Facebook'; btnId = 'btn-facebook'; break;
+    case 'linkedin':
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl), '_blank', 'width=550,height=420');
+      platformName = 'LinkedIn'; btnId = 'btn-linkedin'; break;
+    case 'tiktok':
+      var tiktokText = videoUrl ? msg + ' ' + videoUrl : msg + ' ' + CONFIG.SHARE_URL;
+      window.open('https://www.tiktok.com/', '_blank');
+      platformName = 'TikTok'; btnId = 'btn-tiktok'; break;
+    case 'copy':
+      try { await navigator.clipboard.writeText(fullText); } catch (e) {
+        var ta = document.createElement('textarea'); ta.value = fullText; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      var copyBtn = document.getElementById('btn-copy');
+      copyBtn.classList.add('copied');
+      setTimeout(function() { copyBtn.classList.remove('copied'); copyBtn.classList.add('shared'); }, 1500);
+      platformName = 'Copy Link'; btnId = 'btn-copy'; break;
+  }
+  if (platform !== 'copy') { document.getElementById(btnId).classList.add('shared'); }
+  if (!sharedPlatforms.includes(platformName)) { sharedPlatforms.push(platformName); }
+  reserveData.shared_via = sharedPlatforms.join(', ');
+  reserveData.share_vibe = selectedVibe;
+  await sendData('Shared on ' + platformName);
+  document.getElementById('btnClaimLabels').classList.add('visible');
+  document.getElementById('btnSkipShare').style.display = 'none';
+  document.getElementById('selectVibeHint').style.display = 'none';
+  var countEl = document.getElementById('shareCount');
+  countEl.style.display = 'block';
+  countEl.textContent = sharedPlatforms.length === 1 ? 'Shared on ' + sharedPlatforms[0] + ' \u2014 share on more platforms if you\'d like!' : 'Shared on ' + sharedPlatforms.join(', ') + ' \u2014 nice!';
+}
+function finishSharing() {
+  document.getElementById('summaryPlatform').textContent = sharedPlatforms.join(', ');
+  var videoName = (selectedVideoKey && selectedVideoKey !== 'none' && VIDEOS[selectedVideoKey]) ? VIDEOS[selectedVideoKey].name : 'None';
+  document.getElementById('summaryVideo').textContent = videoName;
+  if (videoName === 'None') document.getElementById('summaryVideoRow2').style.display = 'none';
+  currentStep = 6;
+  updateUI();
+}
+
+function openModalWithEmail(prefillTier) {
+  var emailInputs = document.querySelectorAll('input[type="email"][name="email"]');
+  var email = '';
+  emailInputs.forEach(function(inp) { if (inp.value.trim()) email = inp.value.trim(); });
+  openModal(email, prefillTier);
+}
+function openModal(prefillEmail, prefillTier) {
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  currentStep = 1; selectedTier = ''; selectedVibe = '';
+  selectedVideoKey = detectedVideoKey || '';
+  sharedPlatforms = [];
+  sessionId = generateSessionId();
+  reserveData.email = ''; reserveData.phone = ''; reserveData.tier = ''; reserveData.shared_via = ''; reserveData.share_vibe = '';
+  if (!detectedVideoKey) reserveData.video_source = '';
+  document.getElementById('reserveEmailInput').value = prefillEmail || '';
+  document.getElementById('reservePhoneInput').value = '';
+  document.querySelectorAll('.tier-card, .video-card, .vibe-card').forEach(function(c) { c.classList.remove('selected', 'expanded'); });
+  document.querySelectorAll('.platform-btn').forEach(function(b) { b.disabled = false; b.classList.remove('copied', 'shared'); });
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('selectVibeHint').style.display = 'none';
+  document.getElementById('summaryPhoneRow').style.display = '';
+  document.getElementById('summaryVideoRow2').style.display = '';
+  document.getElementById('btnClaimLabels').classList.remove('visible');
+  document.getElementById('btnSkipShare').style.display = '';
+  document.getElementById('shareCount').style.display = 'none';
+  document.querySelectorAll('.input-error').forEach(function(e) { e.classList.remove('show'); });
+  if (detectedVideoKey && VIDEOS[detectedVideoKey]) {
+    document.getElementById('videoDetected').style.display = 'block';
+    document.getElementById('videoPicker').style.display = 'none';
+    document.getElementById('detectedVideoIcon').textContent = VIDEOS[detectedVideoKey].icon;
+    document.getElementById('detectedVideoName').textContent = VIDEOS[detectedVideoKey].name;
+    document.getElementById('detectedVideoDesc').textContent = VIDEOS[detectedVideoKey].desc;
+  } else {
+    document.getElementById('videoDetected').style.display = 'none';
+    document.getElementById('videoPicker').style.display = 'block';
+  }
+  updateUI();
+  if (prefillTier) {
+    var tierMap = {'Basic \u2014 $39.99':'tierBasic','Starter Pack \u2014 $54.99':'tierStarter','Family Pack \u2014 $99.99':'tierFamily'};
+    var cardId = tierMap[prefillTier];
+    if (cardId) { selectTier(cardId, prefillTier); }
+  }
+  setTimeout(function() { document.getElementById('reserveEmailInput').focus(); }, 350);
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+function goToStep(step) { currentStep = step; updateUI(); }
+function updateUI() {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step' + currentStep).classList.add('active');
+  var pct;
+  if (currentStep <= TOTAL_STEPS) pct = (currentStep / TOTAL_STEPS) * 100;
+  else pct = 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  var fill = document.getElementById('progressFill');
+  if (currentStep === 4) fill.style.background = 'linear-gradient(90deg, #22c55e, #86efac)';
+  else if (currentStep >= 5) fill.style.background = 'linear-gradient(90deg, #eab308, #fde047)';
+  else fill.style.background = '';
+  document.getElementById('modal').scrollTop = 0;
+}
+function validateEmail() {
+  var v = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('reserveEmailInput').value.trim());
+  document.getElementById('emailError').classList.toggle('show', !v); return v;
+}
+function validatePhone() {
+  var v = document.getElementById('reservePhoneInput').value.replace(/\D/g, '').length >= 10;
+  document.getElementById('phoneError').classList.toggle('show', !v); return v;
+}
+document.getElementById('reserveEmailInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') completeStep1(); });
+document.getElementById('reservePhoneInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') completeStep2(); });
+document.getElementById('reservePhoneInput').addEventListener('input', function() {
+  var d = this.value.replace(/\D/g, '');
+  if (d.length > 10) d = d.slice(0, 10);
+  if (d.length >= 7) this.value = '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+  else if (d.length >= 4) this.value = '(' + d.slice(0,3) + ') ' + d.slice(3);
+  else if (d.length > 0) this.value = '(' + d;
+});
 </script>
 </body>
 </html>
