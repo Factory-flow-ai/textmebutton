@@ -693,7 +693,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="openModalWithEmail()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
+                    <button type="button" onclick="openModalWithEmail('Basic \u2014 $39.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="single-button" data-price="39.99">
                         Register Now
                     </button>
                 </div>
@@ -738,7 +738,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="openModalWithEmail()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
+                    <button type="button" onclick="openModalWithEmail('Starter Pack \u2014 $54.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="starter-pack" data-price="54.99">
                         Register Now
                     </button>
                 </div>
@@ -783,7 +783,7 @@
                         </ul>
                     </div>
 
-                    <button type="button" onclick="openModalWithEmail()" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
+                    <button type="button" onclick="openModalWithEmail('Family Pack \u2014 $99.99')" class="btn-primary text-white font-bold py-3 px-6 rounded-lg w-full text-base" data-tier="family-pack" data-price="99.99">
                         Register Now
                     </button>
                 </div>
@@ -1654,13 +1654,13 @@ function finishSharing() {
   updateUI();
 }
 
-function openModalWithEmail() {
+function openModalWithEmail(prefillTier) {
   var emailInputs = document.querySelectorAll('input[type="email"][name="email"]');
   var email = '';
   emailInputs.forEach(function(inp) { if (inp.value.trim()) email = inp.value.trim(); });
-  openModal(email);
+  openModal(email, prefillTier);
 }
-function openModal(prefillEmail) {
+function openModal(prefillEmail, prefillTier) {
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
   currentStep = 1; selectedTier = ''; selectedVibe = '';
@@ -1692,6 +1692,11 @@ function openModal(prefillEmail) {
     document.getElementById('videoPicker').style.display = 'block';
   }
   updateUI();
+  if (prefillTier) {
+    var tierMap = {'Basic \u2014 $39.99':'tierBasic','Starter Pack \u2014 $54.99':'tierStarter','Family Pack \u2014 $99.99':'tierFamily'};
+    var cardId = tierMap[prefillTier];
+    if (cardId) { selectTier(cardId, prefillTier); }
+  }
   setTimeout(function() { document.getElementById('reserveEmailInput').focus(); }, 350);
 }
 function closeModal() {
