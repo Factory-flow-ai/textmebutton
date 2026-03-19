@@ -1473,7 +1473,7 @@
 // ═══ RESERVE MODAL CONFIG ═══
 const CONFIG = {
   FORMSPREE_ID: 'mgondnab',
-  GOOGLE_SHEET_URL: 'YOUR_GOOGLE_APPS_SCRIPT_URL',
+  GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbwgnhh5UAm5ydhpEa40mEvrCOftZ3WUQINeaqtCygOm6Uijbl6t6IF8OD9lYKzbOBxm/exec',
   SHARE_URL: 'https://textmebutton.com',
 };
 const VIDEOS = {
@@ -1518,7 +1518,7 @@ async function sendData(stepName) {
   if (CONFIG.FORMSPREE_ID !== 'mgondnab') {
     try { fetch('https://formspree.io/f/' + CONFIG.FORMSPREE_ID, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }); } catch (e) {}
   }
-  if (CONFIG.GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+  if (CONFIG.GOOGLE_SHEET_URL !== 'https://script.google.com/macros/s/AKfycbwgnhh5UAm5ydhpEa40mEvrCOftZ3WUQINeaqtCygOm6Uijbl6t6IF8OD9lYKzbOBxm/exec') {
     try { fetch(CONFIG.GOOGLE_SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch (e) {}
   }
   console.log('[Reserve]', stepName, payload);
