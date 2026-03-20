@@ -200,13 +200,70 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- Where's the Science? -->
+    <section class="py-14 px-4 sm:px-6 lg:px-8" style="background: #0C0C0E; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-center text-white mb-2">&#x1F52C; How it actually works</h2>
+            <p class="text-gray-500 text-center text-sm mb-8">No battery. No charging. No solar. Here's why.</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700">
+                    <span class="text-orange-500 text-xl mr-2">&#x26A1;</span>
+                    <span class="text-white font-semibold">Kinetic energy harvesting</span>
+                    <p class="text-gray-400 text-sm mt-2">Your finger press drives a magnet past a copper coil inside the button, generating electricity on the spot. Same principle as dynamo flashlights — miniaturized into a 2.5-inch disc.</p>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700">
+                    <span class="text-orange-500 text-xl mr-2">&#x1F4E1;</span>
+                    <span class="text-white font-semibold">Wireless signal to hub</span>
+                    <p class="text-gray-400 text-sm mt-2">The generated energy powers a 433 MHz radio burst that reaches the Ethernet hub up to 150ft+ away — through walls, floors, and doors.</p>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700">
+                    <span class="text-orange-500 text-xl mr-2">&#x1F4F1;</span>
+                    <span class="text-white font-semibold">Hub sends the text</span>
+                    <p class="text-gray-400 text-sm mt-2">The hub connects to your router via Ethernet and sends an SMS to your configured phone numbers. Real text message, any carrier, any phone.</p>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700">
+                    <span class="text-orange-500 text-xl mr-2">&#x267E;&#xFE0F;</span>
+                    <span class="text-white font-semibold">20+ years, zero maintenance</span>
+                    <p class="text-gray-400 text-sm mt-2">No battery to die. No charging to forget. No solar panel to clean. Install once, it works for decades. Proven technology used in commercial buildings worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
     <section class="py-14 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #0F0F12 0%, #0C0C0E 100%);">
-        <div class="max-w-xl mx-auto text-center">
-            <p class="text-gray-400 mb-2 text-sm">Kickstarter exclusive — starting at</p>
-            <p class="text-white text-3xl font-bold mb-1"><span class="text-gray-500 line-through text-lg mr-2">$59.99</span><span class="gradient-text">$39.99</span></p>
-            <p class="text-gray-500 text-sm mb-6">Includes 12 months free texting</p>
-            <button onclick="openModal()" class="btn-primary text-white font-bold py-4 px-10 rounded-lg text-lg">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-gray-400 mb-1 text-sm font-semibold">Kickstarter Exclusive</p>
+            <h2 class="text-2xl font-bold text-white mb-2">Super Early Bird Pricing</h2>
+            <p class="text-gray-500 text-sm mb-8">Limited quantities at each tier. Includes 12 months free texting.</p>
+
+            <div class="grid sm:grid-cols-3 gap-4 text-left">
+                <!-- Basic -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700 hover:border-orange-500 transition cursor-pointer" onclick="openModalWithEmail('Basic — $39.99')">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Basic</p>
+                    <p class="text-white font-bold text-xl mb-1"><span class="text-gray-500 line-through text-sm mr-1">$59.99</span>$39.99</p>
+                    <p class="text-orange-500 text-xs font-semibold mb-3">Save 33%</p>
+                    <p class="text-gray-400 text-sm">1 Hub + 1 Button</p>
+                </div>
+                <!-- Starter Pack -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border-2 border-orange-500 relative" onclick="openModalWithEmail('Starter Pack — $54.99')" style="cursor:pointer;">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-0.5 rounded-full">Popular</span>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Starter Pack</p>
+                    <p class="text-white font-bold text-xl mb-1"><span class="text-gray-500 line-through text-sm mr-1">$89.99</span>$54.99</p>
+                    <p class="text-orange-500 text-xs font-semibold mb-3">Save 39%</p>
+                    <p class="text-gray-400 text-sm">1 Hub + 2 Buttons</p>
+                </div>
+                <!-- Family Pack -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-5 border border-gray-700 hover:border-orange-500 transition cursor-pointer relative" onclick="openModalWithEmail('Family Pack — $99.99')">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-bold px-3 py-0.5 rounded-full">Best Value</span>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1" style="margin-top:4px;">Family Pack</p>
+                    <p class="text-white font-bold text-xl mb-1"><span class="text-gray-500 line-through text-sm mr-1">$149.99</span>$99.99</p>
+                    <p class="text-orange-500 text-xs font-semibold mb-3">Save 33%</p>
+                    <p class="text-gray-400 text-sm">1 Hub + 5 Buttons</p>
+                </div>
+            </div>
+
+            <button onclick="openModal()" class="btn-primary text-white font-bold py-4 px-10 rounded-lg text-lg mt-8">
                 Register Now — Be First in Line
             </button>
         </div>
