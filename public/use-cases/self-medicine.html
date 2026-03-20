@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Did I Take My Medicine Today? | TextMeButton — Self-Powered Medicine Reminder</title>
+  <meta name="description" content="Stop guessing if you took your medicine. Press the TextMeButton, get a text. No batteries, no app, no charging. Self-powered for 20+ years.">
+  <meta name="keywords" content="medicine reminder, medication tracker, pill reminder, self-powered button, SMS notification, no battery, elderly medicine, daily medication">
+  <meta name="author" content="TextMeButton">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Did I Take My Medicine Today? | TextMeButton">
+  <meta property="og:description" content="One press. One text. No batteries for 20+ years. The simplest medicine reminder ever built.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://textmebutton.com/self-medicine">
+  <meta property="og:image" content="https://textmebutton.com/og-medicine.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Did I Take My Medicine Today? | TextMeButton">
+  <meta name="twitter:description" content="One press. One text. No batteries for 20+ years. The simplest medicine reminder ever built.">
+
+  <link rel="canonical" href="https://textmebutton.com/self-medicine">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JTHQDSN74X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JTHQDSN74X');
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#f97316',
+            'brand-light': '#fb923c',
+            dark: '#0C0C0E',
+            'dark-card': '#141414',
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0C0C0E;
+      color: #f5f5f5;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Brand Utilities ── */
+    .gradient-text {
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover {
+      transform: scale(1.02);
+    }
+
+    /* ── Video Container ── */
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      background: #141414;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    .video-container .play-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(249,115,22,0.2);
+      border: 2px solid rgba(249,115,22,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .video-container:hover .play-icon {
+      background: rgba(249,115,22,0.35);
+      transform: scale(1.08);
+    }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Step Number Circles ── */
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Science Cards ── */
+    .science-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.3s;
+    }
+    .science-card:hover {
+      border-color: rgba(249,115,22,0.3);
+    }
+
+    /* ── Pricing Cards ── */
+    .pricing-card {
+      background: #141414;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 28px 24px;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card:hover {
+      border-color: rgba(249,115,22,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(249,115,22,0.08);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: 0;
+      right: 16px;
+      background: #f97316;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 0 0 8px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Use Case Cards ── */
+    .usecase-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 24px;
+      text-decoration: none;
+      color: #f5f5f5;
+      transition: all 0.25s;
+      display: block;
+    }
+    .usecase-card:hover {
+      border-color: rgba(249,115,22,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* ══════════════════════════════════════════
+       RESERVE MODAL STYLES
+       ══════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      width: 100%; max-width: 440px;
+      overflow: hidden; overflow-y: auto;
+      max-height: 90vh;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(249,115,22,0.25);
+    }
+    .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+
+    .progress-bar { height: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg,#f97316,#fbbf24);
+      width: 0%; transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 16px 24px 0; }
+    .btn-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent; color: #a3a3a3;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-close:hover { background: rgba(255,255,255,0.05); color: #f5f5f5; }
+
+    .modal-body { padding: 8px 24px 28px; }
+
+    .modal-step { display: none; }
+    .modal-step.active { display: block; animation: fadeSlideIn 0.35s ease forwards; }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .modal-step h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem; font-weight: 600;
+      margin-bottom: 6px; letter-spacing: -0.02em;
+    }
+    .modal-step .subtitle { color: #a3a3a3; font-size: 0.9rem; margin-bottom: 22px; line-height: 1.45; }
+
+    .input-group { position: relative; margin-bottom: 18px; }
+    .input-group input {
+      width: 100%; padding: 14px 16px 14px 44px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px; color: #f5f5f5;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; outline: none; transition: all 0.2s;
+    }
+    .input-group input::placeholder { color: #666; }
+    .input-group input:focus {
+      border-color: rgba(249,115,22,0.5);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+      background: rgba(255,255,255,0.06);
+    }
+    .input-group .icon {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); font-size: 1.1rem;
+      opacity: 0.45; pointer-events: none;
+    }
+    .input-error { color: #ef4444; font-size: 0.8rem; margin-top: -12px; margin-bottom: 14px; display: none; }
+    .input-error.show { display: block; }
+
+    .btn-next {
+      width: 100%; padding: 14px;
+      background: #f97316; color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 1rem;
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-next:hover { background: #fb923c; }
+    .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-back {
+      width: 100%; padding: 10px;
+      background: transparent; color: #a3a3a3;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500; font-size: 0.85rem;
+      border: none; cursor: pointer; margin-top: 8px;
+      transition: color 0.2s;
+    }
+    .btn-back:hover { color: #f5f5f5; }
+
+    .btn-skip {
+      width: 100%; padding: 10px;
+      background: transparent; color: #666;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500; font-size: 0.8rem;
+      border: none; cursor: pointer; margin-top: 4px;
+      transition: color 0.2s;
+    }
+    .btn-skip:hover { color: #a3a3a3; }
+
+    .privacy-note { text-align: center; font-size: 0.75rem; color: #666; margin-top: 12px; line-height: 1.4; }
+
+    .tier-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .tier-card {
+      background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px; cursor: pointer;
+      transition: all 0.2s; position: relative; overflow: hidden;
+    }
+    .tier-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
+    .tier-card.selected {
+      border-color: #f97316;
+      background: rgba(249,115,22,0.08);
+      box-shadow: 0 0 16px rgba(249,115,22,0.1);
+    }
+    .tier-card-main { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
+    .tier-card .radio {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #666; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .tier-card.selected .radio { border-color: #f97316; background: #f97316; }
+    .tier-card.selected .radio::after { content: '\2713'; color: #fff; font-size: 0.7rem; font-weight: 700; }
+    .tier-info { flex: 1; }
+    .tier-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+    .tier-desc { color: #a3a3a3; font-size: 0.8rem; }
+    .tier-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; color: #f97316; font-size: 1.05rem; white-space: nowrap;
+    }
+    .tier-price .original { color: #666; text-decoration: line-through; font-size: 0.8rem; font-weight: 400; margin-right: 4px; }
+    .tier-badge-modal {
+      position: absolute; top: -1px; right: 12px;
+      background: #f97316; color: #fff;
+      font-size: 0.65rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 0 0 8px 8px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tier-expand-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      padding: 8px 18px; font-size: 0.75rem; color: #666; cursor: pointer;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      transition: color 0.2s; background: none;
+      border-left: none; border-right: none; border-bottom: none;
+      width: 100%; font-family: 'DM Sans', sans-serif;
+    }
+    .tier-expand-toggle:hover { color: #a3a3a3; }
+    .tier-expand-toggle .arrow { transition: transform 0.25s; display: inline-block; }
+    .tier-card.expanded .tier-expand-toggle .arrow { transform: rotate(180deg); }
+    .tier-details {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 18px; font-size: 0.8rem; color: #a3a3a3; line-height: 1.55;
+    }
+    .tier-card.expanded .tier-details { max-height: 200px; padding: 0 18px 14px; }
+    .tier-details ul { list-style: none; padding: 0; }
+    .tier-details ul li { padding: 3px 0; }
+    .tier-details ul li::before { content: '\2713 '; color: #f97316; font-weight: 700; }
+
+    /* Success */
+    .success-state { text-align: center; padding: 12px 0 4px; }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(34,197,94,0.2); border: 2px solid #22c55e;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 18px;
+      animation: scaleIn 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes scaleIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-state h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; margin-bottom: 8px; }
+    .success-state p { color: #a3a3a3; font-size: 0.9rem; line-height: 1.5; }
+    .success-summary {
+      margin-top: 20px; padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; text-align: left; font-size: 0.85rem;
+    }
+    .success-summary .row {
+      display: flex; justify-content: space-between;
+      padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .success-summary .row:last-child { border-bottom: none; }
+    .success-summary .label { color: #666; }
+    .success-summary .value { color: #f5f5f5; font-weight: 500; }
+
+    /* Sharing */
+    .section-label {
+      font-size: 0.8rem; color: #666; text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 500; margin-bottom: 10px; text-align: left;
+    }
+    .video-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .video-card {
+      padding: 16px 18px; background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 14px; position: relative;
+    }
+    .video-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
+    .video-card.selected { border-color: #f97316; background: rgba(249,115,22,0.08); box-shadow: 0 0 16px rgba(249,115,22,0.1); }
+    .video-card .radio {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #666; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .video-card.selected .radio { border-color: #f97316; background: #f97316; }
+    .video-card.selected .radio::after { content: '\2713'; color: #fff; font-size: 0.7rem; font-weight: 700; }
+    .video-info { flex: 1; }
+    .video-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+    .video-desc { color: #a3a3a3; font-size: 0.8rem; }
+    .video-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .video-card-detected {
+      padding: 14px 18px; background: rgba(249,115,22,0.08);
+      border: 1.5px solid #f97316; border-radius: 10px;
+      display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .video-detected-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #f97316; letter-spacing: 0.05em; }
+
+    .vibe-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .vibe-card {
+      padding: 14px 16px; background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: left;
+    }
+    .vibe-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
+    .vibe-card.selected { border-color: #f97316; background: rgba(249,115,22,0.08); }
+    .vibe-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 2px 8px; border-radius: 20px; margin-bottom: 6px;
+    }
+    .vibe-tag.funny { background: rgba(168,85,247,0.15); color: #c084fc; }
+    .vibe-tag.heartfelt { background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .vibe-tag.techy { background: rgba(34,211,238,0.12); color: #67e8f9; }
+    .vibe-text { font-size: 0.85rem; color: #f5f5f5; line-height: 1.45; }
+
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    .platform-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 14px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03); color: #f5f5f5;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .platform-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .platform-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .platform-btn.twitter:hover { border-color: rgba(29,161,242,0.5); background: rgba(29,161,242,0.08); }
+    .platform-btn.facebook:hover { border-color: rgba(24,119,242,0.5); background: rgba(24,119,242,0.08); }
+    .platform-btn.linkedin:hover { border-color: rgba(10,102,194,0.5); background: rgba(10,102,194,0.08); }
+    .platform-btn.tiktok:hover { border-color: rgba(255,0,80,0.5); background: rgba(255,0,80,0.08); }
+    .platform-btn.copylink:hover { border-color: rgba(249,115,22,0.5); background: rgba(249,115,22,0.08); }
+    .platform-btn .copied-text { display: none; }
+    .platform-btn.copied .default-text { display: none; }
+    .platform-btn.copied .copied-text { display: inline; }
+    .platform-btn.copied { border-color: #22c55e; background: rgba(34,197,94,0.2); }
+    .platform-btn .shared-text { display: none; }
+    .platform-btn.shared .default-text { display: none; }
+    .platform-btn.shared .shared-text { display: inline; }
+    .platform-btn.shared { border-color: #22c55e; background: rgba(34,197,94,0.2); opacity: 0.85; }
+    .platform-btn.shared:hover { transform: none; }
+
+    .btn-claim-labels {
+      width: 100%; padding: 14px;
+      background: #eab308; color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.25s; display: none; margin-top: 12px;
+      box-shadow: 0 0 20px rgba(234,179,8,0.15);
+    }
+    .btn-claim-labels.visible {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      animation: fadeSlideIn 0.35s ease forwards;
+    }
+    .btn-claim-labels:hover { background: #facc15; transform: translateY(-1px); }
+
+    .share-count { font-size: 0.75rem; color: #666; text-align: center; margin-top: 8px; }
+
+    .reward-unlocked { text-align: center; padding: 12px 0 4px; }
+    .reward-unlocked-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(234,179,8,0.15); border: 2px solid #eab308;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 18px;
+      animation: scaleIn 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reward-unlocked h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; margin-bottom: 8px; color: #eab308; }
+    .reward-unlocked p { color: #a3a3a3; font-size: 0.9rem; line-height: 1.5; }
+
+    .btn-done {
+      width: 100%; padding: 14px;
+      background: rgba(255,255,255,0.06); color: #f5f5f5;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; cursor: pointer; margin-top: 20px;
+      transition: all 0.2s;
+    }
+    .btn-done:hover { background: rgba(255,255,255,0.1); }
+
+    .spinner {
+      display: inline-block; width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 480px) {
+      .modal-body { padding: 8px 18px 24px; }
+      .modal-step h3 { font-size: 1.2rem; }
+      .tier-card-main { padding: 12px 14px; }
+      .video-card { padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       NAV
+       ══════════════════════════════════════════ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0C0C0E]/80 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="https://textmebutton.com" class="font-heading font-bold text-xl tracking-tight">
+        <span class="gradient-text">TextMe</span><span class="text-white">Button</span>
+      </a>
+      <button onclick="openModal()" class="btn-primary text-white font-semibold text-sm px-5 py-2.5 rounded-lg">
+        Register Now
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════
+       HERO
+       ══════════════════════════════════════════ -->
+  <section class="pt-28 pb-16 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <!-- Left: Copy -->
+      <div class="flex-1 text-center lg:text-left reveal">
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
+          <span class="gradient-text">Did I take my medicine</span><br>
+          <span class="text-white">today?</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-[#a3a3a3] max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed">
+          Stop guessing. Stop asking. Press the button when you take your pill. Get a text confirming it. That's the whole thing.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <button onclick="openModal()" class="btn-primary text-white font-semibold text-base px-8 py-3.5 rounded-xl">
+            Register Now — Be First in Line
+          </button>
+        </div>
+        <p class="text-xs text-[#666] mt-4">Launching on Kickstarter. No commitment, cancel anytime.</p>
+      </div>
+
+      <!-- Right: Video Placeholder -->
+      <div class="flex-shrink-0 reveal" style="transition-delay: 0.15s;">
+        <div class="video-container">
+          <div class="play-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M8 5.14v13.72a1 1 0 001.5.86l11.04-6.86a1 1 0 000-1.72L9.5 4.28A1 1 0 008 5.14z" fill="#f97316"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       HOW IT WORKS
+       ══════════════════════════════════════════ -->
+  <section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-14 reveal">
+        How it <span class="gradient-text">works</span>
+      </h2>
+      <div class="space-y-8">
+        <div class="flex items-center gap-5 reveal">
+          <div class="step-number">1</div>
+          <p class="text-lg text-[#e5e5e5]"><span class="font-semibold text-white">Press the Button</span> — when you take your medicine, press the hockey-puck-sized button with a firm click.</p>
+        </div>
+        <div class="flex items-center gap-5 reveal" style="transition-delay: 0.1s;">
+          <div class="step-number">2</div>
+          <p class="text-lg text-[#e5e5e5]"><span class="font-semibold text-white">Get a Text</span> — an SMS lands on your phone (or a family member's) within seconds.</p>
+        </div>
+        <div class="flex items-center gap-5 reveal" style="transition-delay: 0.2s;">
+          <div class="step-number">3</div>
+          <p class="text-lg text-[#e5e5e5]"><span class="font-semibold text-white">That's It</span> — no app to open, no battery to charge, no setup to repeat. Ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       LINCOLN ORIGIN QUOTE
+       ══════════════════════════════════════════ -->
+  <section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto reveal">
+      <div class="border border-white/8 rounded-2xl p-8 sm:p-10 bg-[#141414] relative">
+        <div class="absolute -top-4 left-8 text-5xl text-brand opacity-60 font-serif">"</div>
+        <blockquote class="text-lg sm:text-xl text-[#e5e5e5] leading-relaxed mb-6 font-body">
+          My son Lincoln has anxiety about taking his medicine. Asking him every day made it worse. So I built a button. He presses it, I get a text. That's the whole product.
+        </blockquote>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand to-brand-light flex items-center justify-center text-white font-bold text-sm">JE</div>
+          <div>
+            <p class="text-white font-semibold text-sm">Jared Eggett</p>
+            <p class="text-[#a3a3a3] text-xs">Founder, TextMeButton</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       WHERE'S THE SCIENCE (INLINE)
+       ══════════════════════════════════════════ -->
+  <section class="py-20 px-6" id="science">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-4 reveal">
+        How it <span class="gradient-text">actually works</span>
+      </h2>
+      <p class="text-center text-[#a3a3a3] mb-12 reveal">The engineering behind zero-maintenance simplicity.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <!-- Card 1 -->
+        <div class="science-card reveal">
+          <div class="text-2xl mb-3">&#9889;</div>
+          <h3 class="font-heading font-semibold text-white text-lg mb-2">Kinetic energy harvesting</h3>
+          <p class="text-[#a3a3a3] text-sm leading-relaxed">A magnet passes a copper coil when you press — the dynamo principle in a 2.5-inch disc. Your finger powers every transmission.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="science-card reveal" style="transition-delay: 0.1s;">
+          <div class="text-2xl mb-3">&#128225;</div>
+          <h3 class="font-heading font-semibold text-white text-lg mb-2">Wireless signal to hub</h3>
+          <p class="text-[#a3a3a3] text-sm leading-relaxed">433 MHz radio signal reaches 150+ feet through walls, floors, and ceilings. One press, instant relay to your hub.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="science-card reveal" style="transition-delay: 0.2s;">
+          <div class="text-2xl mb-3">&#128172;</div>
+          <h3 class="font-heading font-semibold text-white text-lg mb-2">Hub sends the text</h3>
+          <p class="text-[#a3a3a3] text-sm leading-relaxed">The hub connects via Ethernet to your router and sends a real SMS to any carrier. No cloud subscription, no monthly fee.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="science-card reveal" style="transition-delay: 0.3s;">
+          <div class="text-2xl mb-3">&#9854;</div>
+          <h3 class="font-heading font-semibold text-white text-lg mb-2">20+ years zero maintenance</h3>
+          <p class="text-[#a3a3a3] text-sm leading-relaxed">No battery to replace. No charging cable. No solar panel. The button self-powers from the energy of your press, indefinitely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       PRICING
+       ══════════════════════════════════════════ -->
+  <section class="py-20 px-6" id="pricing">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-center text-brand font-semibold text-sm uppercase tracking-widest mb-3 reveal">Kickstarter Exclusive</p>
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-12 reveal">
+        Super Early Bird <span class="gradient-text">Pricing</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Basic -->
+        <div class="pricing-card reveal" onclick="openModal(null, 'Basic — $39.99')">
+          <p class="font-heading font-bold text-xl text-white mb-1">Basic</p>
+          <p class="text-[#a3a3a3] text-sm mb-5">1 Hub + 1 Button</p>
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-heading text-3xl font-bold gradient-text">$39.99</span>
+            <span class="text-[#666] line-through text-sm">$59.99</span>
+          </div>
+          <p class="text-xs text-green-400 font-semibold mb-5">Save 33%</p>
+          <button class="btn-primary w-full text-white font-semibold text-sm py-3 rounded-lg">
+            Reserve Now
+          </button>
+        </div>
+
+        <!-- Starter Pack -->
+        <div class="pricing-card reveal" style="transition-delay: 0.1s;" onclick="openModal(null, 'Starter Pack — $54.99')">
+          <div class="pricing-badge">Popular</div>
+          <p class="font-heading font-bold text-xl text-white mb-1">Starter Pack</p>
+          <p class="text-[#a3a3a3] text-sm mb-5">1 Hub + 2 Buttons</p>
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-heading text-3xl font-bold gradient-text">$54.99</span>
+            <span class="text-[#666] line-through text-sm">$89.99</span>
+          </div>
+          <p class="text-xs text-green-400 font-semibold mb-5">Save 39%</p>
+          <button class="btn-primary w-full text-white font-semibold text-sm py-3 rounded-lg">
+            Reserve Now
+          </button>
+        </div>
+
+        <!-- Family Pack -->
+        <div class="pricing-card reveal" style="transition-delay: 0.2s;" onclick="openModal(null, 'Family Pack — $99.99')">
+          <div class="pricing-badge">Best Value</div>
+          <p class="font-heading font-bold text-xl text-white mb-1">Family Pack</p>
+          <p class="text-[#a3a3a3] text-sm mb-5">1 Hub + 5 Buttons</p>
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-heading text-3xl font-bold gradient-text">$99.99</span>
+            <span class="text-[#666] line-through text-sm">$149.99</span>
+          </div>
+          <p class="text-xs text-green-400 font-semibold mb-5">Save 33%</p>
+          <button class="btn-primary w-full text-white font-semibold text-sm py-3 rounded-lg">
+            Reserve Now
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-10 reveal">
+        <button onclick="openModal()" class="btn-primary text-white font-semibold text-base px-10 py-4 rounded-xl">
+          Register Now — Be First in Line
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       OTHER USES
+       ══════════════════════════════════════════ -->
+  <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-4 reveal">
+        Not just for <span class="gradient-text">medicine</span>
+      </h2>
+      <p class="text-center text-[#a3a3a3] mb-12 reveal">One button, endless routines.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <a href="https://textmebutton.com/#usecases" class="usecase-card reveal">
+          <div class="text-3xl mb-3">&#127968;</div>
+          <h3 class="font-heading font-semibold text-white mb-1">Kids Home Safe</h3>
+          <p class="text-[#a3a3a3] text-sm">One press when they walk in the door.</p>
+        </a>
+        <a href="https://textmebutton.com/#usecases" class="usecase-card reveal" style="transition-delay: 0.1s;">
+          <div class="text-3xl mb-3">&#128020;</div>
+          <h3 class="font-heading font-semibold text-white mb-1">Chickens Fed</h3>
+          <p class="text-[#a3a3a3] text-sm">Morning chore done, confirmed by text.</p>
+        </a>
+        <a href="https://textmebutton.com/#usecases" class="usecase-card reveal" style="transition-delay: 0.2s;">
+          <div class="text-3xl mb-3">&#129491;</div>
+          <h3 class="font-heading font-semibold text-white mb-1">Senior Check-in</h3>
+          <p class="text-[#a3a3a3] text-sm">Daily "I'm OK" without a phone call.</p>
+        </a>
+        <a href="https://textmebutton.com/#usecases" class="usecase-card reveal" style="transition-delay: 0.3s;">
+          <div class="text-3xl mb-3">&#127959;</div>
+          <h3 class="font-heading font-semibold text-white mb-1">Construction</h3>
+          <p class="text-[#a3a3a3] text-sm">Safety check-ins, no smartphone needed.</p>
+        </a>
+      </div>
+
+      <div class="text-center mt-8 reveal">
+        <a href="https://textmebutton.com/#usecases" class="text-brand hover:text-brand-light font-semibold text-sm transition-colors">
+          See all 14 use cases &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════ -->
+  <footer class="border-t border-white/5 py-10 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="https://textmebutton.com" class="font-heading font-bold text-lg tracking-tight">
+        <span class="gradient-text">TextMe</span><span class="text-white">Button</span>
+      </a>
+      <p class="text-[#666] text-sm">&copy; 2026 TextMeButton. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════
+       RESERVE MODAL (6 screens)
+       ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="modal-header">
+        <button class="btn-close" onclick="closeModal()">&#10005;</button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- STEP 1: Name & Email -->
+        <div class="modal-step active" id="step1">
+          <h3>Reserve your TextMeButton</h3>
+          <p class="subtitle">Be first in line when we launch on Kickstarter. No spam, ever.</p>
+          <div class="input-group">
+            <span class="icon">&#128100;</span>
+            <input type="text" id="reserveNameInput" placeholder="Your name">
+          </div>
+          <div class="input-group">
+            <span class="icon">&#9993;</span>
+            <input type="email" id="reserveEmailInput" placeholder="your@email.com">
+          </div>
+          <div class="input-error" id="emailError">Please enter a valid email address.</div>
+          <button class="btn-next" id="btn1" onclick="completeStep1()">Continue &rarr;</button>
+          <p class="privacy-note">&#128274; Your info stays private. We never share or sell it.</p>
+        </div>
+
+        <!-- STEP 2: Phone -->
+        <div class="modal-step" id="step2">
+          <h3>Get a launch-day text</h3>
+          <p class="subtitle">We'll text you once — the moment TextMeButton goes live. That's it.</p>
+          <div class="input-group">
+            <span class="icon">&#128241;</span>
+            <input type="tel" id="reservePhoneInput" placeholder="(555) 123-4567">
+          </div>
+          <div class="input-error" id="phoneError">Please enter a valid phone number.</div>
+          <button class="btn-next" id="btn2" onclick="completeStep2()">Continue &rarr;</button>
+          <button class="btn-skip" onclick="skipPhone()">Skip — just email me</button>
+          <button class="btn-back" onclick="goToStep(1)">&larr; Back</button>
+        </div>
+
+        <!-- STEP 3: Tier Selection -->
+        <div class="modal-step" id="step3">
+          <h3>Which pack catches your eye?</h3>
+          <p class="subtitle">No commitment — just helps us plan inventory. You can change later.</p>
+
+          <div class="tier-grid">
+            <div class="tier-card" id="tierBasic" onclick="selectTier('tierBasic', 'Basic — $39.99')">
+              <div class="tier-card-main">
+                <div class="radio"></div>
+                <div class="tier-info">
+                  <div class="tier-name">Basic</div>
+                  <div class="tier-desc">1 Hub + 1 Button</div>
+                </div>
+                <div class="tier-price"><span class="original">$59.99</span> $39.99</div>
+              </div>
+              <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierBasic')">What's included <span class="arrow">&#9662;</span></button>
+              <div class="tier-details">
+                <ul>
+                  <li>1 Ethernet Hub</li>
+                  <li>1 Self-powered TextMeButton</li>
+                  <li>Mobile app for iOS &amp; Android</li>
+                  <li>5-year product guarantee</li>
+                  <li>No batteries for 20+ years</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tier-card" id="tierStarter" onclick="selectTier('tierStarter', 'Starter Pack — $54.99')">
+              <div class="tier-badge-modal">Popular</div>
+              <div class="tier-card-main">
+                <div class="radio"></div>
+                <div class="tier-info">
+                  <div class="tier-name">Starter Pack</div>
+                  <div class="tier-desc">1 Hub + 2 Buttons</div>
+                </div>
+                <div class="tier-price"><span class="original">$89.99</span> $54.99</div>
+              </div>
+              <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierStarter')">What's included <span class="arrow">&#9662;</span></button>
+              <div class="tier-details">
+                <ul>
+                  <li>1 Ethernet Hub</li>
+                  <li>2 Self-powered TextMeButtons</li>
+                  <li>Configure each button with different messages</li>
+                  <li>Send to different phone numbers per button</li>
+                  <li>Mobile app for iOS &amp; Android</li>
+                  <li>5-year product guarantee</li>
+                  <li>No batteries for 20+ years</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tier-card" id="tierFamily" onclick="selectTier('tierFamily', 'Family Pack — $99.99')">
+              <div class="tier-badge-modal">Best Value</div>
+              <div class="tier-card-main">
+                <div class="radio"></div>
+                <div class="tier-info">
+                  <div class="tier-name">Family Pack</div>
+                  <div class="tier-desc">1 Hub + 5 Buttons</div>
+                </div>
+                <div class="tier-price"><span class="original">$149.99</span> $99.99</div>
+              </div>
+              <button class="tier-expand-toggle" onclick="toggleExpand(event, 'tierFamily')">What's included <span class="arrow">&#9662;</span></button>
+              <div class="tier-details">
+                <ul>
+                  <li>1 Ethernet Hub</li>
+                  <li>5 Self-powered TextMeButtons</li>
+                  <li>Configure each button with different messages</li>
+                  <li>Send to different phone numbers per button</li>
+                  <li>Cover every room, every routine</li>
+                  <li>Mobile app for iOS &amp; Android</li>
+                  <li>5-year product guarantee</li>
+                  <li>No batteries for 20+ years</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-next" id="submitBtn" onclick="completeStep3()" disabled>Reserve My Spot &rarr;</button>
+        </div>
+
+        <!-- STEP 4: Success -->
+        <div class="modal-step" id="step4">
+          <div class="success-state">
+            <div class="success-icon">&#10003;</div>
+            <h3>You're on the list!</h3>
+            <p>We'll notify you the moment TextMeButton launches.</p>
+          </div>
+          <div class="success-summary">
+            <div class="row"><span class="label">Name</span><span class="value" id="summaryName"></span></div>
+            <div class="row"><span class="label">Email</span><span class="value" id="summaryEmail"></span></div>
+            <div class="row" id="summaryPhoneRow"><span class="label">Phone</span><span class="value" id="summaryPhone"></span></div>
+            <div class="row"><span class="label">Interest</span><span class="value" id="summaryTier"></span></div>
+          </div>
+          <button class="btn-next" onclick="goToStep(5)" style="margin-top: 20px;">Share &amp; Get Free Custom Labels &rarr;</button>
+          <button class="btn-skip" onclick="finishSharing()">Skip for now</button>
+        </div>
+
+        <!-- STEP 5: Sharing -->
+        <div class="modal-step" id="step5">
+          <h3>Share &amp; Get Free Custom Labels</h3>
+          <p class="subtitle">Share TextMeButton with your friends and we'll include a set of custom labels for your buttons — free. Your words, your labels, your buttons.</p>
+
+          <div id="videoDetected" style="display: none;">
+            <div class="video-card-detected">
+              <div class="video-icon" id="detectedVideoIcon"></div>
+              <div class="video-info">
+                <div class="video-name" id="detectedVideoName"></div>
+                <div class="video-desc" id="detectedVideoDesc"></div>
+              </div>
+              <div class="video-detected-badge">AUTO-DETECTED &#10003;</div>
+            </div>
+          </div>
+
+          <div id="videoPicker">
+            <p class="section-label">Which video brought you here?</p>
+            <div class="video-grid">
+              <div class="video-card" onclick="selectVideo(this, 'medicine_reminder')">
+                <div class="radio"></div>
+                <div class="video-info">
+                  <div class="video-name">&#128138; Medicine Reminder</div>
+                  <div class="video-desc">The one about tracking daily medication</div>
+                </div>
+              </div>
+              <div class="video-card" onclick="selectVideo(this, 'family_chores')">
+                <div class="radio"></div>
+                <div class="video-info">
+                  <div class="video-name">&#128020; Family Chores</div>
+                  <div class="video-desc">The one about kids, chickens, and chore accountability</div>
+                </div>
+              </div>
+              <div class="video-card" onclick="selectVideo(this, 'business_security')">
+                <div class="radio"></div>
+                <div class="video-info">
+                  <div class="video-name">&#127959; Business Use Cases</div>
+                  <div class="video-desc">Security patrols, cleaning logs, construction check-ins</div>
+                </div>
+              </div>
+              <div class="video-card" onclick="selectVideo(this, 'none')">
+                <div class="radio"></div>
+                <div class="video-info">
+                  <div class="video-name">&#128269; I just found the site</div>
+                  <div class="video-desc">No specific video brought me here</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="section-label">Pick your share message</p>
+          <div class="vibe-grid">
+            <div class="vibe-card" onclick="selectVibe(this, 'funny')">
+              <span class="vibe-tag funny">FUNNY</span>
+              <div class="vibe-text">I just reserved a button that texts me when someone presses it. No battery. No app. No, I'm not making this up.</div>
+            </div>
+            <div class="vibe-card" onclick="selectVibe(this, 'heartfelt')">
+              <span class="vibe-tag heartfelt">HEARTFELT</span>
+              <div class="vibe-text">Found the simplest way to stay connected with my family. One press = one text. No batteries, no app, just peace of mind.</div>
+            </div>
+            <div class="vibe-card" onclick="selectVibe(this, 'techy')">
+              <span class="vibe-tag techy">EARLY ADOPTER</span>
+              <div class="vibe-text">Just reserved a self-powered IoT button that runs 20+ years on kinetic energy harvesting. Zero batteries. Real SMS delivery.</div>
+            </div>
+          </div>
+
+          <p class="section-label">Share on</p>
+          <div class="platform-grid">
+            <button class="platform-btn twitter" id="btn-twitter" onclick="shareOn('twitter')">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"/></svg>
+              <span class="default-text">X / Twitter</span>
+              <span class="shared-text">Shared &#10003;</span>
+            </button>
+            <button class="platform-btn facebook" id="btn-facebook" onclick="shareOn('facebook')">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a6 6 0 00-6 6v9a2 2 0 002 2h3v-6h-3v-3a2 2 0 012-2h1V2z"/></svg>
+              <span class="default-text">Facebook</span>
+              <span class="shared-text">Shared &#10003;</span>
+            </button>
+            <button class="platform-btn linkedin" id="btn-linkedin" onclick="shareOn('linkedin')">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/></svg>
+              <span class="default-text">LinkedIn</span>
+              <span class="shared-text">Shared &#10003;</span>
+            </button>
+            <button class="platform-btn tiktok" id="btn-tiktok" onclick="shareOn('tiktok')">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z"/></svg>
+              <span class="default-text">TikTok</span>
+              <span class="shared-text">Shared &#10003;</span>
+            </button>
+            <button class="platform-btn copylink" id="btn-copy" onclick="shareOn('copy')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="default-text">Copy Link</span>
+              <span class="copied-text">Copied! &#10003;</span>
+            </button>
+          </div>
+
+          <div id="shareCount" style="display: none;" class="share-count"></div>
+
+          <button class="btn-claim-labels" id="btnClaimLabels" onclick="finishSharing()">Done — Claim My Free Labels &rarr;</button>
+          <button class="btn-skip" id="btnSkipShare" onclick="finishSharing()">No thanks, I'm done</button>
+          <div id="selectVibeHint" class="privacy-note" style="display: none; margin-top: 16px;">&#128070; Pick a vibe above to customize your share message (optional)</div>
+        </div>
+
+        <!-- STEP 6: Reward Unlocked -->
+        <div class="modal-step" id="step6">
+          <div class="reward-unlocked">
+            <div class="reward-unlocked-icon">&#127942;</div>
+            <h3>Free Custom Labels Unlocked!</h3>
+            <p>Thanks for sharing! We'll include a set of custom labels with your order — your words, printed and ready to stick on your buttons.</p>
+          </div>
+          <div class="success-summary">
+            <div class="row"><span class="label">Reward</span><span class="value" id="summaryReward">Free Custom Labels</span></div>
+            <div class="row"><span class="label">Shared via</span><span class="value" id="summaryPlatform"></span></div>
+            <div class="row" id="summaryVideoRow2"><span class="label">Video source</span><span class="value" id="summaryVideo"></span></div>
+          </div>
+          <button class="btn-done" onclick="closeModal()">Done — See You at Launch!</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       JAVASCRIPT
+       ══════════════════════════════════════════ -->
+  <script>
+    // ═══ UTM AUTO-TAGGING ═══
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (!params.has('utm_source')) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('utm_source', 'self-medicine-landing');
+        url.searchParams.set('utm_campaign', 'medicine_reminder');
+        window.history.replaceState({}, '', url.toString());
+      }
+    })();
+
+    // ═══ SCROLL REVEAL ═══
+    (function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
+    })();
+
+    // ═══ RESERVE MODAL CONFIG ═══
+    var CONFIG = {
+      FORMSPREE_ID: 'mgondnab',
+      GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbwgnhh5UAm5ydhpEa40mEvrCOftZ3WUQINeaqtCygOm6Uijbl6t6IF8OD9lYKzbOBxm/exec',
+      SHARE_URL: 'https://textmebutton.com'
+    };
+
+    var VIDEOS = {
+      medicine_reminder: { name: 'Medicine Reminder', desc: 'How TextMeButton helps track daily medication', icon: '\u{1F48A}', url: '' },
+      family_chores: { name: 'Family Chores', desc: 'Kids, chickens, and chore accountability', icon: '\u{1F414}', url: '' },
+      business_security: { name: 'Business Use Cases', desc: 'Security patrols, cleaning logs, construction check-ins', icon: '\u{1F3D7}', url: '' }
+    };
+
+    var SHARE_MESSAGES = {
+      funny: "I just reserved a button that texts me when someone presses it. No battery. No app. No, I'm not making this up.",
+      heartfelt: "Found the simplest way to stay connected with my family. One press = one text. No batteries, no app, just peace of mind.",
+      techy: "Just reserved a self-powered IoT button that runs 20+ years on kinetic energy harvesting. Zero batteries. Real SMS delivery."
+    };
+
+    var currentStep = 1;
+    var selectedTier = '';
+    var selectedVibe = '';
+    var selectedVideoKey = '';
+    var detectedVideoKey = '';
+    var sharedPlatforms = [];
+    var TOTAL_STEPS = 3;
+
+    var reserveData = {
+      name: '', email: '', phone: '', tier: '',
+      shared_via: '', share_vibe: '', video_source: '',
+      utm_source: '', utm_campaign: ''
+    };
+
+    function generateSessionId() {
+      return 'tmb_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+    }
+
+    var sessionId = generateSessionId();
+
+    // Detect UTM params
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      reserveData.utm_source = params.get('utm_source') || 'self-medicine-landing';
+      reserveData.utm_campaign = params.get('utm_campaign') || 'medicine_reminder';
+
+      if (reserveData.utm_campaign && VIDEOS[reserveData.utm_campaign]) {
+        detectedVideoKey = reserveData.utm_campaign;
+        selectedVideoKey = reserveData.utm_campaign;
+        reserveData.video_source = VIDEOS[reserveData.utm_campaign].name + ' (auto-detected via UTM)';
+      }
+    })();
+
+    // ═══ SEND DATA ═══
+    function sendData(stepName) {
+      var payload = {
+        session_id: sessionId,
+        step: stepName,
+        name: reserveData.name || '',
+        email: reserveData.email || '',
+        phone: reserveData.phone || '',
+        tier: reserveData.tier || '',
+        video_source: reserveData.video_source || '',
+        utm_source: reserveData.utm_source || '',
+        utm_campaign: reserveData.utm_campaign || '',
+        shared_via: reserveData.shared_via || '',
+        share_vibe: reserveData.share_vibe || '',
+        timestamp: new Date().toISOString(),
+        page: 'self-medicine-landing',
+        _subject: '\u{1F514} TextMeButton Reserve \u2014 ' + stepName
+      };
+
+      // Formspree
+      try {
+        fetch('https://formspree.io/f/' + CONFIG.FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
+
+      // Google Sheets
+      try {
+        fetch(CONFIG.GOOGLE_SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
+
+      console.log('[Reserve]', stepName, payload);
+    }
+
+    // ═══ STEP HANDLERS ═══
+    function completeStep1() {
+      if (!validateEmail()) return;
+      var btn = document.getElementById('btn1');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>';
+      reserveData.name = document.getElementById('reserveNameInput').value.trim();
+      reserveData.email = document.getElementById('reserveEmailInput').value.trim();
+      sendData('Step 1 \u2014 Email Captured');
+      setTimeout(function() {
+        btn.innerHTML = 'Continue &rarr;';
+        btn.disabled = false;
+        goToStep(2);
+      }, 400);
+    }
+
+    function completeStep2() {
+      if (!validatePhone()) return;
+      var btn = document.getElementById('btn2');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>';
+      reserveData.phone = document.getElementById('reservePhoneInput').value.trim();
+      sendData('Step 2 \u2014 Phone Captured');
+      setTimeout(function() {
+        btn.innerHTML = 'Continue &rarr;';
+        btn.disabled = false;
+        goToStep(3);
+      }, 400);
+    }
+
+    function skipPhone() {
+      reserveData.phone = '(skipped)';
+      sendData('Step 2 \u2014 Phone Skipped');
+      goToStep(3);
+    }
+
+    function completeStep3() {
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Reserving...';
+      reserveData.tier = selectedTier;
+      sendData('Step 3 \u2014 Reservation Complete');
+
+      document.getElementById('summaryName').textContent = reserveData.name || '(not provided)';
+      document.getElementById('summaryEmail').textContent = reserveData.email;
+      if (reserveData.phone && reserveData.phone !== '(skipped)') {
+        document.getElementById('summaryPhone').textContent = reserveData.phone;
+      } else {
+        document.getElementById('summaryPhoneRow').style.display = 'none';
+      }
+      document.getElementById('summaryTier').textContent = reserveData.tier;
+
+      setTimeout(function() {
+        btn.innerHTML = 'Reserve My Spot &rarr;';
+        btn.disabled = false;
+        currentStep = 4;
+        updateUI();
+      }, 600);
+    }
+
+    function selectTier(cardId, tier) {
+      document.querySelectorAll('.tier-card').forEach(function(c) { c.classList.remove('selected'); });
+      document.getElementById(cardId).classList.add('selected');
+      selectedTier = tier;
+      document.getElementById('submitBtn').disabled = false;
+    }
+
+    function toggleExpand(event, cardId) {
+      event.stopPropagation();
+      document.getElementById(cardId).classList.toggle('expanded');
+    }
+
+    function selectVideo(card, key) {
+      document.querySelectorAll('.video-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      selectedVideoKey = key;
+      reserveData.video_source = key === 'none' ? 'No specific video' : (VIDEOS[key] ? VIDEOS[key].name + ' (self-selected)' : '');
+    }
+
+    function selectVibe(card, vibe) {
+      document.querySelectorAll('.vibe-card').forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      selectedVibe = vibe;
+      document.querySelectorAll('.platform-btn').forEach(function(b) { b.disabled = false; });
+      document.getElementById('selectVibeHint').style.display = 'none';
+    }
+
+    function getVideoUrl() {
+      if (selectedVideoKey && selectedVideoKey !== 'none' && VIDEOS[selectedVideoKey] && VIDEOS[selectedVideoKey].url) {
+        return VIDEOS[selectedVideoKey].url;
+      }
+      return null;
+    }
+
+    function getShareText() {
+      var msg = selectedVibe ? SHARE_MESSAGES[selectedVibe] : "Check out TextMeButton - a self-powered button that sends a text when pressed. No batteries, no app, no wires.";
+      return getVideoUrl() ? msg + ' Watch this:' : msg;
+    }
+
+    function getShareUrl() { return getVideoUrl() || CONFIG.SHARE_URL; }
+
+    function shareOn(platform) {
+      var msg = getShareText();
+      var shareUrl = getShareUrl();
+      var videoUrl = getVideoUrl();
+      var fullText = videoUrl ? msg + ' ' + videoUrl + '\nReserve yours: ' + CONFIG.SHARE_URL : msg + ' ' + CONFIG.SHARE_URL;
+      var platformName = '';
+      var btnId = '';
+
+      switch (platform) {
+        case 'twitter':
+          var tweetText = videoUrl ? msg + ' ' + videoUrl + ' ' + CONFIG.SHARE_URL : msg + ' ' + CONFIG.SHARE_URL;
+          window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText), '_blank', 'width=550,height=420');
+          platformName = 'X / Twitter'; btnId = 'btn-twitter'; break;
+        case 'facebook':
+          window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl) + '&quote=' + encodeURIComponent(msg), '_blank', 'width=550,height=420');
+          platformName = 'Facebook'; btnId = 'btn-facebook'; break;
+        case 'linkedin':
+          window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl), '_blank', 'width=550,height=420');
+          platformName = 'LinkedIn'; btnId = 'btn-linkedin'; break;
+        case 'tiktok':
+          window.open('https://www.tiktok.com/', '_blank');
+          platformName = 'TikTok'; btnId = 'btn-tiktok'; break;
+        case 'copy':
+          try { navigator.clipboard.writeText(fullText); } catch (e) {
+            var ta = document.createElement('textarea'); ta.value = fullText;
+            document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          }
+          var copyBtn = document.getElementById('btn-copy');
+          copyBtn.classList.add('copied');
+          setTimeout(function() { copyBtn.classList.remove('copied'); copyBtn.classList.add('shared'); }, 1500);
+          platformName = 'Copy Link'; btnId = 'btn-copy'; break;
+      }
+
+      if (platform !== 'copy') document.getElementById(btnId).classList.add('shared');
+      if (!sharedPlatforms.includes(platformName)) sharedPlatforms.push(platformName);
+
+      reserveData.shared_via = sharedPlatforms.join(', ');
+      reserveData.share_vibe = selectedVibe;
+      sendData('Shared on ' + platformName);
+
+      document.getElementById('btnClaimLabels').classList.add('visible');
+      document.getElementById('btnSkipShare').style.display = 'none';
+      document.getElementById('selectVibeHint').style.display = 'none';
+
+      var countEl = document.getElementById('shareCount');
+      countEl.style.display = 'block';
+      countEl.textContent = sharedPlatforms.length === 1
+        ? 'Shared on ' + sharedPlatforms[0] + ' \u2014 share on more platforms if you\'d like!'
+        : 'Shared on ' + sharedPlatforms.join(', ') + ' \u2014 nice!';
+    }
+
+    function finishSharing() {
+      document.getElementById('summaryPlatform').textContent = sharedPlatforms.join(', ');
+      var videoName = (selectedVideoKey && selectedVideoKey !== 'none' && VIDEOS[selectedVideoKey]) ? VIDEOS[selectedVideoKey].name : 'None';
+      document.getElementById('summaryVideo').textContent = videoName;
+      if (videoName === 'None') document.getElementById('summaryVideoRow2').style.display = 'none';
+      currentStep = 6;
+      updateUI();
+    }
+
+    // ═══ OPEN / CLOSE MODAL ═══
+    function openModal(prefillEmail, prefillTier) {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      currentStep = 1;
+      selectedTier = '';
+      selectedVibe = '';
+      selectedVideoKey = detectedVideoKey || '';
+      sharedPlatforms = [];
+      sessionId = generateSessionId();
+
+      reserveData.name = '';
+      reserveData.email = '';
+      reserveData.phone = '';
+      reserveData.tier = '';
+      reserveData.shared_via = '';
+      reserveData.share_vibe = '';
+      if (!detectedVideoKey) reserveData.video_source = '';
+
+      document.getElementById('reserveNameInput').value = '';
+      document.getElementById('reserveEmailInput').value = prefillEmail || '';
+      document.getElementById('reservePhoneInput').value = '';
+
+      document.querySelectorAll('.tier-card, .video-card, .vibe-card').forEach(function(c) { c.classList.remove('selected', 'expanded'); });
+      document.querySelectorAll('.platform-btn').forEach(function(b) { b.disabled = false; b.classList.remove('copied', 'shared'); });
+
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('selectVibeHint').style.display = 'none';
+      document.getElementById('summaryPhoneRow').style.display = '';
+      document.getElementById('summaryVideoRow2').style.display = '';
+      document.getElementById('btnClaimLabels').classList.remove('visible');
+      document.getElementById('btnSkipShare').style.display = '';
+      document.getElementById('shareCount').style.display = 'none';
+
+      document.querySelectorAll('.input-error').forEach(function(e) { e.classList.remove('show'); });
+
+      if (detectedVideoKey && VIDEOS[detectedVideoKey]) {
+        document.getElementById('videoDetected').style.display = 'block';
+        document.getElementById('videoPicker').style.display = 'none';
+        document.getElementById('detectedVideoIcon').textContent = VIDEOS[detectedVideoKey].icon;
+        document.getElementById('detectedVideoName').textContent = VIDEOS[detectedVideoKey].name;
+        document.getElementById('detectedVideoDesc').textContent = VIDEOS[detectedVideoKey].desc;
+      } else {
+        document.getElementById('videoDetected').style.display = 'none';
+        document.getElementById('videoPicker').style.display = 'block';
+      }
+
+      updateUI();
+
+      if (prefillTier) {
+        var tierMap = {
+          'Basic \u2014 $39.99': 'tierBasic',
+          'Starter Pack \u2014 $54.99': 'tierStarter',
+          'Family Pack \u2014 $99.99': 'tierFamily'
+        };
+        var cardId = tierMap[prefillTier];
+        if (cardId) selectTier(cardId, prefillTier);
+      }
+
+      setTimeout(function() {
+        document.getElementById('reserveEmailInput').focus();
+      }, 350);
+    }
+
+    function openModalWithEmail(prefillTier) {
+      var emailInputs = document.querySelectorAll('input[type="email"][name="email"]');
+      var email = '';
+      emailInputs.forEach(function(inp) { if (inp.value.trim()) email = inp.value.trim(); });
+      openModal(email, prefillTier);
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ═══ NAVIGATION ═══
+    function goToStep(step) {
+      currentStep = step;
+      updateUI();
+    }
+
+    function updateUI() {
+      document.querySelectorAll('.modal-step').forEach(function(s) { s.classList.remove('active'); });
+      document.getElementById('step' + currentStep).classList.add('active');
+
+      var pct = currentStep <= TOTAL_STEPS ? (currentStep / TOTAL_STEPS) * 100 : 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      var fill = document.getElementById('progressFill');
+      if (currentStep === 4) fill.style.background = 'linear-gradient(90deg, #22c55e, #86efac)';
+      else if (currentStep >= 5) fill.style.background = 'linear-gradient(90deg, #eab308, #fde047)';
+      else fill.style.background = '';
+
+      document.getElementById('modal').scrollTop = 0;
+    }
+
+    // ═══ VALIDATION ═══
+    function validateEmail() {
+      var v = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('reserveEmailInput').value.trim());
+      document.getElementById('emailError').classList.toggle('show', !v);
+      return v;
+    }
+
+    function validatePhone() {
+      var v = document.getElementById('reservePhoneInput').value.replace(/\D/g, '').length >= 10;
+      document.getElementById('phoneError').classList.toggle('show', !v);
+      return v;
+    }
+
+    document.getElementById('reserveEmailInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') completeStep1(); });
+    document.getElementById('reservePhoneInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') completeStep2(); });
+
+    document.getElementById('reservePhoneInput').addEventListener('input', function() {
+      var d = this.value.replace(/\D/g, '');
+      if (d.length > 10) d = d.slice(0, 10);
+      if (d.length >= 7) this.value = '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+      else if (d.length >= 4) this.value = '(' + d.slice(0,3) + ') ' + d.slice(3);
+      else if (d.length > 0) this.value = '(' + d;
+    });
+  </script>
+
+</body>
+</html>
