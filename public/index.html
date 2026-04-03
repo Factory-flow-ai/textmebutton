@@ -1544,6 +1544,8 @@ async function completeStep1() {
   reserveData.name = document.getElementById('reserveNameInput').value.trim();
   reserveData.email = document.getElementById('reserveEmailInput').value.trim();
   await sendData('Step 1 \u2014 Email Captured');
+      // GA4: Track email signup conversion
+      if (typeof gtag === 'function') { gtag('event', 'generate_lead', { event_category: 'waitlist', event_label: 'email_captured', value: 1, currency: 'USD' }); }
   btn.innerHTML = 'Continue \u2192'; btn.disabled = false;
   goToStep(2);
 }
@@ -1566,6 +1568,8 @@ async function completeStep3() {
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Reserving...';
   reserveData.tier = selectedTier;
   await sendData('Step 3 \u2014 Reservation Complete');
+      // GA4: Track reservation completion conversion
+      if (typeof gtag === 'function') { gtag('event', 'purchase', { event_category: 'waitlist', event_label: 'reservation_complete', value: parseFloat((reserveData.tier.match(/[\d.]+/) || ['0'])[0]), currency: 'USD', tier: reserveData.tier }); }
   document.getElementById('summaryName').textContent = reserveData.name || '(not provided)';
   document.getElementById('summaryEmail').textContent = reserveData.email;
   if (reserveData.phone && reserveData.phone !== '(skipped)') {
